@@ -61,7 +61,7 @@ public class Admin {
 	 * @return ArrayList<Integer>, List of user id with the given last name
 	 */
 	public ArrayList<Integer> getVolunteer(String theLastName) {
-		ArrayList<Integer> foundVolunteer = null;
+		ArrayList<Integer> foundVolunteer = new ArrayList<Integer>();
 		
 		UserList list = new UserList();
 		HashMap<Integer, Object[]> map = list.getMap();
