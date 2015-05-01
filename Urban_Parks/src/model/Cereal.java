@@ -37,8 +37,8 @@ public class Cereal implements Serializable{
 				outFile = new FileOutputStream("Files/job.ser");
 				inFile = new FileInputStream("Files/job.ser");
 			} else {
-				outFile = new FileOutputStream("Files/user.ser");
-				inFile = new FileInputStream("Files/user.ser");
+				
+				
 			} 
 		} catch (FileNotFoundException e) {
 			e.printStackTrace();
@@ -51,11 +51,25 @@ public class Cereal implements Serializable{
 	 */
 	protected void serialize(Object theClass) {
 		try {
+			outFile = new FileOutputStream("Files/user.ser");
+		} catch (FileNotFoundException e1) {
+			// TODO Auto-generated catch block
+			e1.printStackTrace();
+		}
+		try {
 			out = new ObjectOutputStream(outFile);
 			out.writeObject(theClass);
 		} catch (IOException e) {
 			e.printStackTrace();
 		}	
+		try {
+			outFile.close();
+			out.close();
+		} catch (IOException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+		
 	}
 	
 	/**
@@ -65,11 +79,25 @@ public class Cereal implements Serializable{
 	protected Object deSerialize() {
 		Object freshData = null;
 		try {
+			inFile = new FileInputStream("Files/user.ser");
+		} catch (FileNotFoundException e1) {
+			// TODO Auto-generated catch block
+			e1.printStackTrace();
+		}
+		try {
 			in = new ObjectInputStream(inFile);
 			freshData = in.readObject();
 		} catch(IOException | ClassNotFoundException e) {
 			e.printStackTrace();
 		}
+		try {
+			inFile.close();
+			in.close();
+		} catch (IOException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+		
 		return freshData;
 	}
 	
