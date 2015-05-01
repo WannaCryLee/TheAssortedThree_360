@@ -64,8 +64,8 @@ public class Admin {
 	 * @param theLastName, the last name of the Volunteer
 	 * @return ArrayList<Integer>, List of user id with the given last name
 	 */
-	public ArrayList<Integer> getVolunteer(String theLastName, UserList list) {
-		ArrayList<Integer> foundVolunteer = new ArrayList<Integer>();
+	public ArrayList<Volunteer> getVolunteer(String theLastName, UserList list) {
+		ArrayList<Volunteer> foundVolunteer = new ArrayList<Volunteer>();
 		
 		//UserList list = new UserList();
 		HashMap<Integer, Object> map = list.getMap();
@@ -75,7 +75,7 @@ public class Admin {
 			Map.Entry<Integer, Object> pair = (Map.Entry<Integer, Object>)itr.next();
 			//This checks value[1] to equal the given last name and checks to see if its a volunteer
 			if (((Volunteer)(pair.getValue())).getMyLast().toLowerCase().equals(theLastName.toLowerCase())) {
-				foundVolunteer.add(pair.getKey());
+				foundVolunteer.add((Volunteer)(pair.getValue()));
 			}
 			itr.remove();
 		}

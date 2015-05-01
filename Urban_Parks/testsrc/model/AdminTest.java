@@ -30,11 +30,20 @@ public class AdminTest {
 	public void getVolunteerTest() {
 		setUpUserList();
 		//Testing constructor with no parameters to get volunteer
-		ArrayList testVolunteerList = testAdmin.getVolunteer("Boki", list);
-		
+		ArrayList<Volunteer> testVolunteerList = testAdmin.getVolunteer("Boki", list);
+		for (Volunteer person : testVolunteerList) {
+			if (!(person.getMyLast().toLowerCase().equals("Boki".toLowerCase()))) {
+				fail("getVolunteer does not grab the volunteer with the same last name with the parameter");
+			}
+		}
 		
 		//Testing constructor with parameters to get volunteer
-		
+		testVolunteerList = testAdminData.getVolunteer("Boki", list);
+		for (Volunteer person : testVolunteerList) {
+			if (!(person.getMyLast().toLowerCase().equals("Boki".toLowerCase()))) {
+				fail("getVolunteer does not grab the volunteer with the same last name with the parameter");
+			}
+		}
 	}
 	
 	private void setUpUserList() {
