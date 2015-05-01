@@ -1,9 +1,14 @@
 package model;
 
+import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.List;
 
-public class Volunteer {
+public class Volunteer implements Serializable {
+	/**
+	 * Generated Serial Version ID
+	 */
+	private static final long serialVersionUID = -7862577565514502497L;
 	//First Name Variable
 	private String myFirst;
 	//Last Name Variable

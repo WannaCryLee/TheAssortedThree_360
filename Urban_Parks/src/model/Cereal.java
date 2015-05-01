@@ -6,9 +6,15 @@ import java.io.FileOutputStream;
 import java.io.IOException;
 import java.io.ObjectInputStream;
 import java.io.ObjectOutputStream;
+import java.io.Serializable;
 
-public class Cereal {
+public class Cereal implements Serializable{
 	
+	/**
+	 * Generated serial version id
+	 */
+	private static final long serialVersionUID = -2615628136259107665L;
+
 	//outFile creates the stream to serialize an object
 	private FileOutputStream outFile;
 	
@@ -28,11 +34,11 @@ public class Cereal {
 	public Cereal(int objectNumber) {
 		try {
 			if (objectNumber == 0) {
-				outFile = new FileOutputStream("/Files/job.ser");
-				inFile = new FileInputStream("/Files/job.ser");
+				outFile = new FileOutputStream("Files/job.ser");
+				inFile = new FileInputStream("Files/job.ser");
 			} else {
-				outFile = new FileOutputStream("/Files/user.ser");
-				inFile = new FileInputStream("/Files/user.ser");
+				outFile = new FileOutputStream("Files/user.ser");
+				inFile = new FileInputStream("Files/user.ser");
 			} 
 		} catch (FileNotFoundException e) {
 			e.printStackTrace();

@@ -1,8 +1,14 @@
 package model;
 
+import java.io.Serializable;
 import java.util.HashMap;
 
-public class UserList {
+public class UserList implements Serializable{
+	
+	/**
+	 * Generated Serial Version ID
+	 */
+	private static final long serialVersionUID = 817229231359486602L;
 	
 	//Creates HashMap for a user list
 	private HashMap<Integer, Object> myMap;
