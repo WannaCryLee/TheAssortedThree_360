@@ -16,7 +16,7 @@ public class CerealTest {
 	@Test
 	public void serializeTest() {
 		setUpUserList();
-		File serialFile = new File("File/user.ser");
+		File serialFile = new File("Files/user.ser");
 		
 		testCerealUser.serialize(list);
 		
@@ -25,8 +25,11 @@ public class CerealTest {
 	
 	@Test
 	public void deserializeTest() {
+		setUpUserList();
+		
 		UserList deserialList = (UserList)testCerealUser.deSerialize();
-		assertEquals("Deserialize was not kept the same", deserialList, list);
+		assertEquals("Deserialize was not kept the same", ((Volunteer)(deserialList.getMap().get(0))).getMyFirst(), ((Volunteer)(list.getMap().get(0))).getMyFirst());
+		
 	}
 	
 	private void setUpUserList() {
