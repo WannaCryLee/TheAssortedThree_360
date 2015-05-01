@@ -4,8 +4,6 @@ import java.util.ArrayList;
 import java.util.List;
 
 public class Volunteer {
-	//ID variable
-	private int myID;
 	//First Name Variable
 	private String myFirst;
 	//Last Name Variable
@@ -21,7 +19,6 @@ public class Volunteer {
 	 * Create and set a default volunteer
 	 */
 	public Volunteer() {
-		myID = 0;
 		myFirst = "Jane";
 		myLast = "Doe";
 		myEmail = "janedoe@gmail.com";
@@ -36,8 +33,7 @@ public class Volunteer {
 	 * @param theEmail, email of the volunteer
 	 * @param thePassword, password of the volunteer
 	 */
-	public Volunteer(int theID, String theFirst, String theLast, String theEmail, String thePassword) {
-		myID = theID;
+	public Volunteer(String theFirst, String theLast, String theEmail, String thePassword) {
 		myFirst = theFirst;
 		myLast = theLast;
 		myEmail = theEmail;
@@ -72,5 +68,47 @@ public class Volunteer {
 		return "You are already volunteering for a job on this day.";
 		
 	}
+
+	public String getMyFirst() {
+		return myFirst;
+	}
+
+	public void setMyFirst(String theFirst) {
+		myFirst = theFirst;
+	}
+
+	public String getMyLast() {
+		return myLast;
+	}
+
+	public void setMyLast(String theLast) {
+		myLast = theLast;
+	}
+
+	public String getMyEmail() {
+		return myEmail;
+	}
+
+	public void setMyEmail(String theEmail) {
+		myEmail = theEmail;
+	}
+
+	public String getMyPassword() {
+		return myPassword;
+	}
+
+	public void setMyPassword(String thePassword) {
+		myPassword = thePassword;
+	}
+
+	public List<Job> getMyJobSignedUp() {
+		return myJobSignedUp;
+	}
+
+	public void setMyJobSignedUp(List<Job> theJobSignedUp) {
+		myJobSignedUp = theJobSignedUp;
+	}
+	
+	
 	
 }

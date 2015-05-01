@@ -15,6 +15,8 @@ public class Admin {
 	private String myEmail;
 	//Password Variable
 	private String myPassword;
+	//Address Variable
+	private String myAddress;
 	
 	/**
 	 * Constructor
@@ -23,6 +25,7 @@ public class Admin {
 		myFirst = "John";
 		myLast = "Doe";
 		myEmail = "johndoe@gmail.com";
+		myAddress = "";
 		myPassword = "password";
 	}
 
@@ -33,10 +36,11 @@ public class Admin {
 	 * @param theEmail, String
 	 * @param thePassword, String
 	 */
-	public Admin(String theFirst, String theLast, String theEmail, String thePassword) {
+	public Admin(String theFirst, String theLast, String theEmail, String theAddress, String thePassword) {
 		myFirst = theFirst;
 		myLast = theLast;
 		myEmail = theEmail;
+		myAddress = theAddress;
 		myPassword = thePassword;
 	}
 	
@@ -60,22 +64,86 @@ public class Admin {
 	 * @param theLastName, the last name of the Volunteer
 	 * @return ArrayList<Integer>, List of user id with the given last name
 	 */
-	public ArrayList<Integer> getVolunteer(String theLastName) {
+	public ArrayList<Integer> getVolunteer(String theLastName, UserList list) {
 		ArrayList<Integer> foundVolunteer = new ArrayList<Integer>();
 		
-		UserList list = new UserList();
-		HashMap<Integer, Object[]> map = list.getMap();
+		//UserList list = new UserList();
+		HashMap<Integer, Object> map = list.getMap();
 		
-		java.util.Iterator<Entry<Integer, Object[]>> itr = map.entrySet().iterator();
+		java.util.Iterator<Entry<Integer, Object>> itr = map.entrySet().iterator();
 		while(itr.hasNext()) {
-			Map.Entry<Integer, Object[]> pair = (Map.Entry<Integer, Object[]>)itr.next();
+			Map.Entry<Integer, Object> pair = (Map.Entry<Integer, Object>)itr.next();
 			//This checks value[1] to equal the given last name and checks to see if its a volunteer
-			if (pair.getValue()[1].equals(theLastName) && pair.getValue()[2] == (Integer)0) {
+			if (((Volunteer)(pair.getValue())).getMyLast().toLowerCase().equals(theLastName.toLowerCase())) {
 				foundVolunteer.add(pair.getKey());
 			}
 			itr.remove();
 		}
 		
 		return foundVolunteer;
+	}
+	
+	/**
+	 * Getters and Setters for First Name
+	 */
+	public String getMyFirst() {
+		String returnFirstName = myFirst;
+		return returnFirstName;
+	}
+
+	public void setMyFirst(String theFirstName) {
+		myFirst = theFirstName;
+	}
+
+	
+	/**
+	 * Getters and Setters for Last Name
+	 */
+	public String getMyLast() {
+		String returnLastName = myLast;
+		return returnLastName;
+	}
+
+	public void setMyLast(String theLastName) {
+		myLast = theLastName;
+	}
+
+	
+	/**
+	 * Getters and Setters for Email
+	 */
+	public String getMyEmail() {
+		String returnEmail = myEmail;
+		return returnEmail;
+	}
+
+	public void setMyEmail(String theEmail) {
+		myEmail = theEmail;
+	}
+
+	
+	/**
+	 * Getters and Setters for Password
+	 */
+	public String getMyPassword() {
+		String returnPassword = myPassword;
+		return returnPassword;
+	}
+
+	public void setMyPassword(String thePassword) {
+		myPassword = thePassword;
+	}
+
+	
+	/**
+	 * Getters and Setters for Address
+	 */
+	public String getMyAddress() {
+		String returnAddress = myAddress;
+		return returnAddress;
+	}
+
+	public void setMyAddress(String theAddress) {
+		myAddress = theAddress;
 	}
 }
