@@ -2,13 +2,18 @@ package model;
 
 import static org.junit.Assert.*;
 
+import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.HashMap;
 
 import org.junit.Test;
 
-public class AdminTest {
+public class AdminTest implements Serializable{
 
+	/**
+	 * Generated Serial Version ID
+	 */
+	private static final long serialVersionUID = -8713016574919857541L;
 	private Admin testAdmin = new Admin();
 	private Admin testAdminData = new Admin("Jordan", "Love", "jlove934@uw.edu", "", "password");
 	private UserList list = new UserList();
@@ -30,7 +35,7 @@ public class AdminTest {
 	public void testgetVolunteer() {
 		setUpUserList();
 		//Testing constructor with no parameters to get volunteer
-		ArrayList<Volunteer> testVolunteerList = testAdmin.getVolunteer("Boki", list);
+		ArrayList<Volunteer> testVolunteerList = testAdmin.getVolunteer("Boki");
 		for (Volunteer person : testVolunteerList) {
 			if (!(person.getMyLast().toLowerCase().equals("Boki".toLowerCase()))) {
 				fail("getVolunteer does not grab the volunteer with the same last name with the parameter");
@@ -38,14 +43,19 @@ public class AdminTest {
 		}
 		
 		//Testing constructor with parameters to get volunteer
-		testVolunteerList = testAdminData.getVolunteer("Boki", list);
+		testVolunteerList = testAdminData.getVolunteer("Shi");
 		for (Volunteer person : testVolunteerList) {
-			if (!(person.getMyLast().toLowerCase().equals("Boki".toLowerCase()))) {
+			if (!(person.getMyLast().toLowerCase().equals("Shi".toLowerCase()))) {
 				fail("getVolunteer does not grab the volunteer with the same last name with the parameter");
 			}
 		}
+		if (testVolunteerList.size() != 2)
+			fail("Did not find all the Volunteers with the last name given");
 	}
 	
+	/**
+	 * Set up the data for the UserList to test getVolunteer
+	 */
 	private void setUpUserList() {
 		HashMap<Integer, Object> test = new HashMap<Integer, Object>();
 		
@@ -70,6 +80,10 @@ public class AdminTest {
 		test.put(test.size(), testVolunteer);
 		
 		list.setMap(test);
+		
+		//Serialize Data
+		Cereal testStoreData = new Cereal(0);
+		testStoreData.serialize(list);
 	}
 
 }
