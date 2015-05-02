@@ -48,13 +48,6 @@ public class ParkManager {
 	 * @param password, string
 	 * @return string if they were loged in or not
 	 */
-	
-	/**
-	 * 
-	 * @param theEmail
-	 * @param thePassword
-	 * @return
-	 */
 	public String logIn(String theEmail, String thePassword) {
 		if (!email.equals(theEmail))
 			return "Your email or password does not match our database";
@@ -64,13 +57,97 @@ public class ParkManager {
 		return "Welcome! " + first + " " + last;
 	}
 	
-	public void submitJob(String theTitle, String theParkName, String theAddress, 
-			String theDescription, int theGrade, HashMap <Integer, Object> theVolunteerList) {
+	/**
+	 * Submit a job
+	 * @param theTitle
+	 * @param theParkName
+	 * @param theAddress
+	 * @param theDescription
+	 * @param theGrade
+	 */
+	public void submitJob(Job theJob) {
 		
-		Job newJob = new Job(theTitle, theParkName, theAddress, theDescription, theGrade, theVolunteerList);
 		HashMap <Integer, Object> jlist = jl.getMap();
-		jlist.put(jlist.size(), newJob);
+		jlist.put(jlist.size(), theJob);
 		jl.setMap(jlist); //
+	}
+
+	
+	/**
+	 * Getters and Setters for First Name
+	 */
+	public String getFirst() {
+		String returnFirst = first;
+		return returnFirst;
+	}
+
+	public void setFirst(String first) {
+		this.first = first;
+	}
+
+	
+	/**
+	 * Getters and Setters for Last Name
+	 */
+	public String getLast() {
+		String returnLast = last;
+		return returnLast;
+	}
+
+	public void setLast(String last) {
+		this.last = last;
+	}
+
+	
+	/**
+	 * Getters and Setters for email
+	 */
+	public String getEmail() {
+		String returnEmail = email;
+		return returnEmail;
+	}
+
+	public void setEmail(String email) {
+		this.email = email;
+	}
+
+	
+	/**
+	 * Getters and Setters for password
+	 */
+	public String getPassword() {
+		String returnPassword = password;
+		return returnPassword;
+	}
+
+	public void setPassword(String password) {
+		this.password = password;
+	}
+
+	
+	/**
+	 * Getters and Setters for address
+	 */
+	public String getAddress() {
+		String returnAddress = address;
+		return returnAddress;
+	}
+
+	public void setAddress(String address) {
+		this.address = address;
+	}
+
+	
+	/**
+	 * Getters and Setters for JobList
+	 */
+	public JobList getJl() {
+		JobList returnJl = jl;
+		return returnJl;
+	}
+
+	public void setJl(JobList jl) {
+		this.jl = jl;
 	}
 	
 	

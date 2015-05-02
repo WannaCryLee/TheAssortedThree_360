@@ -1,9 +1,13 @@
 package model;
 
-import java.util.HashMap;
+import java.io.Serializable;
 
-public class Job {
+public class Job implements Serializable {
 
+	/**
+	 * Generated Serial Version ID
+	 */
+	private static final long serialVersionUID = -7742067979482263151L;
 	/** Job title */
 	private String title; 
 	/** Park name the job belongs to */
@@ -14,8 +18,6 @@ public class Job {
 	private String description;
 	/** Job's difficulty level: 0 = easy, 1 = med, 2 = hard */
 	private int grade;
-	/** A list of all the volunteers who signed up for the job */
-	private HashMap <Integer, Object> volunteerList;
 
 	public Job() {
 		title = null;
@@ -23,17 +25,15 @@ public class Job {
 		address = null;
 		description = null;
 		grade = 0;
-		volunteerList = null;
 	}
 	
 	public Job(String theTitle, String theParkName, String theAddress, 
-			String theDescription, int theGrade, HashMap <Integer, Object> theVolunteerList) {
+			String theDescription, int theGrade) {
 		title = theTitle;
 		parkName = theParkName;
 		address = theAddress;
 		description = theDescription;
 		grade = theGrade;
-		volunteerList = theVolunteerList;
 	}
 	
 	/** Setters */
@@ -57,10 +57,6 @@ public class Job {
 		grade = theGrade;
 	}
 
-	public void addVolunteerToList(int theID) { //or volunteer object???
-
-	}
-
 
 	/** Getters */
 	public String getTitle() {
@@ -82,12 +78,6 @@ public class Job {
 	public int getGrade() {
 		return grade;
 	}
-
-	public HashMap <Integer, Object> getVolunteerList() {
-		return volunteerList;
-	}
-
-
 
 }
 

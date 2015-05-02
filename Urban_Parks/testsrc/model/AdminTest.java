@@ -51,23 +51,23 @@ public class AdminTest {
 		
 		Volunteer testVolunteer = new Volunteer("Bob", "Johnson", "bjohnson@gmail.com", "password");
 		
-		test.put(0, testVolunteer);
+		test.put(test.size(), testVolunteer);
 		
 		testVolunteer = new Volunteer("John", "Rotissary", "jrotissary@gmail.com", "password");
 		
-		test.put(1, testVolunteer);
+		test.put(test.size(), testVolunteer);
 		
 		testVolunteer = new Volunteer("Duk", "Boki", "dboki@gmail.com", "password");
 		
-		test.put(2, testVolunteer);
+		test.put(test.size(), testVolunteer);
 		
 		testVolunteer = new Volunteer("Sue", "Shi", "sshi@gmail.com", "password");
 		
-		test.put(3, testVolunteer);
+		test.put(test.size(), testVolunteer);
 		
 		testVolunteer = new Volunteer("Rue", "Shi", "rshi@gmail.com", "password");
 		
-		test.put(4, testVolunteer);
+		test.put(test.size(), testVolunteer);
 		
 		list.setMap(test);
 	}
