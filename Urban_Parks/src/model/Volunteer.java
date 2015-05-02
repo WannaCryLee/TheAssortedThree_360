@@ -53,11 +53,13 @@ public class Volunteer implements Serializable {
 	 * @return string if they were logged in or not
 	 */
 	public String logIn(String theEmail, String thePassword) {
-		if (!theEmail.equals(myEmail) || !thePassword.equals(myPassword)) {
+		if (!theEmail.equals(myEmail)) {
 			return "Your email or password does not match our database";
-		} else {
-			return "Welcome! " + myFirst + " " + myLast;	
-		}		
+		}
+		if (!thePassword.equals(myPassword)){
+			return "Your email or password does not match our database";
+		}
+		return "Welcome! " + myFirst + " " + myLast;
 	}
 	/**
 	 * addJob places the Job the volunteer signed up for in a list.
