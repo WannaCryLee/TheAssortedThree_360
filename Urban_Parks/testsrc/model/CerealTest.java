@@ -14,7 +14,7 @@ public class CerealTest {
 	//private Cereal testCerealJob = new Cereal(0);
 	
 	@Test
-	public void serializeTest() {
+	public void testserialize() {
 		setUpUserList();
 		File serialFile = new File("Files/user.ser");
 		
@@ -24,7 +24,7 @@ public class CerealTest {
 	}
 	
 	@Test
-	public void deserializeTest() {
+	public void testdeserialize() {
 		setUpUserList();
 		
 		UserList deserialList = (UserList)testCerealUser.deSerialize();
