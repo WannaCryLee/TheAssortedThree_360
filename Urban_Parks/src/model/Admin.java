@@ -1,12 +1,17 @@
 package model;
 
+import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.Map;
 import java.util.Map.Entry;
 
-public class Admin {
+public class Admin implements Serializable{
 	
+	/**
+	 * Generated Serial Version ID
+	 */
+	private static final long serialVersionUID = -5892491024213894664L;
 	//First Name Variable
 	private String myFirst;
 	//Last Name Variable
@@ -64,11 +69,14 @@ public class Admin {
 	 * @param theLastName, the last name of the Volunteer
 	 * @return ArrayList<Integer>, List of user id with the given last name
 	 */
-	public ArrayList<Volunteer> getVolunteer(String theLastName, UserList list) {
+	public ArrayList<Volunteer> getVolunteer(String theLastName) {
+		//To store the found volunteers
 		ArrayList<Volunteer> foundVolunteer = new ArrayList<Volunteer>();
+		//To deserialize the data
+		Cereal readUserList = new Cereal(0);
 		
 		//UserList list = new UserList();
-		HashMap<Integer, Object> map = list.getMap();
+		HashMap<Integer, Object> map = ((UserList) readUserList.deSerialize()).getMap();
 		
 		java.util.Iterator<Entry<Integer, Object>> itr = map.entrySet().iterator();
 		while(itr.hasNext()) {
