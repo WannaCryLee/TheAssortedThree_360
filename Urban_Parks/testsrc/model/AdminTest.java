@@ -24,7 +24,7 @@ public class AdminTest implements Serializable{
 	private UserList list = new UserList();
 	
 	@Test
-	public void testLogIn() {
+	public void shouldLogIn() {
 		//Testing constructor with no parameters to log in
 		assertEquals(testAdmin.logIn("johndoe@gmail.com", "password1"), "Your email or password does not match our database");
 		assertEquals(testAdmin.logIn("realtalk", "password"), "Your email or password does not match our database");
@@ -37,7 +37,7 @@ public class AdminTest implements Serializable{
 	}
 	
 	@Test
-	public void testgetVolunteer() {
+	public void shouldGetListOfVolunteers() {
 		setUpUserList();
 		//Testing constructor with no parameters to get volunteer
 		ArrayList<Volunteer> testVolunteerList = testAdmin.getVolunteer("Boki");
