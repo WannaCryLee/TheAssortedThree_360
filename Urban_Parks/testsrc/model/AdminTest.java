@@ -14,7 +14,7 @@ public class AdminTest {
 	private UserList list = new UserList();
 	
 	@Test
-	public void LogInTest() {
+	public void testLogIn() {
 		//Testing constructor with no parameters to log in
 		assertEquals(testAdmin.logIn("johndoe@gmail.com", "password1"), "Your email or password does not match our database");
 		assertEquals(testAdmin.logIn("realtalk", "password"), "Your email or password does not match our database");
@@ -27,7 +27,7 @@ public class AdminTest {
 	}
 	
 	@Test
-	public void getVolunteerTest() {
+	public void testgetVolunteer() {
 		setUpUserList();
 		//Testing constructor with no parameters to get volunteer
 		ArrayList<Volunteer> testVolunteerList = testAdmin.getVolunteer("Boki", list);
@@ -51,23 +51,23 @@ public class AdminTest {
 		
 		Volunteer testVolunteer = new Volunteer("Bob", "Johnson", "bjohnson@gmail.com", "password");
 		
-		test.put(0, testVolunteer);
+		test.put(test.size(), testVolunteer);
 		
 		testVolunteer = new Volunteer("John", "Rotissary", "jrotissary@gmail.com", "password");
 		
-		test.put(1, testVolunteer);
+		test.put(test.size(), testVolunteer);
 		
 		testVolunteer = new Volunteer("Duk", "Boki", "dboki@gmail.com", "password");
 		
-		test.put(2, testVolunteer);
+		test.put(test.size(), testVolunteer);
 		
 		testVolunteer = new Volunteer("Sue", "Shi", "sshi@gmail.com", "password");
 		
-		test.put(3, testVolunteer);
+		test.put(test.size(), testVolunteer);
 		
 		testVolunteer = new Volunteer("Rue", "Shi", "rshi@gmail.com", "password");
 		
-		test.put(4, testVolunteer);
+		test.put(test.size(), testVolunteer);
 		
 		list.setMap(test);
 	}

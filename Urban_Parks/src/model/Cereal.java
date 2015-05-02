@@ -1,7 +1,6 @@
 package model;
 
 import java.io.FileInputStream;
-import java.io.FileNotFoundException;
 import java.io.FileOutputStream;
 import java.io.IOException;
 import java.io.ObjectInputStream;
@@ -27,22 +26,15 @@ public class Cereal implements Serializable{
 	//in is the variable that you can read a file to object
 	private ObjectInputStream in;
 	
+	//type 0 if user or 1 if job
+	private int myType;
+	
 	/**
 	 * Constructor
 	 * @param objectNumber, 0 for saving JobList class, 1 for saving UserList class
 	 */
-	public Cereal(int objectNumber) {
-		try {
-			if (objectNumber == 0) {
-				outFile = new FileOutputStream("Files/job.ser");
-				inFile = new FileInputStream("Files/job.ser");
-			} else {
-				
-				
-			} 
-		} catch (FileNotFoundException e) {
-			e.printStackTrace();
-		}
+	public Cereal(int theType) {
+		myType = theType;
 	}
 	
 	/**
@@ -51,22 +43,18 @@ public class Cereal implements Serializable{
 	 */
 	protected void serialize(Object theClass) {
 		try {
-			outFile = new FileOutputStream("Files/user.ser");
-		} catch (FileNotFoundException e1) {
-			// TODO Auto-generated catch block
-			e1.printStackTrace();
-		}
-		try {
+			if (myType == 0)
+				outFile = new FileOutputStream("Files/user.ser");
+			else
+				outFile = new FileOutputStream("Files/job.ser");
+		
+			
 			out = new ObjectOutputStream(outFile);
 			out.writeObject(theClass);
-		} catch (IOException e) {
-			e.printStackTrace();
-		}	
-		try {
+		
 			outFile.close();
 			out.close();
 		} catch (IOException e) {
-			// TODO Auto-generated catch block
 			e.printStackTrace();
 		}
 		
@@ -78,23 +66,19 @@ public class Cereal implements Serializable{
 	 */
 	protected Object deSerialize() {
 		Object freshData = null;
+		
 		try {
-			inFile = new FileInputStream("Files/user.ser");
-		} catch (FileNotFoundException e1) {
-			// TODO Auto-generated catch block
-			e1.printStackTrace();
-		}
-		try {
+			if (myType == 0)
+				inFile = new FileInputStream("Files/user.ser");
+			else
+				inFile = new FileInputStream("Files/job.ser");
+		
 			in = new ObjectInputStream(inFile);
 			freshData = in.readObject();
-		} catch(IOException | ClassNotFoundException e) {
-			e.printStackTrace();
-		}
-		try {
+		
 			inFile.close();
 			in.close();
-		} catch (IOException e) {
-			// TODO Auto-generated catch block
+		} catch (IOException | ClassNotFoundException e) {
 			e.printStackTrace();
 		}
 		

@@ -1,9 +1,14 @@
 package model;
 
+import java.io.Serializable;
 import java.util.HashMap;
 
-public class JobList {
+public class JobList implements Serializable{
 	
+	/**
+	 * Generated Serial Version ID
+	 */
+	private static final long serialVersionUID = 1239457467190085015L;
 	//Creates HashMap for a job list
 	private HashMap<Integer, Object> myMap;
 	
