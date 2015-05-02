@@ -6,6 +6,11 @@ import java.util.HashMap;
 import java.util.Map;
 import java.util.Map.Entry;
 
+/**
+ * Creates an Administrator 
+ * @author Jordan Love
+ *
+ */
 public class Admin implements Serializable{
 	
 	/**

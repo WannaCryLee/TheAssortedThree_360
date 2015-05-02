@@ -7,6 +7,11 @@ import java.util.HashMap;
 
 import org.junit.Test;
 
+/**
+ * Test Cereal Class
+ * @author Jordan Love
+ *
+ */
 public class CerealTest {
 
 	private UserList userList = new UserList();

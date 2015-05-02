@@ -8,6 +8,11 @@ import java.util.HashMap;
 
 import org.junit.Test;
 
+/**
+ * Test Admin Class
+ * @author Jordan Love
+ *
+ */
 public class AdminTest implements Serializable{
 
 	/**

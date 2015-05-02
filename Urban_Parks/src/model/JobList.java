@@ -3,6 +3,11 @@ package model;
 import java.io.Serializable;
 import java.util.HashMap;
 
+/**
+ * Creates a list of Jobs
+ * @author Jordan Love
+ *
+ */
 public class JobList implements Serializable{
 	
 	/**

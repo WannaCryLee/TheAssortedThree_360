@@ -3,6 +3,11 @@ package model;
 import java.io.Serializable;
 import java.util.HashMap;
 
+/**
+ * Creates as list of users
+ * @author Jordan Love
+ *
+ */
 public class UserList implements Serializable{
 	
 	/**

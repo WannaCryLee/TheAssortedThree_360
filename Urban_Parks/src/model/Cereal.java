@@ -7,6 +7,11 @@ import java.io.ObjectInputStream;
 import java.io.ObjectOutputStream;
 import java.io.Serializable;
 
+/**
+ * Allows Serialization of Objects
+ * @author Jordan Love
+ *
+ */
 public class Cereal implements Serializable{
 	
 	/**
