@@ -19,6 +19,9 @@ public class Job implements Serializable {
 	/** Job's difficulty level: 0 = easy, 1 = med, 2 = hard */
 	private int grade;
 
+	/**
+	 * Constructor
+	 */
 	public Job() {
 		title = null;
 		parkName = null;
@@ -27,6 +30,14 @@ public class Job implements Serializable {
 		grade = 0;
 	}
 	
+	/**
+	 * Constructor
+	 * @param theTitle
+	 * @param theParkName
+	 * @param theAddress
+	 * @param theDescription
+	 * @param theGrade
+	 */
 	public Job(String theTitle, String theParkName, String theAddress, 
 			String theDescription, int theGrade) {
 		title = theTitle;

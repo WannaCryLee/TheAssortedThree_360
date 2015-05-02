@@ -74,6 +74,9 @@ public class Volunteer implements Serializable {
 		
 	}
 
+	/**
+	 * Getters and Setter for First Name
+	 */
 	public String getMyFirst() {
 		return myFirst;
 	}
@@ -82,6 +85,10 @@ public class Volunteer implements Serializable {
 		myFirst = theFirst;
 	}
 
+	
+	/**
+	 * Getters and Setter for Last Name
+	 */
 	public String getMyLast() {
 		return myLast;
 	}
@@ -90,6 +97,10 @@ public class Volunteer implements Serializable {
 		myLast = theLast;
 	}
 
+	
+	/**
+	 * Getters and Setter for email
+	 */
 	public String getMyEmail() {
 		return myEmail;
 	}
@@ -98,6 +109,10 @@ public class Volunteer implements Serializable {
 		myEmail = theEmail;
 	}
 
+	
+	/**
+	 * Getters and Setter for password
+	 */
 	public String getMyPassword() {
 		return myPassword;
 	}
@@ -106,6 +121,10 @@ public class Volunteer implements Serializable {
 		myPassword = thePassword;
 	}
 
+	
+	/**
+	 * Getters and Setter for Job signed up
+	 */
 	public List<Job> getMyJobSignedUp() {
 		return myJobSignedUp;
 	}

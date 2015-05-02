@@ -58,15 +58,11 @@ public class ParkManager {
 	}
 	
 	/**
-	 * Submit a job
-	 * @param theTitle
-	 * @param theParkName
-	 * @param theAddress
-	 * @param theDescription
-	 * @param theGrade
+	 * Submitting a Job
+	 * @param theJob
 	 */
 	public void submitJob(Job theJob) {
-		
+		//We need to find a way to pass the Job List between Classes
 		HashMap <Integer, Object> jlist = jl.getMap();
 		jlist.put(jlist.size(), theJob);
 		jl.setMap(jlist); //
