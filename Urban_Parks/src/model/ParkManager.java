@@ -8,6 +8,20 @@ import java.util.HashMap;
  *
  */
 public class ParkManager {
+	
+	/**
+	 * Default variables.
+	 */
+	//First Name Variable
+	private static final String DEFAULT_FIRST = "Jon";
+	//Last Name Variable
+	private static final String DEFAULT_LAST = "Snow";
+	//Email Variable
+	private static final String DEFAULT_EMAIL = "forTheNorth@winterIsComing.com";
+	//Password Variable
+	private static final String DEFAULT_PASSWORD = "myWatchBegins";
+	//Address Variable
+	private static final String DEFAULT_ADDRESS = "North";
 
 	/** First Name */
 	private String first;
@@ -27,11 +41,11 @@ public class ParkManager {
 	 * Constructor
 	 */
 	public ParkManager() {
-		first = null;
-		last = null;
-		email = null;
-		password = null;
-		address = null;
+		first = DEFAULT_FIRST;
+		last = DEFAULT_LAST;
+		email = DEFAULT_EMAIL;
+		password = DEFAULT_PASSWORD;
+		address = DEFAULT_ADDRESS;
 	}
 	
 	/**
