@@ -28,6 +28,7 @@ public class Admin implements Serializable{
 	//Address Variable
 	private String myAddress;
 	
+	
 	/**
 	 * Constructor
 	 */

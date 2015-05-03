@@ -2,6 +2,11 @@ package model;
 
 import java.io.Serializable;
 
+/**
+ * Creates a job.
+ * @author jasmine
+ *
+ */
 public class Job implements Serializable {
 
 	/**
