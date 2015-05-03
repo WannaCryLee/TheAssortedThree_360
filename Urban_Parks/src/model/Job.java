@@ -18,6 +18,8 @@ public class Job implements Serializable {
 	private String description;
 	/** Job's difficulty level: 0 = easy, 1 = med, 2 = hard */
 	private int grade;
+	/** Date of job */
+	private String date;
 
 	/**
 	 * Constructor
@@ -28,6 +30,7 @@ public class Job implements Serializable {
 		address = null;
 		description = null;
 		grade = 0;
+		date = null;
 	}
 	
 	/**
@@ -39,12 +42,13 @@ public class Job implements Serializable {
 	 * @param theGrade
 	 */
 	public Job(String theTitle, String theParkName, String theAddress, 
-			String theDescription, int theGrade) {
+			String theDescription, int theGrade, String theDate) {
 		title = theTitle;
 		parkName = theParkName;
 		address = theAddress;
 		description = theDescription;
 		grade = theGrade;
+		date = theDate;
 	}
 	
 	/** Setters */
@@ -67,6 +71,10 @@ public class Job implements Serializable {
 	public void setGrade(int theGrade) {
 		grade = theGrade;
 	}
+	
+	public void setDate(String theDate) {
+		date = theDate;
+	}
 
 
 	/** Getters */
@@ -88,6 +96,10 @@ public class Job implements Serializable {
 
 	public int getGrade() {
 		return grade;
+	}
+	
+	public String getDate() {
+		return date;
 	}
 
 }
