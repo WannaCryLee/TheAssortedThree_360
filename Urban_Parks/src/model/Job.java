@@ -35,11 +35,13 @@ public class Job implements Serializable {
 	
 	/**
 	 * Constructor
-	 * @param theTitle
-	 * @param theParkName
-	 * @param theAddress
-	 * @param theDescription
-	 * @param theGrade
+	 * 
+	 * @param theTitle Title of job
+	 * @param theParkName Park name job was created for
+	 * @param theAddress Address
+	 * @param theDescription Description of the job
+	 * @param theGrade Job's dificulty level (easy, med, hard)
+	 * @param theDate Date of the job
 	 */
 	public Job(String theTitle, String theParkName, String theAddress, 
 			String theDescription, int theGrade, String theDate) {
