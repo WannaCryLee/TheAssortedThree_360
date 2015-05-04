@@ -36,7 +36,7 @@ public class Cereal implements Serializable{
 	
 	/**
 	 * Constructor
-	 * @param objectNumber, 0 for saving JobList class, 1 for saving UserList class
+	 * @param objectNumber, 1 for saving JobList class, 0 for saving UserList class
 	 */
 	public Cereal(int theType) {
 		myType = theType;

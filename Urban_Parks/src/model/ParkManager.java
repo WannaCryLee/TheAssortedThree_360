@@ -1,5 +1,6 @@
 package model;
 
+import java.io.File;
 import java.util.HashMap;
 
 /**
@@ -33,8 +34,6 @@ public class ParkManager {
 	private String password;
 	/** Address */
 	private String address;
-	/** List of all job's created by this Park Manager */
-	private JobList jl = new JobList();
 
 	
 	/**
@@ -85,10 +84,24 @@ public class ParkManager {
 	 * @param theJob Job class object
 	 */
 	public void submitJob(Job theJob) {
-		//We need to find a way to pass the Job List between Classes
-		HashMap <Integer, Object> jlist = jl.getMap();
-		jlist.put(jlist.size(), theJob);
-		jl.setMap(jlist); 
+		Cereal deserial = new Cereal(1);
+		JobList jobs;
+		HashMap<Integer, Object> jobList;
+		
+		File fileFound = new File("Files/job.ser");
+		
+		if (fileFound.exists()) {
+			jobs = (JobList) deserial.deSerialize();
+			jobList = jobs.getMap();
+		} else {
+			jobs = new JobList();
+			jobList = new HashMap<Integer, Object>();
+		}
+		
+		jobList.put(jobList.size(), theJob); 
+		jobs.setMap(jobList);
+		
+		deserial.serialize(jobs);
 	}
 
 	
@@ -154,21 +167,6 @@ public class ParkManager {
 
 	public void setAddress(String address) {
 		this.address = address;
-	}
-
-	
-	/**
-	 * Getters and Setters for JobList
-	 */
-	public JobList getJl() {
-		JobList returnJl = jl;
-		return returnJl;
-	}
-
-	public void setJl(JobList jl) {
-		this.jl = jl;
-	}
-	
-	
+	}	
 	
 }
