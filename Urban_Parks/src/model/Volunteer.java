@@ -76,7 +76,7 @@ public class Volunteer implements Serializable {
 			for(int i = 0; i < myJobSignedUp.size(); i++){
 				jobArray = myJobSignedUp.get(i);
 				
-				if(theJob.getDate() == jobArray.getDate()){
+				if(theJob.getDate().equals(jobArray.getDate())){
 					volunteered = true;
 				} 
 			}
