@@ -1,3 +1,6 @@
+/**
+ * 
+ */
 package model;
 
 import static org.junit.Assert.*;
@@ -19,7 +22,7 @@ public class VolunteerTest {
 	 * Test method for {@link model.Volunteer#Volunteer(int, java.lang.String, java.lang.String, java.lang.String, java.lang.String)}.
 	 */
 	@Test
-	public void testLogIn() {
+	public void shouldLogIn() {
 		//Testing constructor with no parameters to log in
 		assertEquals(myVolunteerDefault.logIn("doe@gmail.com", "password"), 
 				"Your email or password does not match our database");
@@ -39,7 +42,7 @@ public class VolunteerTest {
 	 * Test method for {@link model.Volunteer#addJob(model.Job)}.
 	 */
 	@Test
-	public void testAddJob() {
+	public void shouldAddJob() {
 		//Checks if a job was added or not
 		assertEquals(myVolunteerDefault.addJob(myJobData1), "Success!! You are signed up to volunteer for " + myJobData1.getTitle() 
 				+ " on " + myJobData1.getDate() + ".");
@@ -49,4 +52,3 @@ public class VolunteerTest {
 	}
 
 }
-

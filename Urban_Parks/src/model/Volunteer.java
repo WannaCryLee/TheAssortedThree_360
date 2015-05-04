@@ -65,6 +65,7 @@ public class Volunteer implements Serializable {
 	
 	/**
 	 * addJob places the Job the volunteer signed up for in a list, if they do not already have a job that day
+	 * 
 	 * and they it's not already in their list.
 	 * @param theJob, the position the volunteer wishes to sign up for
 	 */
