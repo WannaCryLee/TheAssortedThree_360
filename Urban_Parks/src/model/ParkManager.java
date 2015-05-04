@@ -2,7 +2,26 @@ package model;
 
 import java.util.HashMap;
 
+/**
+ * Creates a Park Manager.
+ * @author Jasmine Pedersen
+ *
+ */
 public class ParkManager {
+	
+	/**
+	 * Default variables.
+	 */
+	//First Name Variable
+	private static final String DEFAULT_FIRST = "Jon";
+	//Last Name Variable
+	private static final String DEFAULT_LAST = "Snow";
+	//Email Variable
+	private static final String DEFAULT_EMAIL = "forTheNorth@winterIsComing.com";
+	//Password Variable
+	private static final String DEFAULT_PASSWORD = "myWatchBegins";
+	//Address Variable
+	private static final String DEFAULT_ADDRESS = "North";
 
 	/** First Name */
 	private String first;
@@ -14,25 +33,29 @@ public class ParkManager {
 	private String password;
 	/** Address */
 	private String address;
-	
+	/** List of all job's created by this Park Manager */
 	private JobList jl = new JobList();
 
 	
+	/**
+	 * Constructor
+	 */
 	public ParkManager() {
-		first = null;
-		last = null;
-		email = null;
-		password = null;
-		address = null;
+		first = DEFAULT_FIRST;
+		last = DEFAULT_LAST;
+		email = DEFAULT_EMAIL;
+		password = DEFAULT_PASSWORD;
+		address = DEFAULT_ADDRESS;
 	}
 	
 	/**
+	 * Constructor.
 	 * 
-	 * @param theFirst
-	 * @param theLast
-	 * @param theEmail
-	 * @param thePassword
-	 * @param theAddress
+	 * @param theFirst First Name
+	 * @param theLast Last Name
+	 * @param theEmail Email
+	 * @param thePassword Password
+	 * @param theAddress Address
 	 */
 	public ParkManager(String theFirst, String theLast, String theEmail, String thePassword, String theAddress) {
 		first = theFirst;
@@ -43,10 +66,10 @@ public class ParkManager {
 	}
 
 	/**
-	 * This method logs admin in with given email and password
-	 * @param email, string
-	 * @param password, string
-	 * @return string if they were loged in or not
+	 * This method logs Park Managers in with given email and password
+	 * @param email Email string
+	 * @param password Password string
+	 * @return string if they were logged in or not
 	 */
 	public String logIn(String theEmail, String thePassword) {
 		if (!email.equals(theEmail))
@@ -59,13 +82,13 @@ public class ParkManager {
 	
 	/**
 	 * Submitting a Job
-	 * @param theJob
+	 * @param theJob Job class object
 	 */
 	public void submitJob(Job theJob) {
 		//We need to find a way to pass the Job List between Classes
 		HashMap <Integer, Object> jlist = jl.getMap();
 		jlist.put(jlist.size(), theJob);
-		jl.setMap(jlist); //
+		jl.setMap(jlist); 
 	}
 
 	
