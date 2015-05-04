@@ -61,6 +61,8 @@ public class Volunteer implements Serializable {
 		}
 		return "Welcome! " + myFirst + " " + myLast;
 	}
+	
+	
 	/**
 	 * addJob places the Job the volunteer signed up for in a list, if they do not already have a job that day
 	 * and they it's not already in their list.
@@ -69,44 +71,23 @@ public class Volunteer implements Serializable {
 	public String addJob(Job theJob){
 		Job jobArray = new Job();
 		boolean volunteered = false;
-//		String success = "Success!! You are signed up to volunteer for " 
-//				+ theJob.getTitle() + " on "+ theJob.getDate() + ".";
+
 		if(myJobSignedUp.size() != 0){	
-			System.out.println("Inside if {size > 0}");
 			for(int i = 0; i < myJobSignedUp.size(); i++){
 				jobArray = myJobSignedUp.get(i);
-				System.out.println(jobArray.getTitle());
 				
-				//if date in theJob != date in any job in list then
 				if(theJob.getDate() == jobArray.getDate()){
 					volunteered = true;
-					//myJobSignedUp.add(theJob);
-					//return success;
 				} 
-//				else {
-//					System.out.println("You are already volunteering for a job on this day!");
-//					return "You are already volunteering for a job on this day!";
-//				}
 			}
 		} 
-//		else {
-//			myJobSignedUp.add(theJob);
-//			//return success;
-//		}
-		System.out.println(volunteered);
+
 		if(volunteered){
-			System.out.println("here");
 			return "You are already volunteering for a job on this day!";
 		} else {
-			System.out.println("here");
-			return "Success!! You are signed up to volunteer for " + theJob.getTitle() + " on "; //+ theJob.date + ".";
+			myJobSignedUp.add(theJob);
+			return "Success!! You are signed up to volunteer for " + theJob.getTitle() + " on " + theJob.getDate() + ".";
 		}
-		
-		//return success;
-		
-		//else 
-		//return "You are already volunteering for a job on this day.";
-
 	}
 
 	/**
