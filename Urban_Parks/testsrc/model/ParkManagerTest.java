@@ -29,5 +29,10 @@ public class ParkManagerTest implements Serializable{
 		assertEquals(testParkManager.logIn("something", "password"), "Your email or password does not match our database");
 		assertEquals(testParkManager.logIn("jtp@uw.edu", "password"), "Welcome! Jasmine Pedersen");
 	}
+	
+	@Test 
+	public void shouldSubmitAJob() {
+		
+	}
 }
 

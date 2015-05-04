@@ -4,7 +4,7 @@ import java.io.Serializable;
 
 /**
  * Creates a job.
- * @author jasmine
+ * @author Jasmine Pedersen
  *
  */
 public class Job implements Serializable {
