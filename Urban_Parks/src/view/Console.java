@@ -35,7 +35,7 @@ public class Console {
 	
 	private static void closeProgram() {
 		clearScreen();
-		System.out.println("Thank you for visiting! \n Good Bye");
+		System.out.println("Thank you for visiting! \nGood Bye");
 	}
 	
 	private static void printJobs() {
@@ -185,29 +185,32 @@ public class Console {
 			System.out.println("2) My Account");
 			System.out.println("3) Exit");
 			choice = thisScan.nextInt();
-			helperAdmin(choice, admin);
+			helperAdmin(choice, admin, thisScan);
 		}	
 		thisScan.close();
 	}
 	
-	private static void helperAdmin(int decision, LogIn admin) {
+	private static void helperAdmin(int decision, LogIn admin, Scanner thisScan) {
 		if (decision == 1) {
-			Scanner thisScan = new Scanner(System.in);
 			System.out.println("Find Volunteers");
 			System.out.println("_______________\n");
 			System.out.print("Last Name: ");
-			String lastName = thisScan.nextLine();
+			String lastName = thisScan.next();
 			ArrayList<Volunteer> list = admin.getTheAdmin().getVolunteer(lastName);
-			for (Volunteer person :  list) {
-				System.out.println("[ " + person.getMyFirst() + " " + person.getMyLast() + " ]");				
+			if (list.size() == 0) {
+				System.out.println("No Match Found");
 			}
-			thisScan.close();
+			for (Volunteer person :  list) {
+				System.out.println("[ " + person.getMyFirst() + " " + person.getMyLast() + " (Email: " + person.getMyEmail() + ") ]");				
+			}
+			pause(thisScan);
 		} else if (decision == 2) {
 			System.out.println("My Account");
 			System.out.println("__________\n");
 			System.out.println(admin.getTheAdmin().getMyFirst() + " " + admin.getTheAdmin().getMyLast());
 			System.out.println(admin.getTheAdmin().getMyEmail());
 			System.out.println("Status: Admin");
+			pause(thisScan);
 		}
 	}
 	
@@ -223,33 +226,34 @@ public class Console {
 			System.out.println("2) My Account");
 			System.out.println("3) Exit");
 			choice = thisScan.nextInt();
-			helperManager(choice, parkManager);
+			helperManager(choice, parkManager, thisScan);
 		}
 		thisScan.close();
 	}
 	
-	private static void helperManager(int decision, LogIn parkManager) {
-		Scanner thisScan = new Scanner(System.in);
+	private static void helperManager(int decision, LogIn parkManager, Scanner thisScan) {
 		if (decision == 1) {
 			clearScreen();
 			System.out.println("Submit a Job!");
 			System.out.println("_____________\n");
 			System.out.println("Please enter the following information");
 			System.out.print("Title: ");
-			String title = thisScan.next();
+			String title = thisScan.nextLine();
 			System.out.print("\nPark Name: ");
-			String parkName = thisScan.next();
+			String parkName = thisScan.nextLine();
 			System.out.print("\nAddress: ");
-			String address = thisScan.next();
+			String address = thisScan.nextLine();
 			System.out.print("\nDescription: ");
-			String description = thisScan.next();
+			String description = thisScan.nextLine();
 			System.out.print("\nGrade: ");
 			int grade = thisScan.nextInt();
-			System.out.print("\nDate");
-			String date = thisScan.next();
+			System.out.print("\nDate: ");
+			String date = thisScan.nextLine();
 			Job newJob = new Job(title, parkName, address, description, grade, date);
+			//Need to check and notify user if job does not align with business rule before submitting!!
 			parkManager.getTheManager().submitJob(newJob);
 			System.out.println("Job Submitted");
+			pause(thisScan);
 			
 		} else if (decision == 2) {
 			System.out.println("My Account");
@@ -257,8 +261,8 @@ public class Console {
 			System.out.println(parkManager.getTheManager().getFirst() + " " + parkManager.getTheManager().getLast());
 			System.out.println(parkManager.getTheManager().getEmail());
 			System.out.println("Status: Park Manager");
+			pause(thisScan);
 		}
-		thisScan.close();
 	}
 	
 	private static void clearScreen() {

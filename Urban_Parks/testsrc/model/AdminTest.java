@@ -88,7 +88,7 @@ public class AdminTest implements Serializable{
 		
 		test.put(test.size(), testAdmin);
 		
-		ParkManager testManager = new ParkManager("Orca", "Whale", "owhalte@gmail.com", "Pacific Ocean", "password");
+		ParkManager testManager = new ParkManager("Orca", "Whale", "owhale@gmail.com", "password", "Pacific Ocean");
 		
 		test.put(test.size(), testManager);
 		
