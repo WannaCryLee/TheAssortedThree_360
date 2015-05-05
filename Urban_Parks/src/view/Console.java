@@ -120,6 +120,14 @@ public class Console {
 		thisScan.close();
 	}
 	
+	private static void pause(Scanner scan) {
+		String getOut = "";
+		do {
+			System.out.println("\n Input anything to continue");
+			getOut = scan.next();
+		} while (getOut == "");
+	}
+	
 	private static void helperVolunteer(int decision, LogIn volunteer, Scanner scan) {
 		if (decision == 1) {
 			System.out.println("All Jobs Available");
@@ -142,23 +150,26 @@ public class Console {
 			if (ans.toLowerCase().charAt(0) == 'y') {
 				System.out.print("\n\n Please enter the number for the job you would like to sign up for: ");
 				int signJob = scan.nextInt();
-				System.out.println(((Volunteer)volunteer.getTheVolunteer()).addJob((Job)(jobs.getMap().get((Integer)signJob))).toString());
-				//System.out.println("You Successfully Signed up for: " + ((Job)jobs.getMap().get(signJob)).getTitle() + "!");
+				System.out.println("\n" + ((Volunteer)volunteer.getTheVolunteer()).addJob((Job)(jobs.getMap().get((Integer)signJob))));
 			}
+			
+			pause(scan);
 			
 		} else if (decision == 2) {
 			System.out.println("My Jobs");
 			System.out.println("_______");
 			ArrayList<Job> jobs = (ArrayList<Job>) volunteer.getTheVolunteer().getMyJobSignedUp();
 			for (Job currentJob : jobs) {
-				System.out.println("[ " + currentJob.getTitle() + " At " + currentJob.getDate() + " ]");
+				System.out.println("\n[ " + currentJob.getTitle() + " At " + currentJob.getDate() + " ]");
 			}
+			pause(scan);
 		} else if (decision == 3) {
 			System.out.println("My Account");
 			System.out.println("__________\n");
 			System.out.println(volunteer.getTheVolunteer().getMyFirst() + " " + volunteer.getTheVolunteer().getMyLast());
 			System.out.println(volunteer.getTheVolunteer().getMyEmail());
 			System.out.println("Status: Volunteer");
+			pause(scan);
 		}
 	}
 	
