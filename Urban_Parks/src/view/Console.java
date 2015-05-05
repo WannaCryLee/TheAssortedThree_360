@@ -105,8 +105,8 @@ public class Console {
 	private static void volunteerScreen(LogIn volunteer) {
 		Scanner thisScan = new Scanner(System.in);
 		int choice = 0;
-		while (choice != 4) {
-			System.out.println("Volunteer");
+		do {
+			System.out.println("\nVolunteer");
 			System.out.println("______________________\n");
 			System.out.println("Please Enter a Command");
 			System.out.println("______________________\n");
@@ -115,13 +115,12 @@ public class Console {
 			System.out.println("3) My Account");
 			System.out.println("4) Exit");
 			choice = thisScan.nextInt();
-			helperVolunteer(choice, volunteer);
-		}
+			helperVolunteer(choice, volunteer, thisScan);
+		} while (choice != 4);
 		thisScan.close();
 	}
 	
-	private static void helperVolunteer(int decision, LogIn volunteer) {
-		Scanner thisScan = new Scanner(System.in);
+	private static void helperVolunteer(int decision, LogIn volunteer, Scanner scan) {
 		if (decision == 1) {
 			System.out.println("All Jobs Available");
 			System.out.println("__________________\n");
@@ -139,14 +138,13 @@ public class Console {
 			}	
 			//To sign up for a job
 			System.out.println("\n Would you like to sign up for a job? (Y/N)");
-			String ans = thisScan.next();
+			String ans = scan.next();
 			if (ans.toLowerCase().charAt(0) == 'y') {
 				System.out.print("\n\n Please enter the number for the job you would like to sign up for: ");
-				int signJob = thisScan.nextInt();
-				volunteer.getTheVolunteer().getMyJobSignedUp().add((Job) jobs.getMap().get(signJob));
-				System.out.println("You Successfully Signed up for: " + ((Job)jobs.getMap().get(signJob)).getTitle() + "!");
+				int signJob = scan.nextInt();
+				System.out.println(((Volunteer)volunteer.getTheVolunteer()).addJob((Job)jobs.getMap().get(signJob)));
+				//System.out.println("You Successfully Signed up for: " + ((Job)jobs.getMap().get(signJob)).getTitle() + "!");
 			}
-			thisScan.close();
 			
 		} else if (decision == 2) {
 			System.out.println("My Jobs");
