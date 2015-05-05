@@ -142,7 +142,7 @@ public class Console {
 			if (ans.toLowerCase().charAt(0) == 'y') {
 				System.out.print("\n\n Please enter the number for the job you would like to sign up for: ");
 				int signJob = scan.nextInt();
-				System.out.println(((Volunteer)volunteer.getTheVolunteer()).addJob((Job)jobs.getMap().get(signJob)));
+				System.out.println(((Volunteer)volunteer.getTheVolunteer()).addJob((Job)(jobs.getMap().get((Integer)signJob))).toString());
 				//System.out.println("You Successfully Signed up for: " + ((Job)jobs.getMap().get(signJob)).getTitle() + "!");
 			}
 			
