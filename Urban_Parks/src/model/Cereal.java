@@ -46,7 +46,7 @@ public class Cereal implements Serializable{
 	 * This saves (serializes) a inputed class object
 	 * @param theClass, Object to be written to file
 	 */
-	protected void serialize(Object theClass) {
+	public void serialize(Object theClass) {
 		try {
 			if (myType == 0)
 				outFile = new FileOutputStream("Files/user.ser");

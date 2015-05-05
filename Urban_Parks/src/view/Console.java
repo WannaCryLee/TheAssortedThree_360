@@ -1,19 +1,29 @@
 package view;
 
 import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.Map;
 import java.util.Scanner;
 import java.util.Map.Entry;
 
+import model.Admin;
 import model.Cereal;
 import model.Job;
 import model.JobList;
 import model.LogIn;
+import model.ParkManager;
+import model.UserList;
 import model.Volunteer;
 
+/**
+ * Console Driver for Urban Parks
+ * @author Jordan Love
+ *
+ */
 public class Console {
 	
 	public static void main(String[] args) {	
+		startProgram();
 		Scanner scan = new Scanner(System.in);
 		printTitle();
 		System.out.println("Would you like to log in? (Y for yes or anything else to bypass)");
@@ -33,6 +43,9 @@ public class Console {
 		closeProgram();
 	}
 	
+	/**
+	 * Closes the program
+	 */
 	private static void closeProgram() {
 		clearScreen();
 		System.out.println("Thank you for visiting! \nGood Bye");
@@ -110,12 +123,16 @@ public class Console {
 			System.out.println("______________________\n");
 			System.out.println("Please Enter a Command");
 			System.out.println("______________________\n");
-			System.out.println("1) View Jobs");
+			System.out.println("1) View Upcoming Jobs");
 			System.out.println("2) My Jobs");
 			System.out.println("3) My Account");
 			System.out.println("4) Exit");
-			choice = thisScan.nextInt();
-			helperVolunteer(choice, volunteer, thisScan);
+			if (thisScan.hasNextInt()) {
+				choice = thisScan.nextInt();
+				helperVolunteer(choice, volunteer, thisScan);
+			} else
+				thisScan.next();
+			
 		} while (choice != 4);
 		thisScan.close();
 	}
@@ -184,8 +201,11 @@ public class Console {
 			System.out.println("1) Find Volunteers");
 			System.out.println("2) My Account");
 			System.out.println("3) Exit");
-			choice = thisScan.nextInt();
-			helperAdmin(choice, admin, thisScan);
+			if (thisScan.hasNextInt()) {
+				choice = thisScan.nextInt();
+				helperAdmin(choice, admin, thisScan);
+			} else
+				thisScan.next();
 		}	
 		thisScan.close();
 	}
@@ -217,16 +237,21 @@ public class Console {
 	private static void managerScreen(LogIn parkManager) {
 		Scanner thisScan = new Scanner(System.in);
 		int choice = 0;
-		while (choice != 3) {
+		while (choice != 5) {
 			System.out.println("Park Manager");
 			System.out.println("____________\n");
 			System.out.println("Please Enter a Command");
 			System.out.println("______________________\n");
 			System.out.println("1) Submit a Jobs");
-			System.out.println("2) My Account");
-			System.out.println("3) Exit");
-			choice = thisScan.nextInt();
-			helperManager(choice, parkManager, thisScan);
+			System.out.println("2) View My Park Jobs");
+			System.out.println("3) Find Volunteers by Job");
+			System.out.println("4) My Account");
+			System.out.println("5) Exit");
+			if (thisScan.hasNextInt()) {
+				choice = thisScan.nextInt();
+				helperManager(choice, parkManager, thisScan);
+			} else
+				thisScan.next();
 		}
 		thisScan.close();
 	}
@@ -256,7 +281,13 @@ public class Console {
 			System.out.println("Job Submitted");
 			pause(thisScan);
 			
+			//View Park jobs
 		} else if (decision == 2) {
+			
+			//View volunteers
+		} else if (decision == 3) {
+			
+		} else if (decision == 4) {
 			System.out.println("My Account");
 			System.out.println("__________\n");
 			System.out.println(parkManager.getTheManager().getFirst() + " " + parkManager.getTheManager().getLast());
@@ -317,6 +348,79 @@ public class Console {
 			e.printStackTrace();
 		}
 		printTitle();
+	}
+	
+	/**
+	 * Starts the problem
+	 */
+	private static void startProgram() {
+		UserList userList = new UserList();
+		JobList jobList = new JobList();
+		HashMap<Integer, Object> startingMap = new HashMap<Integer, Object>();
+		
+		Volunteer newVolunteer = new Volunteer("Bob", "Johnson", "bjohnson@gmail.com", "password");
+		
+		startingMap.put(startingMap.size(), newVolunteer);
+		
+		newVolunteer = new Volunteer("John", "Rotissary", "jrotissary@gmail.com", "password");
+		
+		startingMap.put(startingMap.size(), newVolunteer);
+		
+		newVolunteer = new Volunteer("Duk", "Boki", "dboki@gmail.com", "password");
+		
+		startingMap.put(startingMap.size(), newVolunteer);
+		
+		newVolunteer = new Volunteer("Sue", "Shi", "sshi@gmail.com", "password");
+		
+		startingMap.put(startingMap.size(), newVolunteer);
+		
+		newVolunteer = new Volunteer("Rue", "Shi", "rshi@gmail.com", "password");
+		
+		startingMap.put(startingMap.size(), newVolunteer);
+		
+		Admin newAdmin = new Admin("Blue", "Whale", "bwhale@gmail.com", "Pacific Ocean", "password");
+		
+		startingMap.put(startingMap.size(), newAdmin);
+		
+		ParkManager newManager = new ParkManager("Orca", "Whale", "owhale@gmail.com", "password", "Pacific Ocean", "Wright");
+		
+		startingMap.put(startingMap.size(), newManager);
+		
+		userList.setMap(startingMap);
+		
+		startingMap = new HashMap<Integer, Object>();
+		
+		Job startingJob = new Job("Rock", "Tuscany", "Tacoma, WA", "Clean Rocks", 1 , "May");
+		
+		startingMap.put(startingMap.size(), startingJob);
+		
+		startingJob = new Job("Bark", "Tuscany", "Tacoma, WA", "New Bark", 2, "June" );
+		
+		startingMap.put(startingMap.size(), startingJob);
+		
+		startingJob = new Job("Sweep", "Wright", "Tacoma, WA", "Sweep Sidewalks", 0, "May");
+		
+		startingMap.put(startingMap.size(), startingJob);
+		
+		startingJob = new Job("Garbage", "Wright", "Tacoma, WA", "Change all the Garbage", 0, "July");
+		
+		startingMap.put(startingMap.size(), startingJob);
+		
+		startingJob = new Job("New Fountain", "Lighthouse", "Tacoma, WA", "Install new fountain", 2, "June" );
+		
+		startingMap.put(startingMap.size(), startingJob);
+		
+		startingJob = new Job("BBQ", "LightHouse", "Tacoma, WA", "Cook Meat :)", 1, "May");
+		
+		startingMap.put(startingMap.size(), startingJob);
+		
+		jobList.setMap(startingMap);
+		
+		//Serialize Data
+		Cereal storeUserData = new Cereal(0);
+		Cereal storeJobData = new Cereal(1);
+		storeUserData.serialize(userList);
+		storeJobData.serialize(jobList);
 	}
 	
 }

@@ -40,7 +40,7 @@ public class UserList implements Serializable{
 	 * Updates map with a map that has been modified
 	 * @param theMap, HashMap<Integer, Object[]>
 	 */
-	protected void setMap(HashMap<Integer, Object> theMap) {
+	public void setMap(HashMap<Integer, Object> theMap) {
 		myMap.clear();
 		myMap.putAll(theMap);
 	}

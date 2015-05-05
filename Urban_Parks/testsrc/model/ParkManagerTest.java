@@ -17,7 +17,7 @@ public class ParkManagerTest implements Serializable{
 	 */
 	private static final long serialVersionUID = -8713016574919857541L;
 	private ParkManager testEmptyPM = new ParkManager();
-	private ParkManager testParkManager = new ParkManager("Jasmine", "Pedersen", "jtp@uw.edu", "password", "");
+	private ParkManager testParkManager = new ParkManager("Jasmine", "Pedersen", "jtp@uw.edu", "password", "", "");
 	
 	@Test
 	public void shouldLogIn() {

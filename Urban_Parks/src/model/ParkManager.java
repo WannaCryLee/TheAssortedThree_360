@@ -2,6 +2,7 @@ package model;
 
 import java.io.File;
 import java.io.Serializable;
+import java.util.ArrayList;
 import java.util.HashMap;
 
 /**
@@ -39,6 +40,8 @@ public class ParkManager implements Serializable{
 	private String password;
 	/** Address */
 	private String address;
+	// Parks
+	private ArrayList<String> parks;
 
 	
 	/**
@@ -50,6 +53,7 @@ public class ParkManager implements Serializable{
 		email = DEFAULT_EMAIL;
 		password = DEFAULT_PASSWORD;
 		address = DEFAULT_ADDRESS;
+		parks = new ArrayList<String>();
 	}
 	
 	/**
@@ -61,12 +65,13 @@ public class ParkManager implements Serializable{
 	 * @param thePassword Password
 	 * @param theAddress Address
 	 */
-	public ParkManager(String theFirst, String theLast, String theEmail, String thePassword, String theAddress) {
+	public ParkManager(String theFirst, String theLast, String theEmail, String thePassword, String theAddress, String park) {
 		first = theFirst;
 		last = theLast;
 		email = theEmail;
 		password = thePassword;
 		address = theAddress;
+		parks.add(park);
 	}
 
 	/**
