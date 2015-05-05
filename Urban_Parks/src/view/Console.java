@@ -238,19 +238,20 @@ public class Console {
 			System.out.println("_____________\n");
 			System.out.println("Please enter the following information");
 			System.out.print("Title: ");
-			String title = thisScan.nextLine();
+			String title = thisScan.next();
 			System.out.print("\nPark Name: ");
-			String parkName = thisScan.nextLine();
+			String parkName = thisScan.next();
 			System.out.print("\nAddress: ");
-			String address = thisScan.nextLine();
+			String address = thisScan.next();
 			System.out.print("\nDescription: ");
-			String description = thisScan.nextLine();
+			String description = thisScan.next();
 			System.out.print("\nGrade: ");
 			int grade = thisScan.nextInt();
 			System.out.print("\nDate: ");
-			String date = thisScan.nextLine();
+			String date = thisScan.next();
 			Job newJob = new Job(title, parkName, address, description, grade, date);
 			//Need to check and notify user if job does not align with business rule before submitting!!
+			jobDoubleCheck(thisScan, newJob);
 			parkManager.getTheManager().submitJob(newJob);
 			System.out.println("Job Submitted");
 			pause(thisScan);
@@ -262,6 +263,46 @@ public class Console {
 			System.out.println(parkManager.getTheManager().getEmail());
 			System.out.println("Status: Park Manager");
 			pause(thisScan);
+		}
+	}
+	
+	private static void jobDoubleCheck(Scanner scan, Job job) {
+		while (job.jobCheck() != 0) {
+			String resolve;
+			int gradeResolve;
+			int problem = job.jobCheck();
+			System.out.println("\n\nUh Oh! There was a problem. \nPlease Resolve");
+			//Title
+			if (problem == 1) {
+				System.out.println("\nPlease Re-enter approved title: ");
+				resolve = scan.nextLine();
+				job.setTitle(resolve);
+				//Park Name
+			} else if (problem == 2) {
+				System.out.println("\nPlease Re-enter approved Park Name: ");
+				resolve = scan.nextLine();
+				job.setParkName(resolve);
+				//Address
+			} else if (problem == 3) {
+				System.out.println("\nPlease Re-enter approved Address: ");
+				resolve = scan.nextLine();
+				job.setAddress(resolve);
+				//Description
+			} else if (problem == 4) {
+				System.out.println("\nPlease Re-enter approved Description: ");
+				resolve = scan.nextLine();
+				job.setDescription(resolve);
+				//Grade
+			} else if (problem == 5) {
+				System.out.println("\nPlease Re-enter approved Grade: ");
+				gradeResolve = scan.nextInt();
+				job.setGrade(gradeResolve);
+				//Date
+			} else if (problem == 6) {
+				System.out.println("\nPlease Re-enter approved Date: ");
+				resolve = scan.nextLine();
+				job.setDate(resolve);
+			}
 		}
 	}
 	

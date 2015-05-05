@@ -58,6 +58,27 @@ public class Job implements Serializable {
 		date = theDate;
 	}
 	
+	/**
+	 * Checks if job is aligned with Business Rules
+	 * @return int of which part of the job is conflicting
+	 */
+	public int jobCheck() {
+		if (title.equals(""))
+			return 1;
+		else if (parkName.equals("")) 
+			return 2;
+		else if (address.equals("")) 
+			return 3;
+		else if (description.equals(""))
+			return 4;
+		else if (grade < 0 || grade > 3) 
+			return 5;
+		//Need to check with conflicting dates?
+		else if (date.equals(""))
+			return 6;
+		return 0;
+	}
+	
 	/** Setters */
 	public void setTitle(String theTitle) {
 		title = theTitle;
