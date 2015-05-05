@@ -1,9 +1,13 @@
 package view;
 
 import java.util.ArrayList;
+import java.util.Map;
 import java.util.Scanner;
+import java.util.Map.Entry;
 
+import model.Cereal;
 import model.Job;
+import model.JobList;
 import model.LogIn;
 import model.Volunteer;
 
@@ -35,14 +39,25 @@ public class Console {
 	}
 	
 	private static void printJobs() {
-		//TODO: print jobs
+		Cereal getJobs = new Cereal(1);
+		JobList jobs = (JobList)getJobs.deSerialize();
+		
+
+		java.util.Iterator<Entry<Integer, Object>> itr = jobs.getMap().entrySet().iterator();
+		while(itr.hasNext()) {
+			Map.Entry<Integer, Object> pair = (Map.Entry<Integer, Object>)itr.next();
+			System.out.println("[ " + ((Job)pair.getValue()).getTitle() + ", " + ((Job)pair.getValue()).getParkName() + ", " +
+					((Job)pair.getValue()).getDescription() + ", " + ((Job)pair.getValue()).getGrade() + ", " +
+					((Job)pair.getValue()).getDate() + " ]");			
+			itr.remove();
+		}		
 	}
 	
 	private static void printTitle() {
 		System.out.println(" ________________________");
 		System.out.println("|                        |");
 		System.out.println("|       Urban Parks      |");
-		System.out.println("|________________________|\n");
+		System.out.println("|________________________|  Created by: TheAssortedThree\n");
 	}
 	
 	private static void logIn() {
@@ -90,7 +105,7 @@ public class Console {
 	private static void volunteerScreen(LogIn volunteer) {
 		Scanner thisScan = new Scanner(System.in);
 		int choice = 0;
-		while (choice != 3) {
+		while (choice != 4) {
 			System.out.println("Volunteer");
 			System.out.println("______________________\n");
 			System.out.println("Please Enter a Command");
@@ -106,10 +121,33 @@ public class Console {
 	}
 	
 	private static void helperVolunteer(int decision, LogIn volunteer) {
+		Scanner thisScan = new Scanner(System.in);
 		if (decision == 1) {
 			System.out.println("All Jobs Available");
 			System.out.println("__________________\n");
-			//TODO: Print all jobs to sign up for
+			Cereal getJobs = new Cereal(1);
+			JobList jobs = (JobList)getJobs.deSerialize();
+			
+
+			java.util.Iterator<Entry<Integer, Object>> itr = jobs.getMap().entrySet().iterator();
+			while(itr.hasNext()) {
+				Map.Entry<Integer, Object> pair = (Map.Entry<Integer, Object>)itr.next();
+				System.out.println("[ " + pair.getKey() + " - " + ((Job)pair.getValue()).getTitle() + ", " + ((Job)pair.getValue()).getParkName() + ", " +
+						((Job)pair.getValue()).getDescription() + ", " + ((Job)pair.getValue()).getGrade() + ", " +
+						((Job)pair.getValue()).getDate() + " ]");				
+				itr.remove();
+			}	
+			//To sign up for a job
+			System.out.println("\n Would you like to sign up for a job? (Y/N)");
+			String ans = thisScan.next();
+			if (ans.toLowerCase().charAt(0) == 'y') {
+				System.out.print("\n\n Please enter the number for the job you would like to sign up for: ");
+				int signJob = thisScan.nextInt();
+				volunteer.getTheVolunteer().getMyJobSignedUp().add((Job) jobs.getMap().get(signJob));
+				System.out.println("You Successfully Signed up for: " + ((Job)jobs.getMap().get(signJob)).getTitle() + "!");
+			}
+			thisScan.close();
+			
 		} else if (decision == 2) {
 			System.out.println("My Jobs");
 			System.out.println("_______");
@@ -122,7 +160,7 @@ public class Console {
 			System.out.println("__________\n");
 			System.out.println(volunteer.getTheVolunteer().getMyFirst() + " " + volunteer.getTheVolunteer().getMyLast());
 			System.out.println(volunteer.getTheVolunteer().getMyEmail());
-			System.out.println("Status: Admin");
+			System.out.println("Status: Volunteer");
 		}
 	}
 	

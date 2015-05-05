@@ -69,7 +69,7 @@ public class Cereal implements Serializable{
 	 * Reads file and returns a Object class
 	 * @return Object, from file
 	 */
-	protected Object deSerialize() {
+	public Object deSerialize() {
 		Object freshData = null;
 		
 		try {
