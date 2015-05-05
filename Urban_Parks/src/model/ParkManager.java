@@ -1,6 +1,7 @@
 package model;
 
 import java.io.File;
+import java.io.Serializable;
 import java.util.HashMap;
 
 /**
@@ -8,8 +9,12 @@ import java.util.HashMap;
  * @author Jasmine Pedersen
  *
  */
-public class ParkManager {
+public class ParkManager implements Serializable{
 	
+	/**
+	 * 
+	 */
+	private static final long serialVersionUID = 1222538082294391688L;
 	/**
 	 * Default variables.
 	 */

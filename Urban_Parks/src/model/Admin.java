@@ -89,8 +89,10 @@ public class Admin implements Serializable{
 			Map.Entry<Integer, Object> pair = (Map.Entry<Integer, Object>)itr.next();
 			//This checks value[1] to equal the given last name and checks to see if its a volunteer
 			//Make sure to check instance not just volunteer? maybe it will break the code
-			if (((Volunteer)(pair.getValue())).getMyLast().toLowerCase().equals(theLastName.toLowerCase())) {
-				foundVolunteer.add((Volunteer)(pair.getValue()));
+			if (pair.getValue() instanceof Volunteer) {	
+				if (((Volunteer)(pair.getValue())).getMyLast().toLowerCase().equals(theLastName.toLowerCase())) {
+					foundVolunteer.add((Volunteer)(pair.getValue()));
+				}
 			}
 			itr.remove();
 		}

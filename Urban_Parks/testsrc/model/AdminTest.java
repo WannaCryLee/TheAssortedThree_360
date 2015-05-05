@@ -84,6 +84,14 @@ public class AdminTest implements Serializable{
 		
 		test.put(test.size(), testVolunteer);
 		
+		Admin testAdmin = new Admin("Blue", "Whale", "bwhale@gmail.com", "Pacific Ocean", "password");
+		
+		test.put(test.size(), testAdmin);
+		
+		ParkManager testManager = new ParkManager("Orca", "Whale", "owhalte@gmail.com", "Pacific Ocean", "password");
+		
+		test.put(test.size(), testManager);
+		
 		list.setMap(test);
 		
 		//Serialize Data
