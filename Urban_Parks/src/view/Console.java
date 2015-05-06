@@ -47,7 +47,7 @@ public class Console {
 	 * Closes the program
 	 */
 	private static void closeProgram() {
-		clearScreen();
+		//clearScreen();
 		System.out.println("Thank you for visiting! \nGood Bye");
 	}
 	
@@ -83,7 +83,7 @@ public class Console {
 			givenUsername = in.next();
 			System.out.print("\nPassword: ");
 			givenPassword = in.next();
-			clearScreen();
+			//clearScreen();
 		} while (!checkLogIn(givenUsername, givenPassword));
 		in.close();
 	}
@@ -237,16 +237,15 @@ public class Console {
 	private static void managerScreen(LogIn parkManager) {
 		Scanner thisScan = new Scanner(System.in);
 		int choice = 0;
-		while (choice != 5) {
+		while (choice != 4) {
 			System.out.println("Park Manager");
 			System.out.println("____________\n");
 			System.out.println("Please Enter a Command");
 			System.out.println("______________________\n");
 			System.out.println("1) Submit a Jobs");
 			System.out.println("2) View My Park Jobs");
-			System.out.println("3) Find Volunteers by Job");
-			System.out.println("4) My Account");
-			System.out.println("5) Exit");
+			System.out.println("3) My Account");
+			System.out.println("4) Exit");
 			if (thisScan.hasNextInt()) {
 				choice = thisScan.nextInt();
 				helperManager(choice, parkManager, thisScan);
@@ -258,7 +257,7 @@ public class Console {
 	
 	private static void helperManager(int decision, LogIn parkManager, Scanner thisScan) {
 		if (decision == 1) {
-			clearScreen();
+			//clearScreen();
 			System.out.println("Submit a Job!");
 			System.out.println("_____________\n");
 			System.out.println("Please enter the following information");
@@ -283,11 +282,55 @@ public class Console {
 			
 			//View Park jobs
 		} else if (decision == 2) {
+			Cereal jobData = new Cereal(1);
+			JobList jobs = (JobList)jobData.deSerialize();
+			Cereal userData = new Cereal(0);
+			UserList users = (UserList)userData.deSerialize();
+			System.out.println("My Park Jobs");
+			System.out.println("____________\n");
+			ArrayList<String> myParks = parkManager.getTheManager().getParks();
+			for (String park : myParks) {
+				
+				java.util.Iterator<Entry<Integer, Object>> itr = jobs.getMap().entrySet().iterator();
+				while(itr.hasNext()) {
+					Map.Entry<Integer, Object> pair = (Map.Entry<Integer, Object>)itr.next();
+					if (((Job)pair.getValue()).getParkName().toLowerCase().equals(park.toLowerCase())) {
+						System.out.println("[ " + pair.getKey() + " - " + ((Job)pair.getValue()).getTitle() + " in " + ((Job)pair.getValue()).getDate() + " ]");
+					}
+					itr.remove();
+				}	
+			}
 			
-			//View volunteers
+			System.out.println("\nWould you like to see volunteers for a job? (Y/N)");
+			String response = thisScan.next();
+			if (response.toLowerCase().charAt(0) == 'y') {
+				System.out.println("What job number?");
+				int jobNum = thisScan.nextInt();
+				Job selectedJob = (Job)jobs.getMap().get(jobNum);
+				boolean isJobPrinted = false;
+				
+				java.util.Iterator<Entry<Integer, Object>> itr = users.getMap().entrySet().iterator();
+				while(itr.hasNext()) {
+					Map.Entry<Integer, Object> pair = (Map.Entry<Integer, Object>)itr.next();
+					if (pair.getValue() instanceof Volunteer) {
+						Volunteer itrVolunteer = ((Volunteer)pair.getValue());
+						 ArrayList<Job> itrJob = (ArrayList<Job>) itrVolunteer.getMyJobSignedUp();
+						 
+						 for (Job each : itrJob) {
+							 if (each.compare(selectedJob)) {
+								 isJobPrinted = true;
+								 System.out.println("\n[ " + itrVolunteer.getMyFirst() + itrVolunteer.getMyLast() + "( " + itrVolunteer.getMyEmail() + " )"+ " ]");
+							 }
+						 }
+					}
+					itr.remove();
+				}
+				if (!isJobPrinted)
+					System.out.println("No Volunteers has signed up yet\n");
+			}
+			
+			pause(thisScan);
 		} else if (decision == 3) {
-			
-		} else if (decision == 4) {
 			System.out.println("My Account");
 			System.out.println("__________\n");
 			System.out.println(parkManager.getTheManager().getFirst() + " " + parkManager.getTheManager().getLast());
@@ -336,7 +379,7 @@ public class Console {
 			}
 		}
 	}
-	
+	/**
 	private static void clearScreen() {
 		try {
 			String os = System.getProperty("os.name");

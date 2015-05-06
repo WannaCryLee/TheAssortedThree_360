@@ -30,7 +30,7 @@ public class UserList implements Serializable{
 	 * Returns current map
 	 * @return HashMap with Integer and Object[]
 	 */
-	protected HashMap<Integer, Object> getMap() {
+	public HashMap<Integer, Object> getMap() {
 		HashMap<Integer, Object> copyMap = new HashMap<Integer, Object>();
 		copyMap.putAll(myMap);
 		return copyMap;

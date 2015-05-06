@@ -56,6 +56,7 @@ public class ParkManager implements Serializable{
 		parks = new ArrayList<String>();
 	}
 	
+
 	/**
 	 * Constructor.
 	 * 
@@ -180,4 +181,14 @@ public class ParkManager implements Serializable{
 		this.address = address;
 	}	
 	
+	//Getters and Setters for parks
+	public ArrayList<String> getParks() {
+		ArrayList<String> returnPark = parks;
+		return returnPark;
+	}
+
+	public void setParks(ArrayList<String> parks) {
+		this.parks = parks;
+	}
+
 }

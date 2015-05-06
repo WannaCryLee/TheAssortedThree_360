@@ -58,6 +58,21 @@ public class Job implements Serializable {
 		date = theDate;
 	}
 	
+	public boolean compare(Job other) {
+		if (!title.equals(other.getTitle()))
+			return false;
+		if (!parkName.equals(other.getParkName()))
+			return false;
+		if (!description.equals(other.getDescription()))
+			return false;
+		if (grade != other.getGrade())
+			return false;
+		if (date.equals(other.getDate()))
+			return false;
+		
+		return true;
+	}
+	
 	/**
 	 * Checks if job is aligned with Business Rules
 	 * @return int of which part of the job is conflicting
