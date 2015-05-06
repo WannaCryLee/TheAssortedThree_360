@@ -378,6 +378,10 @@ public class Console {
 		
 		startingMap.put(startingMap.size(), newVolunteer);
 		
+		newVolunteer = new Volunteer("Pilot", "Whale", "pwhale@gmail.com", "password");
+		
+		startingMap.put(startingMap.size(), newVolunteer);
+		
 		Admin newAdmin = new Admin("Blue", "Whale", "bwhale@gmail.com", "Pacific Ocean", "password");
 		
 		startingMap.put(startingMap.size(), newAdmin);

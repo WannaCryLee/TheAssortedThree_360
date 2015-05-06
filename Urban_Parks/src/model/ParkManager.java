@@ -66,6 +66,7 @@ public class ParkManager implements Serializable{
 	 * @param theAddress Address
 	 */
 	public ParkManager(String theFirst, String theLast, String theEmail, String thePassword, String theAddress, String park) {
+		parks = new ArrayList<String>();
 		first = theFirst;
 		last = theLast;
 		email = theEmail;
