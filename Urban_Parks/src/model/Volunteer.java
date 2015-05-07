@@ -1,6 +1,7 @@
 package model;
 
 import java.io.Serializable;
+import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -19,6 +20,9 @@ public class Volunteer implements Serializable {
 	private String myPassword;
 	//List of jobs volunteer has signed up for
 	private List<Job> myJobSignedUp;
+	//Sets format for Date Strings
+	private static SimpleDateFormat sdf = new SimpleDateFormat("MMM dd, yyyy");
+	
 
 	/**
 	 * Create and set a default volunteer
@@ -77,9 +81,13 @@ public class Volunteer implements Serializable {
 			for(int i = 0; i < myJobSignedUp.size(); i++){
 				jobArray = myJobSignedUp.get(i);
 				
-				if(theJob.getDate().equals(jobArray.getDate())){
+				if(theJob.getStartDate().compareTo(jobArray.getStartDate()) == 0){
 					volunteered = true;
-				} 
+				}
+				
+//				if(theJob.getDate().equals(jobArray.getDate())){
+//					volunteered = true;
+//				} 
 			}
 		} 
 
@@ -87,7 +95,7 @@ public class Volunteer implements Serializable {
 			return "You are already volunteering for a job on this day!";
 		} else {
 			myJobSignedUp.add(theJob);
-			return "Success!! You are signed up to volunteer for " + theJob.getTitle() + " on " + theJob.getDate() + ".";
+			return "Success!! You are signed up to volunteer for " + theJob.getTitle() + " on " + sdf.format(theJob.getStartDate())+ ".";
 		}
 	}
 

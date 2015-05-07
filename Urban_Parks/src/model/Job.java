@@ -1,6 +1,9 @@
 package model;
 
 import java.io.Serializable;
+import java.text.SimpleDateFormat;
+import java.util.Calendar;
+import java.util.GregorianCalendar;
 
 /**
  * Creates a job.
@@ -13,6 +16,14 @@ public class Job implements Serializable {
 	 * Generated Serial Version ID
 	 */
 	private static final long serialVersionUID = -7742067979482263151L;
+	/*
+	 * Date format for the jobs
+	 */
+	private static SimpleDateFormat sdf = new SimpleDateFormat("MMMM dd, yyyy");
+	/*
+	 * Start Date for the job 
+	 */
+	private Calendar myStartDate;
 	/** Job title */
 	private String title; 
 	/** Park name the job belongs to */
@@ -23,8 +34,12 @@ public class Job implements Serializable {
 	private String description;
 	/** Job's difficulty level: 0 = easy, 1 = med, 2 = hard */
 	private int grade;
+	//Job end date
+	private Calendar myEndDate;
+	//Job duration
+	//private int myJobDuration;
 	/** Date of job */
-	private String date;
+	//private String date;
 
 	/**
 	 * Constructor
@@ -35,7 +50,9 @@ public class Job implements Serializable {
 		address = null;
 		description = null;
 		grade = 0;
-		date = null;
+		myStartDate = new GregorianCalendar(2015, 12-1, 24);
+		myEndDate = new GregorianCalendar(2015, 12-1, 25);
+		//date = null;
 	}
 	
 	/**
@@ -46,16 +63,21 @@ public class Job implements Serializable {
 	 * @param theAddress Address
 	 * @param theDescription Description of the job
 	 * @param theGrade Job's dificulty level (easy, med, hard)
-	 * @param theDate Date of the job
+	 * @param theYear the year of the users job
+	 * @param theMonth the month of the users job
+	 * @param theDay the day of the users job
 	 */
 	public Job(String theTitle, String theParkName, String theAddress, 
-			String theDescription, int theGrade, String theDate) {
+			String theDescription, int theGrade, int theStartYear, int theStartMonth, int theStartDay,
+			int theEndYear, int theEndMonth, int theEndDay) {
 		title = theTitle;
 		parkName = theParkName;
 		address = theAddress;
 		description = theDescription;
 		grade = theGrade;
-		date = theDate;
+		myStartDate = new GregorianCalendar(theStartYear, theStartMonth-1, theStartDay);
+		myEndDate = new GregorianCalendar(theEndYear, theEndMonth-1, theEndDay);
+		//date = theDate;
 	}
 	
 	public boolean compare(Job other) {
@@ -67,8 +89,8 @@ public class Job implements Serializable {
 			return false;
 		if (grade != other.getGrade())
 			return false;
-		if (date.equals(other.getDate()))
-			return false;
+//		if (date.equals(other.getDate()))
+//			return false;
 		
 		return true;
 	}
@@ -89,8 +111,8 @@ public class Job implements Serializable {
 		else if (grade < 0 || grade > 3) 
 			return 5;
 		//Need to check with conflicting dates?
-		else if (date.equals(""))
-			return 6;
+//		else if (date.equals(""))
+//			return 6;
 		return 0;
 	}
 	
@@ -115,9 +137,13 @@ public class Job implements Serializable {
 		grade = theGrade;
 	}
 	
-	public void setDate(String theDate) {
-		date = theDate;
+	public void setStartDate(int theYear, int theMonth, int theDay){
+		this.myStartDate = new GregorianCalendar(theYear, theMonth-1, theDay);
 	}
+	
+//	public void setDate(String theDate) {
+//		date = theDate;
+//	}
 
 
 	/** Getters */
@@ -141,9 +167,13 @@ public class Job implements Serializable {
 		return grade;
 	}
 	
-	public String getDate() {
-		return date;
+	public Calendar getStartDate(){
+		return myStartDate;
 	}
+	
+//	public String getDate() {
+//		return date;
+//	}
 
 }
 

@@ -5,6 +5,8 @@ package model;
 
 import static org.junit.Assert.*;
 
+import java.text.SimpleDateFormat;
+
 import org.junit.Test;
 
 /**
@@ -12,11 +14,12 @@ import org.junit.Test;
  *
  */
 public class VolunteerTest {
-			
+	//Sets format for Date Strings
+	private static SimpleDateFormat sdf = new SimpleDateFormat("MMM dd, yyyy");
 	private Volunteer myVolunteerDefault = new Volunteer();
 	private Volunteer myVolunteerGivenData = new Volunteer("Lysia", "Valu", "jedimaster@gmail.com", "sparkle");
-	private Job myJobData1 = new Job("Lessons", "Huntamer Park", "Lacey Dr.", "Swimming in the air.", 5, "August 1");
-	private Job myJobData2 = new Job("Training", "Long Lake", "Canyon Rd.", "Lifeguard Training", 5, "June 2");
+	private Job myJobData1 = new Job("Lessons", "Huntamer Park", "Lacey Dr.", "Swimming in the air.", 5, 2015,12,31, 2016,1,1);
+	private Job myJobData2 = new Job("Training", "Long Lake", "Canyon Rd.", "Lifeguard Training", 5, 2015, 12, 24, 2015,12,25);
 	
 	/**
 	 * Test method for {@link model.Volunteer#Volunteer(int, java.lang.String, java.lang.String, java.lang.String, java.lang.String)}.
@@ -45,10 +48,17 @@ public class VolunteerTest {
 	public void shouldAddJob() {
 		//Checks if a job was added or not
 		assertEquals(myVolunteerDefault.addJob(myJobData1), "Success!! You are signed up to volunteer for " + myJobData1.getTitle() 
-				+ " on " + myJobData1.getDate() + ".");
+				+ " on " +  sdf.format(myJobData1.getStartDate())+ ".");
 		assertEquals(myVolunteerDefault.addJob(myJobData1), "You are already volunteering for a job on this day!");
 		assertEquals(myVolunteerDefault.addJob(myJobData2), "Success!! You are signed up to volunteer for " + myJobData2.getTitle() 
-				+ " on " + myJobData2.getDate() + ".");
+				+ " on " +  sdf.format(myJobData2.getStartDate())+ ".");
+		
+//		System.out.println("Success!! You are signed up to volunteer for " + myJobData1.getTitle() 
+//				+ " on " +  sdf.format(myJobData1.getStartDate())+ ".");
+//		System.out.println("You are already volunteering for a job on this day!");
+//		System.out.println("Success!! You are signed up to volunteer for " + myJobData2.getTitle() 
+//				+ " on " +  sdf.format(myJobData2.getStartDate())+ ".");
+		
 	}
 
 }
