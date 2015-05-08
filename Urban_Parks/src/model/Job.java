@@ -2,6 +2,7 @@ package model;
 
 import java.io.Serializable;
 import java.text.SimpleDateFormat;
+import java.util.ArrayList;
 import java.util.Calendar;
 import java.util.GregorianCalendar;
 
@@ -32,8 +33,17 @@ public class Job implements Serializable {
 	private String address;
 	/** Variable for describing the job's details */
 	private String description;
-	/** Job's difficulty level: 0 = easy, 1 = med, 2 = hard */
-	private int grade;
+
+	/** Work Category integer variable: 0 = light, 1 = Medium, 2 = Heavy. */
+	//private int workCat;
+
+	/** Specifies the number of required volunteers for each category grade. */
+	private int numLightJobs;
+	private int numMedJobs;
+	private int numHeavyJobs;
+	/** A list of the volunteers who signed up for the job. */
+	private ArrayList<Volunteer> signedUpList;
+
 	//Job end date
 	private Calendar myEndDate;
 	//Job duration
@@ -49,12 +59,16 @@ public class Job implements Serializable {
 		parkName = null;
 		address = null;
 		description = null;
-		grade = 0;
+		numLightJobs = 0;
+		numMedJobs = 0;
+		numHeavyJobs = 0;
 		myStartDate = new GregorianCalendar(2015, 12-1, 24);
 		myEndDate = new GregorianCalendar(2015, 12-1, 25);
 		//date = null;
+
+		signedUpList = new ArrayList<Volunteer>();
 	}
-	
+
 	/**
 	 * Constructor
 	 * 
@@ -68,18 +82,22 @@ public class Job implements Serializable {
 	 * @param theDay the day of the users job
 	 */
 	public Job(String theTitle, String theParkName, String theAddress, 
-			String theDescription, int theGrade, int theStartYear, int theStartMonth, int theStartDay,
+			String theDescription, int theNumLightJobs, int theNumMedJobs,int theNumHeavyJobs, int theStartYear, int theStartMonth, int theStartDay,
 			int theEndYear, int theEndMonth, int theEndDay) {
 		title = theTitle;
 		parkName = theParkName;
 		address = theAddress;
 		description = theDescription;
-		grade = theGrade;
+		numLightJobs = theNumLightJobs;
+		numMedJobs = theNumMedJobs;
+		numHeavyJobs = theNumHeavyJobs;
 		myStartDate = new GregorianCalendar(theStartYear, theStartMonth-1, theStartDay);
 		myEndDate = new GregorianCalendar(theEndYear, theEndMonth-1, theEndDay);
 		//date = theDate;
+
+		signedUpList = new ArrayList<Volunteer>();
 	}
-	
+
 	public boolean compare(Job other) {
 		if (!title.equals(other.getTitle()))
 			return false;
@@ -87,14 +105,18 @@ public class Job implements Serializable {
 			return false;
 		if (!description.equals(other.getDescription()))
 			return false;
-		if (grade != other.getGrade())
+		if (numLightJobs != other.getNumLightJobs())
 			return false;
-//		if (date.equals(other.getDate()))
-//			return false;
-		
+		if (numMedJobs != other.getNumMedJobs())
+			return false;
+		if (numHeavyJobs != other.getNumHeavyJobs())
+			return false;
+		//		if (date.equals(other.getDate()))
+		//			return false;
+
 		return true;
 	}
-	
+
 	/**
 	 * Checks if job is aligned with Business Rules
 	 * @return int of which part of the job is conflicting
@@ -108,14 +130,67 @@ public class Job implements Serializable {
 			return 3;
 		else if (description.equals(""))
 			return 4;
-		else if (grade < 0 || grade > 3) 
+		else if (numLightJobs < 0 || numLightJobs > 50) 
 			return 5;
+		else if (numMedJobs < 0 || numMedJobs > 50) 
+			return 6;
+		else if (numHeavyJobs < 0 || numHeavyJobs > 50) 
+			return 7;
 		//Need to check with conflicting dates?
-//		else if (date.equals(""))
-//			return 6;
+		//		else if (date.equals(""))
+		//			return 8;
 		return 0;
 	}
-	
+
+	/**
+	 * Sign up volunteers for the job.
+	 *  
+	 * @param theVolunteer Volunteer signing up
+	 * @param theWorkCategory 0=Light, 1=Medium, 2=Hard
+	 */
+	private void signUp(Volunteer theVolunteer, int theWorkCategory) {
+		if (isVolunteerAlreadySignedUp(theVolunteer) == true) {
+			signedUpList.add(theVolunteer);	
+			decrementJobCategory(theWorkCategory);
+		}
+	}
+
+	/**
+	 * Business rule:
+	 * Prevents volunteer from signing up for the same job.
+	 * 
+	 * @param theVolunteer Volunteer signing up
+	 * @return true if volunteer exists, false if not
+	 */
+	private boolean isVolunteerAlreadySignedUp(Volunteer theVolunteer) {
+		//Loops through the list of volunteers already signed up for this job
+		for (int i = 0; i < signedUpList.size() - 1; i++) {
+			if (signedUpList.get(i).equals(theVolunteer) == true) {
+				return true;
+			}
+		}
+		return false; //if the volunteer is not already signed up
+	}
+
+	/**
+	 * Decrements the specific job category for the job.
+	 * 
+	 * @param theWorkCategory 0=Light, 1=Medium, 2=Hard
+	 */
+	private void decrementJobCategory(int theWorkCategory) {
+		if (theWorkCategory == 0) { // light 
+			if (numLightJobs > 0) 
+				numLightJobs -= 1;	
+		} else if (theWorkCategory == 1) { // medium 
+			if (numMedJobs > 0) 
+				numMedJobs -= 1;
+		} else if (theWorkCategory == 2) { // hard 
+			if (numHeavyJobs > 0) 
+				numHeavyJobs -= 1;
+		}
+	}
+
+
 	/** Setters */
 	public void setTitle(String theTitle) {
 		title = theTitle;
@@ -133,17 +208,24 @@ public class Job implements Serializable {
 		description = theD;
 	}
 
-	public void setGrade(int theGrade) {
-		grade = theGrade;
+	public void setNumLightJobs(int theL) {
+		numLightJobs = theL;
 	}
-	
+
+	public void setNumMedJobs(int theM) {
+		numMedJobs = theM;
+	}
+	public void setNumHeavyJobs(int theH) {
+		numHeavyJobs = theH;
+	}
+
 	public void setStartDate(int theYear, int theMonth, int theDay){
 		this.myStartDate = new GregorianCalendar(theYear, theMonth-1, theDay);
 	}
-	
-//	public void setDate(String theDate) {
-//		date = theDate;
-//	}
+
+	//	public void setDate(String theDate) {
+	//		date = theDate;
+	//	}
 
 
 	/** Getters */
@@ -163,17 +245,25 @@ public class Job implements Serializable {
 		return description;
 	}
 
-	public int getGrade() {
-		return grade;
+	public int getNumLightJobs() {
+		return numLightJobs;
 	}
-	
+
+	public int getNumMedJobs() {
+		return numMedJobs;
+	}
+
+	public int getNumHeavyJobs() {
+		return numHeavyJobs;
+	}
+
 	public Calendar getStartDate(){
 		return myStartDate;
 	}
-	
-//	public String getDate() {
-//		return date;
-//	}
+
+	//	public String getDate() {
+	//		return date;
+	//	}
 
 }
 
