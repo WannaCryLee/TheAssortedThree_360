@@ -1,3 +1,8 @@
+/*
+ * Ariel McNamara, Jasmine Pedersen, and Jordan Love
+ * TCSS 360: Software Engineering
+ * Spring 2015
+ */
 package model;
 
 import static org.junit.Assert.*;

@@ -1,5 +1,7 @@
-/**
- * 
+/*
+ * Ariel McNamara, Jasmine Pedersen, and Jordan Love
+ * TCSS 360: Software Engineering
+ * Spring 2015
  */
 package model;
 
@@ -17,9 +19,16 @@ public class VolunteerTest {
 	//Sets format for Date Strings
 	private static SimpleDateFormat sdf = new SimpleDateFormat("MMM dd, yyyy");
 	private Volunteer myVolunteerDefault = new Volunteer();
+//	theTitle,theParkName, theAddress, 
+//			theDescription,theNumLightJobs, theNumMedJobs, theNumHeavyJobs,
+	
+//			int theStartYear, int theStartMonth, int theStartDay,
+//			int theEndYear, int theEndMonth, int theEndDay)
 	private Volunteer myVolunteerGivenData = new Volunteer("Lysia", "Valu", "jedimaster@gmail.com", "sparkle");
-	private Job myJobData1 = new Job("Lessons", "Huntamer Park", "Lacey Dr.", "Swimming in the air.", 5, 2015,12,31, 2016,1,1);
-	private Job myJobData2 = new Job("Training", "Long Lake", "Canyon Rd.", "Lifeguard Training", 5, 2015, 12, 24, 2015,12,25);
+	private Job myJobData1 = new Job("Lessons", "Huntamer Park", "Lacey Dr.", "Swimming in the air.", 5, 5, 5,
+			2015, 12, 31, 2016,1,1);
+	private Job myJobData2 = new Job("Training", "Long Lake", "Canyon Rd.", "Lifeguard Training", 5, 5, 5,
+			2015, 12, 24, 2015,12,25);
 	
 	/**
 	 * Test method for {@link model.Volunteer#Volunteer(int, java.lang.String, java.lang.String, java.lang.String, java.lang.String)}.
@@ -46,6 +55,12 @@ public class VolunteerTest {
 	 */
 	@Test
 	public void shouldAddJob() {
+		//System.out.println("Here!! " + myJobData1.getTitle() + " " + myJobData1.getStartDate() );
+//		System.out.println("Success!! You are signed up to volunteer for " + myJobData1.getTitle() 
+//				+ " on " +  sdf.format(myJobData1.getStartDate())+ ".");
+//		System.out.println("You are already volunteering for a job on this day!");
+//		System.out.println("Success!! You are signed up to volunteer for " + myJobData2.getTitle() 
+//				+ " on " +  sdf.format(myJobData2.getStartDate())+ ".");
 		//Checks if a job was added or not
 		assertEquals(myVolunteerDefault.addJob(myJobData1), "Success!! You are signed up to volunteer for " + myJobData1.getTitle() 
 				+ " on " +  sdf.format(myJobData1.getStartDate())+ ".");

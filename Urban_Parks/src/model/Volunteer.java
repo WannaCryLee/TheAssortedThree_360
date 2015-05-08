@@ -1,3 +1,8 @@
+/*
+ * Ariel McNamara, Jasmine Pedersen, and Jordan Love
+ * TCSS 360: Software Engineering
+ * Spring 2015
+ */
 package model;
 
 import java.io.Serializable;
@@ -74,20 +79,17 @@ public class Volunteer implements Serializable {
 	 * @param theJob, the position the volunteer wishes to sign up for
 	 */
 	public String addJob(Job theJob){
-		Job jobArray = new Job();
+		Job currentJobSearch = new Job();
 		boolean volunteered = false;
 
 		if(myJobSignedUp.size() != 0){	
 			for(int i = 0; i < myJobSignedUp.size(); i++){
-				jobArray = myJobSignedUp.get(i);
-				
-				if(theJob.getStartDate().compareTo(jobArray.getStartDate()) == 0){
+				currentJobSearch = myJobSignedUp.get(i);
+							
+				if(theJob.getStartDate().compareTo(currentJobSearch.getStartDate()) == 0){
 					volunteered = true;
+					
 				}
-				
-//				if(theJob.getDate().equals(jobArray.getDate())){
-//					volunteered = true;
-//				} 
 			}
 		} 
 

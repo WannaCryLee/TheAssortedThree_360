@@ -1,9 +1,15 @@
+/*
+ * Ariel McNamara, Jasmine Pedersen, and Jordan Love
+ * TCSS 360: Software Engineering
+ * Spring 2015
+ */
 package model;
 
 import java.io.Serializable;
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Calendar;
+import java.util.Date;
 import java.util.GregorianCalendar;
 
 /**
@@ -82,7 +88,8 @@ public class Job implements Serializable {
 	 * @param theDay the day of the users job
 	 */
 	public Job(String theTitle, String theParkName, String theAddress, 
-			String theDescription, int theNumLightJobs, int theNumMedJobs,int theNumHeavyJobs, int theStartYear, int theStartMonth, int theStartDay,
+			String theDescription, int theNumLightJobs, int theNumMedJobs,int theNumHeavyJobs, 
+			int theStartYear, int theStartMonth, int theStartDay,
 			int theEndYear, int theEndMonth, int theEndDay) {
 		title = theTitle;
 		parkName = theParkName;
@@ -97,7 +104,12 @@ public class Job implements Serializable {
 
 		signedUpList = new ArrayList<Volunteer>();
 	}
-
+	
+	/**
+	 * 
+	 * @param other
+	 * @return
+	 */
 	public boolean compare(Job other) {
 		if (!title.equals(other.getTitle()))
 			return false;
@@ -223,11 +235,6 @@ public class Job implements Serializable {
 		this.myStartDate = new GregorianCalendar(theYear, theMonth-1, theDay);
 	}
 
-	//	public void setDate(String theDate) {
-	//		date = theDate;
-	//	}
-
-
 	/** Getters */
 	public String getTitle() {
 		return title;
@@ -257,13 +264,9 @@ public class Job implements Serializable {
 		return numHeavyJobs;
 	}
 
-	public Calendar getStartDate(){
-		return myStartDate;
+	public Date getStartDate(){
+		return myStartDate.getTime();
 	}
-
-	//	public String getDate() {
-	//		return date;
-	//	}
 
 }
 
