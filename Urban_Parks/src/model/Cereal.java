@@ -61,7 +61,8 @@ public class Cereal implements Serializable{
 		} catch (UnsupportedEncodingException e) {
 			e.printStackTrace();
 		}
-		decodedPath = decodedPath.substring(0, decodedPath.indexOf("/Urban_Parks.jar"));
+		if (decodedPath.contains("/Urban_Parks.jar"))
+			decodedPath = decodedPath.substring(0, decodedPath.indexOf("/Urban_Parks.jar"));
 	}
 	
 	/**
