@@ -6,12 +6,22 @@ import java.util.Scanner;
 import model.LogIn;
 import model.Volunteer;
 
+/**
+ * Displays Admin Screen
+ * @author Jordan Love
+ *
+ */
 public class AdminGui {
 
+	//Constructor
 	public AdminGui() {
 		
 	}
 	
+	/**
+	 * Main Screen
+	 * @param admin		Instance of Administrator
+	 */
 	public void printScreen(LogIn admin) {
 		Scanner thisScan = new Scanner(System.in);
 		int choice = 0;
@@ -32,6 +42,12 @@ public class AdminGui {
 		thisScan.close();
 	}
 	
+	/**
+	 * Decision Making for main screen
+	 * @param decision			Choice from the user
+	 * @param admin				Instance of Admin
+	 * @param thisScan			Scanner
+	 */
 	private void helperAdmin(int decision, LogIn admin, Scanner thisScan) {
 		UI tools = new UI();
 		tools.clearScreen();

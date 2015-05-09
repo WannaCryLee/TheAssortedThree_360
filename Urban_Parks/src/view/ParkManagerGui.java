@@ -12,12 +12,22 @@ import model.LogIn;
 import model.UserList;
 import model.Volunteer;
 
+/**
+ * Displays Park Manager Screen
+ * @author Jordan Love
+ *
+ */
 public class ParkManagerGui {
 
+	//Constructor
 	public ParkManagerGui() {
 		
 	}
 	
+	/**
+	 * Main Screen
+	 * @param parkManager      Instance of Park Manager
+	 */
 	public void printScreen(LogIn parkManager) {
 		Scanner thisScan = new Scanner(System.in);
 		int choice = 0;
@@ -39,6 +49,12 @@ public class ParkManagerGui {
 		thisScan.close();
 	}
 	
+	/**
+	 * Decision making for Main Screen
+	 * @param decision			Choice from user
+	 * @param parkManager		Instance of Park Manager
+	 * @param thisScan			Scanner
+	 */
 	private void helperManager(int decision, LogIn parkManager, Scanner thisScan) {
 		UI tools = new UI();
 		tools.clearScreen();

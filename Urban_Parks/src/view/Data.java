@@ -10,12 +10,21 @@ import model.ParkManager;
 import model.UserList;
 import model.Volunteer;
 
+/**
+ * Original Data
+ * @author Jordan Love
+ *
+ */
 public class Data {
 
+	//Constructor
 	public Data() {
 		
 	}
 	
+	/**
+	 * Serializes new objects for data
+	 */
 	public void freshData() {
 		UserList userList = new UserList();
 		JobList jobList = new JobList();

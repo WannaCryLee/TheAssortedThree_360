@@ -11,11 +11,22 @@ import model.JobList;
 import model.LogIn;
 import model.Volunteer;
 
+/**
+ * Displays Volunteer Screen
+ * @author Jordan Love
+ *
+ */
 public class VolunteerGui {
+	
+	// Constructor
 	public VolunteerGui () {
 		
 	}
 	
+	/**
+	 * Main Screen
+	 * @param volunteer    Instance of volunteer 
+	 */
 	public void printScreen(LogIn volunteer) {
 		Scanner thisScan = new Scanner(System.in);
 		int choice = 0;
@@ -38,7 +49,13 @@ public class VolunteerGui {
 		thisScan.close();
 	}
 	
-	private static void helperVolunteer(int decision, LogIn volunteer, Scanner scan) {
+	/**
+	 * Decision making method for Volunteer
+	 * @param decision  	The int of the choice from the user
+	 * @param volunteer		The instance of Volunteer
+	 * @param scan			Scanner
+	 */
+	private void helperVolunteer(int decision, LogIn volunteer, Scanner scan) {
 		UI tools = new UI();
 		tools.clearScreen();
 		if (decision == 1) {

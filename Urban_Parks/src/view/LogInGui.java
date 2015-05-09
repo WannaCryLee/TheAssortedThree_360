@@ -4,11 +4,21 @@ import java.util.Scanner;
 
 import model.LogIn;
 
+/**
+ * Displays log in 
+ * @author Jordan Love
+ *
+ */
 public class LogInGui {
+	
+	//Constructor
 	public LogInGui() {
 		
 	}
 	
+	/**
+	 * Main screen to log in
+	 */
 	public void logIn() {
 		UI tools = new UI();
 		tools.clearScreen();
@@ -26,7 +36,13 @@ public class LogInGui {
 		in.close();
 	}
 	
-	private static boolean checkLogIn(String givenUsername, String givenPassword) {
+	/**
+	 * Checks to make sure credentials match
+	 * @param givenUsername			User's email
+	 * @param givenPassword			User's password
+	 * @return
+	 */
+	private boolean checkLogIn(String givenUsername, String givenPassword) {
 		AdminGui admin = new AdminGui();
 		VolunteerGui volunteer = new VolunteerGui();
 		ParkManagerGui manager = new ParkManagerGui();
