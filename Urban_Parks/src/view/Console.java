@@ -22,7 +22,7 @@ import model.Volunteer;
  */
 public class Console {
 	
-	public static void main(String[] args) {	
+	public static void main(String[] args) {
 		startProgram();
 		Scanner scan = new Scanner(System.in);
 		clearScreen();
@@ -44,79 +44,22 @@ public class Console {
 		closeProgram();
 	}
 	
-	/**
-	 * Closes the program
-	 */
-	private static void closeProgram() {
-		clearScreen();
-		System.out.println("Thank you for visiting! \nGood Bye");
-	}
 	
-	private static void printJobs() {
-		Cereal getJobs = new Cereal(1);
-		JobList jobs = (JobList)getJobs.deSerialize();
-		
+	
+	
+	
+	//****************************************************************************************************
+	//									        Volunteer Screen
+	//****************************************************************************************************
 
-		java.util.Iterator<Entry<Integer, Object>> itr = jobs.getMap().entrySet().iterator();
-		while(itr.hasNext()) {
-			Map.Entry<Integer, Object> pair = (Map.Entry<Integer, Object>)itr.next();
-			System.out.println("[ " + ((Job)pair.getValue()).getTitle() + ", " + ((Job)pair.getValue()).getParkName() + ", " +
-					((Job)pair.getValue()).getDescription() + ", " +
-					((Job)pair.getValue()).getStartDate() + " ]");			
-			itr.remove();
-		}		
-	}
 	
-	private static void printTitle() {
-		System.out.println(" ________________________");
-		System.out.println("|                        |");
-		System.out.println("|       Urban Parks      |");
-		System.out.println("|________________________|  Created by: TheAssortedThree\n");
-	}
 	
-	private static void logIn() {
-		clearScreen();
-		Scanner in = new Scanner(System.in);
-		String givenUsername = "", givenPassword = "";
-		do {
-			System.out.println("Please Log-In!");
-			System.out.println("______________\n");
-			System.out.print("Username: ");
-			givenUsername = in.next();
-			System.out.print("\nPassword: ");
-			givenPassword = in.next();
-			clearScreen();
-		} while (!checkLogIn(givenUsername, givenPassword));
-		in.close();
-	}
 	
-	private static boolean checkLogIn(String givenUsername, String givenPassword) {
-		LogIn access = new LogIn();
-		access.getInstance(givenUsername);
-		//User is a admin
-		if((access.getTheAdmin() != null) && access.getWhoAmI() == 2) {
-			if (!access.getTheAdmin().getMyPassword().equals(givenPassword))
-				return false;
-			else
-				adminScreen(access);
-		//User is a Park Manager
-		} else if (access.getTheManager() != null && access.getWhoAmI() == 1) {
-			if (!access.getTheManager().getPassword().equals(givenPassword))
-				return false;
-			else managerScreen(access);
-		//User is a volunteer
-		} else if (access.getTheVolunteer() != null && access.getWhoAmI() == 0) {
-			if (!access.getTheVolunteer().getMyPassword().equals(givenPassword))
-				return false;
-			else 
-				volunteerScreen(access);
-		} else {
-			//Did not find user
-			return false;
-		}
-		return true;
-	}
 	
+	/**
+	 * Main volunteer Screen
+	 * If modifying print statements make sure to modify the helperVolunteer method as well
+	 */
 	private static void volunteerScreen(LogIn volunteer) {
 		Scanner thisScan = new Scanner(System.in);
 		int choice = 0;
@@ -137,15 +80,6 @@ public class Console {
 			
 		} while (choice != 4);
 		thisScan.close();
-	}
-	
-	private static void pause(Scanner scan) {
-		String getOut = "";
-		do {
-			System.out.println("\n Input anything to continue");
-			getOut = scan.next();
-		} while (getOut == "");
-		clearScreen();
 	}
 	
 	private static void helperVolunteer(int decision, LogIn volunteer, Scanner scan) {
@@ -194,6 +128,21 @@ public class Console {
 		}
 	}
 	
+	
+	
+	
+	
+	//****************************************************************************************************
+	//									      Administrator Screen
+	//****************************************************************************************************
+
+	
+	
+	
+	/**
+	 * Main Administrator Screen
+	 * If modifying print statements make sure to modify the helperAdmin method as well
+	 */
 	private static void adminScreen(LogIn admin) {
 		Scanner thisScan = new Scanner(System.in);
 		int choice = 0;
@@ -240,6 +189,25 @@ public class Console {
 		}
 	}
 	
+	
+	
+	
+	
+	
+	
+	//****************************************************************************************************
+	//									        Park Manager Screen
+	//****************************************************************************************************
+
+	
+	
+	
+	
+	
+	/**
+	 * Main Park Manager Screen
+	 * If modifying print statements make sure to modify the helperManager method as well
+	 */
 	private static void managerScreen(LogIn parkManager) {
 		Scanner thisScan = new Scanner(System.in);
 		int choice = 0;
@@ -388,6 +356,22 @@ public class Console {
 		}
 	}
 	
+	
+	
+	
+	
+	
+	//****************************************************************************************************
+	//									        Console UI 
+	//****************************************************************************************************
+
+	
+	
+	
+	
+	
+	
+	
 	private static void clearScreen() {
 		for (int i = 0; i < 50; i++) {
 			System.out.println("\n\n");
@@ -395,9 +379,132 @@ public class Console {
 		printTitle();
 	}
 	
-	/**
-	 * Starts the problem
-	 */
+	private static void pause(Scanner scan) {
+		String getOut = "";
+		do {
+			System.out.println("\n Input anything to continue");
+			getOut = scan.next();
+		} while (getOut == "");
+		clearScreen();
+	}
+	
+	private static void printTitle() {
+		System.out.println(" ________________________");
+		System.out.println("|                        |");
+		System.out.println("|       Urban Parks      |");
+		System.out.println("|________________________|  Created by: TheAssortedThree\n");
+	}
+	
+	private static void closeProgram() {
+		clearScreen();
+		System.out.println("Thank you for visiting! \nGood Bye");
+	}
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	//****************************************************************************************************
+	//									        Jobs toString
+	//****************************************************************************************************
+
+	
+	
+	
+	
+	
+	
+	private static void printJobs() {
+		Cereal getJobs = new Cereal(1);
+		JobList jobs = (JobList)getJobs.deSerialize();
+		
+
+		java.util.Iterator<Entry<Integer, Object>> itr = jobs.getMap().entrySet().iterator();
+		while(itr.hasNext()) {
+			Map.Entry<Integer, Object> pair = (Map.Entry<Integer, Object>)itr.next();
+			System.out.println("[ " + ((Job)pair.getValue()).getTitle() + ", " + ((Job)pair.getValue()).getParkName() + ", " +
+					((Job)pair.getValue()).getDescription() + ", " +
+					((Job)pair.getValue()).getStartDate() + " ]");			
+			itr.remove();
+		}		
+	}
+	
+	
+	
+	
+	
+	
+	//****************************************************************************************************
+	//									        Log In
+	//****************************************************************************************************
+
+	
+	
+	
+	
+	
+	
+	private static void logIn() {
+		clearScreen();
+		Scanner in = new Scanner(System.in);
+		String givenUsername = "", givenPassword = "";
+		do {
+			System.out.println("Please Log-In!");
+			System.out.println("______________\n");
+			System.out.print("Username: ");
+			givenUsername = in.next();
+			System.out.print("\nPassword: ");
+			givenPassword = in.next();
+			clearScreen();
+		} while (!checkLogIn(givenUsername, givenPassword));
+		in.close();
+	}
+	
+	private static boolean checkLogIn(String givenUsername, String givenPassword) {
+		LogIn access = new LogIn();
+		access.getInstance(givenUsername);
+		//User is a admin
+		if((access.getTheAdmin() != null) && access.getWhoAmI() == 2) {
+			if (!access.getTheAdmin().getMyPassword().equals(givenPassword))
+				return false;
+			else
+				adminScreen(access);
+		//User is a Park Manager
+		} else if (access.getTheManager() != null && access.getWhoAmI() == 1) {
+			if (!access.getTheManager().getPassword().equals(givenPassword))
+				return false;
+			else managerScreen(access);
+		//User is a volunteer
+		} else if (access.getTheVolunteer() != null && access.getWhoAmI() == 0) {
+			if (!access.getTheVolunteer().getMyPassword().equals(givenPassword))
+				return false;
+			else 
+				volunteerScreen(access);
+		} else {
+			//Did not find user
+			return false;
+		}
+		return true;
+	}
+
+	
+	
+	
+	
+	
+	//****************************************************************************************************
+	//							           		Set Up Data
+	//****************************************************************************************************
+	
+	
+
+	
+	
+	
 	private static void startProgram() {
 		UserList userList = new UserList();
 		JobList jobList = new JobList();
