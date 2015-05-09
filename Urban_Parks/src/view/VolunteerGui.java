@@ -74,15 +74,17 @@ public class VolunteerGui {
 				itr.remove();
 			}	
 			//To sign up for a job
-			System.out.println("\n Would you like to sign up for a job? (Y/N)");
+			System.out.println("\nWould you like to sign up for a job? (Y/N)");
 			String ans = scan.next();
 			if (ans.toLowerCase().charAt(0) == 'y') {
-				System.out.print("\n\n Please enter the number for the job you would like to sign up for: ");
+				System.out.print("\n\nPlease enter the number for the job you would like to sign up for: ");
 				int signJob = scan.nextInt();
+				tools.clearScreen();
 				System.out.println("\n" + ((Volunteer)volunteer.getTheVolunteer()).addJob((Job)(jobs.getMap().get((Integer)signJob))));
+				tools.pause();
 			}
 			
-			tools.pause();
+			
 			
 		} else if (decision == 2) {
 			System.out.println("My Jobs");
