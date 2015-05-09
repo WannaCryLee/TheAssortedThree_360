@@ -60,8 +60,8 @@ public class Console {
 		while(itr.hasNext()) {
 			Map.Entry<Integer, Object> pair = (Map.Entry<Integer, Object>)itr.next();
 			System.out.println("[ " + ((Job)pair.getValue()).getTitle() + ", " + ((Job)pair.getValue()).getParkName() + ", " +
-					((Job)pair.getValue()).getDescription() + ", " + ((Job)pair.getValue()).getGrade() + ", " +
-					((Job)pair.getValue()).getDate() + " ]");			
+					((Job)pair.getValue()).getDescription() + ", " +
+					((Job)pair.getValue()).getStartDate() + " ]");			
 			itr.remove();
 		}		
 	}
@@ -157,8 +157,8 @@ public class Console {
 			while(itr.hasNext()) {
 				Map.Entry<Integer, Object> pair = (Map.Entry<Integer, Object>)itr.next();
 				System.out.println("[ " + pair.getKey() + " - " + ((Job)pair.getValue()).getTitle() + ", " + ((Job)pair.getValue()).getParkName() + ", " +
-						((Job)pair.getValue()).getDescription() + ", " + ((Job)pair.getValue()).getGrade() + ", " +
-						((Job)pair.getValue()).getDate() + " ]");				
+						((Job)pair.getValue()).getDescription() + ", " + 
+						((Job)pair.getValue()).getStartDate() + " ]");				
 				itr.remove();
 			}	
 			//To sign up for a job
@@ -177,7 +177,7 @@ public class Console {
 			System.out.println("_______");
 			ArrayList<Job> jobs = (ArrayList<Job>) volunteer.getTheVolunteer().getMyJobSignedUp();
 			for (Job currentJob : jobs) {
-				System.out.println("\n[ " + currentJob.getTitle() + " At " + currentJob.getDate() + " ]");
+				System.out.println("\n[ " + currentJob.getTitle() + " At " + currentJob.getStartDate() + " ]");
 			}
 			pause(scan);
 		} else if (decision == 3) {
@@ -272,12 +272,13 @@ public class Console {
 			System.out.print("\nGrade: ");
 			int grade = thisScan.nextInt();
 			System.out.print("\nDate: ");
-			String date = thisScan.next();
-			Job newJob = new Job(title, parkName, address, description, grade, date);
+			String date = thisScan.next();/**
+			//Job newJob = new Job(title, parkName, address, description, grade, date);
 			//Need to check and notify user if job does not align with business rule before submitting!!
 			jobDoubleCheck(thisScan, newJob);
 			parkManager.getTheManager().submitJob(newJob);
 			System.out.println("Job Submitted");
+			*/
 			pause(thisScan);
 			
 			//View Park jobs
@@ -295,7 +296,7 @@ public class Console {
 				while(itr.hasNext()) {
 					Map.Entry<Integer, Object> pair = (Map.Entry<Integer, Object>)itr.next();
 					if (((Job)pair.getValue()).getParkName().toLowerCase().equals(park.toLowerCase())) {
-						System.out.println("[ " + pair.getKey() + " - " + ((Job)pair.getValue()).getTitle() + " in " + ((Job)pair.getValue()).getDate() + " ]");
+						System.out.println("[ " + pair.getKey() + " - " + ((Job)pair.getValue()).getTitle() + " in " + ((Job)pair.getValue()).getStartDate() + " ]");
 					}
 					itr.remove();
 				}	
@@ -370,12 +371,12 @@ public class Console {
 			} else if (problem == 5) {
 				System.out.println("\nPlease Re-enter approved Grade: ");
 				gradeResolve = scan.nextInt();
-				job.setGrade(gradeResolve);
+				//job.setGrade(gradeResolve);
 				//Date
 			} else if (problem == 6) {
 				System.out.println("\nPlease Re-enter approved Date: ");
 				resolve = scan.nextLine();
-				job.setDate(resolve);
+				//job.setDate(resolve);
 			}
 		}
 	}
@@ -437,27 +438,27 @@ public class Console {
 		
 		startingMap = new HashMap<Integer, Object>();
 		
-		Job startingJob = new Job("Rock", "Tuscany", "Tacoma, WA", "Clean Rocks", 1 , "May");
+		Job startingJob = new Job("Rock", "Tuscany", "Tacoma, WA", "Clean Rocks", 3, 5, 3, 2015, 5, 15, 2015, 5, 15);
 		
 		startingMap.put(startingMap.size(), startingJob);
 		
-		startingJob = new Job("Bark", "Tuscany", "Tacoma, WA", "New Bark", 2, "June" );
+		startingJob = new Job("Bark", "Tuscany", "Tacoma, WA", "New Bark",3, 5, 3, 2015, 5, 30, 2015, 5, 30);
 		
 		startingMap.put(startingMap.size(), startingJob);
 		
-		startingJob = new Job("Sweep", "Wright", "Tacoma, WA", "Sweep Sidewalks", 0, "May");
+		startingJob = new Job("Sweep", "Wright", "Tacoma, WA", "Sweep Sidewalks", 3, 5, 3, 2015, 6, 15, 2015, 6, 15);
 		
 		startingMap.put(startingMap.size(), startingJob);
 		
-		startingJob = new Job("Garbage", "Wright", "Tacoma, WA", "Change all the Garbage", 0, "July");
+		startingJob = new Job("Garbage", "Wright", "Tacoma, WA", "Change all the Garbage", 3, 5, 3, 2015, 7, 15, 2015, 7, 15);
 		
 		startingMap.put(startingMap.size(), startingJob);
 		
-		startingJob = new Job("New Fountain", "Lighthouse", "Tacoma, WA", "Install new fountain", 2, "June" );
+		startingJob = new Job("New Fountain", "Lighthouse", "Tacoma, WA", "Install new fountain", 3, 5, 3, 2015, 8, 15, 2015, 8, 15);
 		
 		startingMap.put(startingMap.size(), startingJob);
 		
-		startingJob = new Job("BBQ", "LightHouse", "Tacoma, WA", "Cook Meat :)", 1, "May");
+		startingJob = new Job("BBQ", "LightHouse", "Tacoma, WA", "Cook Meat :)", 3, 5, 3, 2015, 9, 15, 2015, 9, 15);
 		
 		startingMap.put(startingMap.size(), startingJob);
 		

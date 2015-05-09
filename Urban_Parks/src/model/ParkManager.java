@@ -7,6 +7,8 @@ package model;
 
 import java.io.File;
 import java.io.Serializable;
+import java.io.UnsupportedEncodingException;
+import java.net.URLDecoder;
 import java.util.ArrayList;
 import java.util.HashMap;
 
@@ -104,8 +106,16 @@ public class ParkManager implements Serializable{
 		Cereal deserial = new Cereal(1);
 		JobList jobs;
 		HashMap<Integer, Object> jobList;
+		String path = Cereal.class.getProtectionDomain().getCodeSource().getLocation().getPath();
+		String decodedPath = "";
+		try {
+			decodedPath = URLDecoder.decode(path, "UTF-8");
+		} catch (UnsupportedEncodingException e) {
+			e.printStackTrace();
+		}
+		decodedPath = decodedPath.substring(0, decodedPath.indexOf("/Urban_Parks.jar"));
 		
-		File fileFound = new File("Files/job.ser");
+		File fileFound = new File( decodedPath + "/job.ser");
 		
 		if (fileFound.exists()) {
 			jobs = (JobList) deserial.deSerialize();

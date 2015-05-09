@@ -11,6 +11,8 @@ import java.io.IOException;
 import java.io.ObjectInputStream;
 import java.io.ObjectOutputStream;
 import java.io.Serializable;
+import java.io.UnsupportedEncodingException;
+import java.net.URLDecoder;
 
 /**
  * Allows Serialization of Objects
@@ -39,12 +41,27 @@ public class Cereal implements Serializable{
 	//type 0 if user or 1 if job
 	private int myType;
 	
+	private String path;
+	
+	private String decodedPath;
+	
 	/**
 	 * Constructor
 	 * @param objectNumber, 1 for saving JobList class, 0 for saving UserList class
 	 */
 	public Cereal(int theType) {
 		myType = theType;
+		findFile();
+	}
+	
+	private void findFile() {
+		path = Cereal.class.getProtectionDomain().getCodeSource().getLocation().getPath();
+		try {
+			decodedPath = URLDecoder.decode(path, "UTF-8");
+		} catch (UnsupportedEncodingException e) {
+			e.printStackTrace();
+		}
+		decodedPath = decodedPath.substring(0, decodedPath.indexOf("/Urban_Parks.jar"));
 	}
 	
 	/**
@@ -52,11 +69,13 @@ public class Cereal implements Serializable{
 	 * @param theClass, Object to be written to file
 	 */
 	public void serialize(Object theClass) {
+		
+		
 		try {
 			if (myType == 0)
-				outFile = new FileOutputStream("Files/user.ser");
+				outFile = new FileOutputStream( decodedPath + "/user.ser");
 			else
-				outFile = new FileOutputStream("Files/job.ser");
+				outFile = new FileOutputStream( decodedPath + "/job.ser");
 		
 			
 			out = new ObjectOutputStream(outFile);
@@ -79,9 +98,9 @@ public class Cereal implements Serializable{
 		
 		try {
 			if (myType == 0)
-				inFile = new FileInputStream("Files/user.ser");
+				inFile = new FileInputStream(decodedPath + "/user.ser");
 			else
-				inFile = new FileInputStream("Files/job.ser");
+				inFile = new FileInputStream(decodedPath + "/job.ser");
 		
 			in = new ObjectInputStream(inFile);
 			freshData = in.readObject();
