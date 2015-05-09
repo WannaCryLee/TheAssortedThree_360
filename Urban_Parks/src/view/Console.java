@@ -1,19 +1,6 @@
 package view;
 
-import java.util.ArrayList;
-import java.util.HashMap;
-import java.util.Map;
 import java.util.Scanner;
-import java.util.Map.Entry;
-
-import model.Admin;
-import model.Cereal;
-import model.Job;
-import model.JobList;
-import model.LogIn;
-import model.ParkManager;
-import model.UserList;
-import model.Volunteer;
 
 /**
  * Console Driver for Urban Parks
@@ -23,26 +10,117 @@ import model.Volunteer;
 public class Console {
 	
 	public static void main(String[] args) {
-		startProgram();
+		LogInGui logIn = new LogInGui();
+		Data data = new Data();
+		UI tools = new UI();
+		JobGui jobs = new JobGui();
 		Scanner scan = new Scanner(System.in);
-		clearScreen();
+		
+		data.freshData();
+		tools.clearScreen();
+		
 		System.out.println("Would you like to log in? (Y for yes or anything else to bypass)");
 		System.out.println("          (Volunteers need to log in if they want to sign up for a job)");
 		System.out.println("          (Park Managers and Administrators are required to log in)");
 		String answer = scan.next();
-		if (answer.toLowerCase().charAt(0) == 'y')
-			logIn();
-		else {
-			clearScreen();
-			printJobs();
+		if (answer.toLowerCase().charAt(0) == 'y'){
+			logIn.logIn();
+		} else {
+			tools.clearScreen();
+			jobs.printJobs();
 			System.out.println("\n\nWould you like to log in to sign up for a job? (Y/N)");
 			answer = scan.next();
 			if (answer.toLowerCase().charAt(0) == 'y')
-				logIn();
+				logIn.logIn();
 		}
 		scan.close();
-		closeProgram();
+		tools.closeProgram();
 	}
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+
+	
+	
+	
+	
+	
+	
+	
+	
+	/**
+	
+	
+	
+	
+	
+	
+	Old Console Code
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	//****************************************************************************************************
+	//									        Jobs toString
+	//****************************************************************************************************
+
+		
+		
+		
+		
+		
+		
+		private static void printJobs() {
+			Cereal getJobs = new Cereal(1);
+			JobList jobs = (JobList)getJobs.deSerialize();
+			
+
+			java.util.Iterator<Entry<Integer, Object>> itr = jobs.getMap().entrySet().iterator();
+			while(itr.hasNext()) {
+				Map.Entry<Integer, Object> pair = (Map.Entry<Integer, Object>)itr.next();
+				System.out.println("[ " + ((Job)pair.getValue()).getTitle() + ", " + ((Job)pair.getValue()).getParkName() + ", " +
+						((Job)pair.getValue()).getDescription() + ", " +
+						((Job)pair.getValue()).getStartDate() + " ]");			
+				itr.remove();
+			}		
+		}
+	
 	
 	
 	
@@ -59,7 +137,7 @@ public class Console {
 	/**
 	 * Main volunteer Screen
 	 * If modifying print statements make sure to modify the helperVolunteer method as well
-	 */
+	 
 	private static void volunteerScreen(LogIn volunteer) {
 		Scanner thisScan = new Scanner(System.in);
 		int choice = 0;
@@ -132,6 +210,8 @@ public class Console {
 	
 	
 	
+	
+	
 	//****************************************************************************************************
 	//									      Administrator Screen
 	//****************************************************************************************************
@@ -139,10 +219,12 @@ public class Console {
 	
 	
 	
+	
+	
 	/**
 	 * Main Administrator Screen
 	 * If modifying print statements make sure to modify the helperAdmin method as well
-	 */
+	 
 	private static void adminScreen(LogIn admin) {
 		Scanner thisScan = new Scanner(System.in);
 		int choice = 0;
@@ -207,7 +289,7 @@ public class Console {
 	/**
 	 * Main Park Manager Screen
 	 * If modifying print statements make sure to modify the helperManager method as well
-	 */
+	 
 	private static void managerScreen(LogIn parkManager) {
 		Scanner thisScan = new Scanner(System.in);
 		int choice = 0;
@@ -253,7 +335,7 @@ public class Console {
 			jobDoubleCheck(thisScan, newJob);
 			parkManager.getTheManager().submitJob(newJob);
 			System.out.println("Job Submitted");
-			*/
+			
 			pause(thisScan);
 			
 			//View Park jobs
@@ -578,5 +660,5 @@ public class Console {
 		storeUserData.serialize(userList);
 		storeJobData.serialize(jobList);
 	}
-	
+	*/
 }
