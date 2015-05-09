@@ -126,7 +126,7 @@ public class ParkManagerGui {
 		System.out.println("\nWould you like to see volunteers for a job? (Y/N)");
 		String response = thisScan.next();
 		if (response.toLowerCase().charAt(0) == 'y') {
-			seeVolunteers(thisScan, jobs, users);
+			seeVolunteers(parkManager, thisScan, jobs, users);
 			tools.pause();
 		} else
 			tools.clearScreen();
@@ -147,10 +147,15 @@ public class ParkManagerGui {
 		tools.pause();
 	}
 	
-	private void seeVolunteers(Scanner thisScan, JobList jobs, UserList users) {
-		System.out.println("What job number?");
+	private void seeVolunteers(LogIn parkManager, Scanner thisScan, JobList jobs, UserList users) {
+		System.out.print("\nJob number: ");
 		int jobNum = thisScan.nextInt();
 		Job selectedJob = (Job)jobs.getMap().get(jobNum);
+		while (!parkManager.getTheManager().getParks().contains(selectedJob.getParkName())) {
+			System.out.print("\nYou do not have this job number for your park\nPlease enter the correct Job Number: ");
+			jobNum = thisScan.nextInt();
+			selectedJob = (Job)jobs.getMap().get(jobNum);
+		}
 		boolean isJobPrinted = false;
 		
 		java.util.Iterator<Entry<Integer, Object>> itr = users.getMap().entrySet().iterator();
@@ -170,7 +175,7 @@ public class ParkManagerGui {
 			itr.remove();
 		}
 		if (!isJobPrinted)
-			System.out.println("No Volunteers has signed up yet");
+			System.out.println("\nNo Volunteers has signed up yet");
 	}
 	
 	/**

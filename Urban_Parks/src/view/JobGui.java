@@ -30,7 +30,7 @@ public class JobGui {
 		java.util.Iterator<Entry<Integer, Object>> itr = jobs.getMap().entrySet().iterator();
 		while(itr.hasNext()) {
 			Map.Entry<Integer, Object> pair = (Map.Entry<Integer, Object>)itr.next();
-			System.out.println("[ " + ((Job)pair.getValue()).getTitle() + ", " + ((Job)pair.getValue()).getParkName() + ", " +
+			System.out.println("[ " + pair.getKey() + " - " + ((Job)pair.getValue()).getTitle() + ", " + ((Job)pair.getValue()).getParkName() + ", " +
 					((Job)pair.getValue()).getDescription() + ", " +
 					((Job)pair.getValue()).getStartDate() + " ]");			
 			itr.remove();

@@ -85,6 +85,8 @@ public class VolunteerGui {
 		for (Job currentJob : jobs) {
 			System.out.println("\n[ " + currentJob.getTitle() + " At " + currentJob.getStartDate() + " ]");
 		}
+		if (jobs.isEmpty())
+			System.out.println("\nYou have no jobs :(\nChoose option 1 in the next menu to view and sign up for jobs!");
 		tools.pause();
 	}
 	
@@ -110,6 +112,11 @@ public class VolunteerGui {
 		if (ans.toLowerCase().charAt(0) == 'y') {
 			System.out.print("\n\nPlease enter the number for the job you would like to sign up for: ");
 			int signJob = scan.nextInt();
+			while (signJob >= jobs.getMap().size() || signJob < 0) {
+				System.out.print("\nNumber was out of range\nEnter job number: ");
+				signJob = scan.nextInt();
+			}
+
 			tools.clearScreen();
 			System.out.println("\n" + ((Volunteer)volunteer.getTheVolunteer()).addJob((Job)(jobs.getMap().get((Integer)signJob))));
 			tools.pause();
