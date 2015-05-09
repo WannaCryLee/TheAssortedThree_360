@@ -67,7 +67,7 @@ public class LogInGui {
 			else 
 				volunteer.printScreen(access);
 		} else {
-			//Did not find user
+		//Did not find user
 			return false;
 		}
 		return true;

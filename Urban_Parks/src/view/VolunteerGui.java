@@ -1,9 +1,7 @@
 package view;
 
 import java.util.ArrayList;
-import java.util.Map;
 import java.util.Scanner;
-import java.util.Map.Entry;
 
 import model.Cereal;
 import model.Job;
@@ -29,6 +27,7 @@ public class VolunteerGui {
 	 */
 	public void printScreen(LogIn volunteer) {
 		Scanner thisScan = new Scanner(System.in);
+		UI tools = new UI();
 		int choice = 0;
 		do {
 			System.out.println("\nVolunteer");
@@ -41,7 +40,18 @@ public class VolunteerGui {
 			System.out.println("4) Exit");
 			if (thisScan.hasNextInt()) {
 				choice = thisScan.nextInt();
-				helperVolunteer(choice, volunteer, thisScan);
+				tools.clearScreen();
+				switch (choice) {
+				case 1:
+					jobAvailableScreen(volunteer, thisScan, tools);
+					break;
+				case 2:
+					myJobScreen(volunteer, tools);
+					break;
+				case 3:
+					myAccountScreen(volunteer, tools);
+					break;
+				}
 			} else
 				thisScan.next();
 			
@@ -50,57 +60,61 @@ public class VolunteerGui {
 	}
 	
 	/**
-	 * Decision making method for Volunteer
-	 * @param decision  	The int of the choice from the user
-	 * @param volunteer		The instance of Volunteer
-	 * @param scan			Scanner
+	 * My Account Menu Screen
+	 * @param volunteer		instance of Volunteer
+	 * @param tools			instance of UI
 	 */
-	private void helperVolunteer(int decision, LogIn volunteer, Scanner scan) {
-		UI tools = new UI();
-		tools.clearScreen();
-		if (decision == 1) {
-			System.out.println("All Jobs Available");
-			System.out.println("__________________\n");
-			Cereal getJobs = new Cereal(1);
-			JobList jobs = (JobList)getJobs.deSerialize();
-			
-
-			java.util.Iterator<Entry<Integer, Object>> itr = jobs.getMap().entrySet().iterator();
-			while(itr.hasNext()) {
-				Map.Entry<Integer, Object> pair = (Map.Entry<Integer, Object>)itr.next();
-				System.out.println("[ " + pair.getKey() + " - " + ((Job)pair.getValue()).getTitle() + ", " + ((Job)pair.getValue()).getParkName() + ", " +
-						((Job)pair.getValue()).getDescription() + ", " + 
-						((Job)pair.getValue()).getStartDate() + " ]");				
-				itr.remove();
-			}	
-			//To sign up for a job
-			System.out.println("\nWould you like to sign up for a job? (Y/N)");
-			String ans = scan.next();
-			if (ans.toLowerCase().charAt(0) == 'y') {
-				System.out.print("\n\nPlease enter the number for the job you would like to sign up for: ");
-				int signJob = scan.nextInt();
-				tools.clearScreen();
-				System.out.println("\n" + ((Volunteer)volunteer.getTheVolunteer()).addJob((Job)(jobs.getMap().get((Integer)signJob))));
-				tools.pause();
-			}
-			
-			
-			
-		} else if (decision == 2) {
-			System.out.println("My Jobs");
-			System.out.println("_______");
-			ArrayList<Job> jobs = (ArrayList<Job>) volunteer.getTheVolunteer().getMyJobSignedUp();
-			for (Job currentJob : jobs) {
-				System.out.println("\n[ " + currentJob.getTitle() + " At " + currentJob.getStartDate() + " ]");
-			}
-			tools.pause();
-		} else if (decision == 3) {
-			System.out.println("My Account");
-			System.out.println("__________\n");
-			System.out.println(volunteer.getTheVolunteer().getMyFirst() + " " + volunteer.getTheVolunteer().getMyLast());
-			System.out.println(volunteer.getTheVolunteer().getMyEmail());
-			System.out.println("Status: Volunteer");
-			tools.pause();
+	private void myAccountScreen(LogIn volunteer, UI tools) {
+		System.out.println("My Account");
+		System.out.println("__________\n");
+		System.out.println(volunteer.getTheVolunteer().getMyFirst() + " " + volunteer.getTheVolunteer().getMyLast());
+		System.out.println(volunteer.getTheVolunteer().getMyEmail());
+		System.out.println("Status: Volunteer");
+		tools.pause();
+	}
+	
+	/**
+	 * My Job Screen
+	 * @param volunteer		instance of Volunteer
+	 * @param tools			instance of UI
+	 */
+	private void myJobScreen(LogIn volunteer, UI tools) {
+		System.out.println("My Jobs");
+		System.out.println("_______");
+		ArrayList<Job> jobs = (ArrayList<Job>) volunteer.getTheVolunteer().getMyJobSignedUp();
+		for (Job currentJob : jobs) {
+			System.out.println("\n[ " + currentJob.getTitle() + " At " + currentJob.getStartDate() + " ]");
 		}
+		tools.pause();
+	}
+	
+	/**
+	 * Job Available Menu
+	 * @param volunteer		instance of Volunteer
+	 * @param scan			instance of Scanner
+	 * @param tools			instance of UI
+	 */
+	private void jobAvailableScreen(LogIn volunteer, Scanner scan, UI tools) {
+		Cereal getJobs = new Cereal(1);
+		JobList jobs = (JobList)getJobs.deSerialize();
+		JobGui jobGui = new JobGui();
+		
+		System.out.println("All Jobs Available");
+		System.out.println("__________________\n");
+		
+		jobGui.printJobs();
+		
+		//To sign up for a job
+		System.out.println("\nWould you like to sign up for a job? (Y/N)");
+		String ans = scan.next();
+		if (ans.toLowerCase().charAt(0) == 'y') {
+			System.out.print("\n\nPlease enter the number for the job you would like to sign up for: ");
+			int signJob = scan.nextInt();
+			tools.clearScreen();
+			System.out.println("\n" + ((Volunteer)volunteer.getTheVolunteer()).addJob((Job)(jobs.getMap().get((Integer)signJob))));
+			tools.pause();
+		} else 
+			tools.clearScreen();
+		
 	}
 }
