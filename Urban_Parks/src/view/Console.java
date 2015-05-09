@@ -25,7 +25,7 @@ public class Console {
 	public static void main(String[] args) {	
 		startProgram();
 		Scanner scan = new Scanner(System.in);
-		printTitle();
+		clearScreen();
 		System.out.println("Would you like to log in? (Y for yes or anything else to bypass)");
 		System.out.println("          (Volunteers need to log in if they want to sign up for a job)");
 		System.out.println("          (Park Managers and Administrators are required to log in)");
@@ -33,8 +33,9 @@ public class Console {
 		if (answer.toLowerCase().charAt(0) == 'y')
 			logIn();
 		else {
+			clearScreen();
 			printJobs();
-			System.out.println("Would you like to log in to sign up for a job? (Y/N)");
+			System.out.println("\n\nWould you like to log in to sign up for a job? (Y/N)");
 			answer = scan.next();
 			if (answer.toLowerCase().charAt(0) == 'y')
 				logIn();
@@ -47,7 +48,7 @@ public class Console {
 	 * Closes the program
 	 */
 	private static void closeProgram() {
-		//clearScreen();
+		clearScreen();
 		System.out.println("Thank you for visiting! \nGood Bye");
 	}
 	
@@ -74,6 +75,7 @@ public class Console {
 	}
 	
 	private static void logIn() {
+		clearScreen();
 		Scanner in = new Scanner(System.in);
 		String givenUsername = "", givenPassword = "";
 		do {
@@ -83,7 +85,7 @@ public class Console {
 			givenUsername = in.next();
 			System.out.print("\nPassword: ");
 			givenPassword = in.next();
-			//clearScreen();
+			clearScreen();
 		} while (!checkLogIn(givenUsername, givenPassword));
 		in.close();
 	}
@@ -143,9 +145,11 @@ public class Console {
 			System.out.println("\n Input anything to continue");
 			getOut = scan.next();
 		} while (getOut == "");
+		clearScreen();
 	}
 	
 	private static void helperVolunteer(int decision, LogIn volunteer, Scanner scan) {
+		clearScreen();
 		if (decision == 1) {
 			System.out.println("All Jobs Available");
 			System.out.println("__________________\n");
@@ -211,12 +215,14 @@ public class Console {
 	}
 	
 	private static void helperAdmin(int decision, LogIn admin, Scanner thisScan) {
+		clearScreen();
 		if (decision == 1) {
 			System.out.println("Find Volunteers");
 			System.out.println("_______________\n");
 			System.out.print("Last Name: ");
 			String lastName = thisScan.next();
 			ArrayList<Volunteer> list = admin.getTheAdmin().getVolunteer(lastName);
+			clearScreen();
 			if (list.size() == 0) {
 				System.out.println("No Match Found");
 			}
@@ -256,6 +262,7 @@ public class Console {
 	}
 	
 	private static void helperManager(int decision, LogIn parkManager, Scanner thisScan) {
+		clearScreen();
 		if (decision == 1) {
 			//clearScreen();
 			System.out.println("Submit a Job!");
@@ -380,16 +387,10 @@ public class Console {
 			}
 		}
 	}
-	/**
+	
 	private static void clearScreen() {
-		try {
-			String os = System.getProperty("os.name");
-			if (os.contains("Windows"))
-				Runtime.getRuntime().exec("cls");
-			else
-				Runtime.getRuntime().exec("clear");
-		} catch (Exception e) {
-			e.printStackTrace();
+		for (int i = 0; i < 50; i++) {
+			System.out.println("\n\n");
 		}
 		printTitle();
 	}
