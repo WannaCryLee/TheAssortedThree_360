@@ -44,10 +44,8 @@ public class Job implements Serializable {
 	private String address;
 	/** Variable for describing the job's details */
 	private String description;
-
-	/** Work Category integer variable: 0 = light, 1 = Medium, 2 = Heavy. */
-	//private int workCat;
-
+	/** True = Jobs takes Two days, False = Job is only for One day */
+	private boolean isTwoDays;
 	/** Specifies the number of required volunteers for each category grade. */
 	private int numLightJobs;
 	private int numMedJobs;
@@ -71,6 +69,7 @@ public class Job implements Serializable {
 		numLightJobs = 0;
 		numMedJobs = 0;
 		numHeavyJobs = 0;
+		isTwoDays = false;
 		myStartDate = new GregorianCalendar(2015, 12-1, 24);
 		myEndDate = new GregorianCalendar(2015, 12-1, 25);
 		//date = null;
@@ -93,7 +92,7 @@ public class Job implements Serializable {
 	 * @param theDay the day of the users job
 	 */
 	public Job(String theTitle, String theParkName, String theAddress, 
-			String theDescription, int theNumLightJobs, int theNumMedJobs,int theNumHeavyJobs, 
+			String theDescription, int theNumLightJobs, int theNumMedJobs,int theNumHeavyJobs, boolean theTwoDays,
 			int theStartYear, int theStartMonth, int theStartDay,
 			int theEndYear, int theEndMonth, int theEndDay) {
 		title = theTitle;
@@ -103,6 +102,7 @@ public class Job implements Serializable {
 		numLightJobs = theNumLightJobs;
 		numMedJobs = theNumMedJobs;
 		numHeavyJobs = theNumHeavyJobs;
+		isTwoDays = theTwoDays;
 		myStartDate = new GregorianCalendar(theStartYear, theStartMonth-1, theStartDay);
 		myEndDate = new GregorianCalendar(theEndYear, theEndMonth-1, theEndDay);
 		//date = theDate;
@@ -120,6 +120,8 @@ public class Job implements Serializable {
 			return false;
 		if (!parkName.equals(other.getParkName()))
 			return false;
+		if (!address.equals(other.getAddress()))
+			return false;
 		if (!description.equals(other.getDescription()))
 			return false;
 		if (numLightJobs != other.getNumLightJobs())
@@ -128,6 +130,9 @@ public class Job implements Serializable {
 			return false;
 		if (numHeavyJobs != other.getNumHeavyJobs())
 			return false;
+		if (isTwoDays != other.getIsTwoDays()) {
+			return false;
+		}
 		//		if (date.equals(other.getDate()))
 		//			return false;
 
@@ -153,6 +158,7 @@ public class Job implements Serializable {
 			return 6;
 		else if (numHeavyJobs < 0 || numHeavyJobs > 50) 
 			return 7;
+		
 		//Need to check with conflicting dates?
 		//		else if (date.equals(""))
 		//			return 8;
@@ -278,6 +284,10 @@ public class Job implements Serializable {
 	public void setNumHeavyJobs(int theH) {
 		numHeavyJobs = theH;
 	}
+	
+	public void setIsTwoDays(boolean theTwoDays) {
+		isTwoDays = theTwoDays;
+	}
 
 	public void setStartDate(int theYear, int theMonth, int theDay){
 		this.myStartDate = new GregorianCalendar(theYear, theMonth-1, theDay);
@@ -310,6 +320,10 @@ public class Job implements Serializable {
 
 	public int getNumHeavyJobs() {
 		return numHeavyJobs;
+	}
+	
+	public boolean getIsTwoDays() {
+		return isTwoDays;
 	}
 
 	public Date getStartDate(){
