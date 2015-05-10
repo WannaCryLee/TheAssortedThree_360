@@ -11,6 +11,8 @@ import java.util.ArrayList;
 import java.util.Calendar;
 import java.util.Date;
 import java.util.GregorianCalendar;
+import java.util.Map;
+import java.util.Map.Entry;
 
 /**
  * Creates a job.
@@ -156,6 +158,49 @@ public class Job implements Serializable {
 		//			return 8;
 		return 0;
 	}
+	
+	public boolean isMaxWeek() {
+		int day = myStartDate.get(Calendar.DATE);
+		int month = myStartDate.get(Calendar.MONTH);
+		int year = myStartDate.get(Calendar.YEAR);
+		int numJobWeek = 0;
+		Cereal getData = new Cereal(1);
+		JobList otherJobs = (JobList) getData.deSerialize();
+		
+		java.util.Iterator<Entry<Integer, Object>> itr = otherJobs.getMap().entrySet().iterator();
+		while(itr.hasNext()) {
+			Map.Entry<Integer, Object> pair = (Map.Entry<Integer, Object>)itr.next();
+			boolean checkTwoDay = false;
+			if (!((Job)pair.getValue()).getStartCalender().equals(((Job)pair.getValue()).getEndCalender())) {
+				checkTwoDay = true;
+			}
+			int otherDay = ((Job)pair.getValue()).getStartCalender().get(Calendar.DATE);	
+			int otherMonth = ((Job)pair.getValue()).getStartCalender().get(Calendar.MONTH);
+			int otherYear = ((Job)pair.getValue()).getStartCalender().get(Calendar.YEAR);
+			if (month == otherMonth && year == otherYear) {
+				if (isWithInThree(myStartDate.get(Calendar.DAY_OF_MONTH), day, otherDay)) 
+					numJobWeek++;
+				if (checkTwoDay) {
+					if (isWithInThree(myStartDate.get(Calendar.DAY_OF_MONTH), day, ((Job)pair.getValue()).getEndCalender().get(Calendar.DATE)))
+						numJobWeek++;
+				}
+				
+			}
+			itr.remove();
+		}	
+		if (numJobWeek > 5)
+			return false;
+		return true;
+	}
+	
+	private boolean isWithInThree(int dayInMonth, int day, int otherDay) {
+		
+		if ((day - otherDay <= 3 && day - otherDay >= -3) || 
+				(day - otherDay >= dayInMonth - 3 && day - otherDay <= dayInMonth) || 
+				(day - otherDay <= (dayInMonth - 3) * (-1) && day - otherDay >= (dayInMonth) * (-1)))
+			return true;
+		return false;
+	}
 
 	/**
 	 * Sign up volunteers for the job.
@@ -269,6 +314,13 @@ public class Job implements Serializable {
 
 	public Date getStartDate(){
 		return myStartDate.getTime();
+	}
+	
+	public Calendar getStartCalender() {
+		return myStartDate;
+	}
+	public Calendar getEndCalender() {
+		return myEndDate;
 	}
 
 }
