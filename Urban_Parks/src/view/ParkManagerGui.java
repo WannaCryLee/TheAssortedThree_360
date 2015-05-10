@@ -28,7 +28,7 @@ public class ParkManagerGui {
 		myDateFormat = new SimpleDateFormat("MMM dd, yyyy");
 		myTimeFormat = new SimpleDateFormat("h:mm a");
 	}
-	
+
 	/**
 	 * Main Screen
 	 * @param parkManager      Instance of Park Manager
@@ -36,7 +36,7 @@ public class ParkManagerGui {
 	public void printScreen(LogIn parkManager) {
 		Scanner thisScan = new Scanner(System.in);
 		UI tools = new UI();
-		
+
 		int choice = 0;
 		while (choice != 4) {
 			System.out.println("Park Manager");
@@ -67,7 +67,7 @@ public class ParkManagerGui {
 		}
 		thisScan.close();
 	}
-	
+
 	/**
 	 * Submit a Job Screen
 	 * @param parkManager				instance of Park Manager
@@ -77,15 +77,12 @@ public class ParkManagerGui {
 	private void submitJobScreen(LogIn parkManager, UI tools, Scanner thisScan) {
 		System.out.println("Submit a Job!");
 		System.out.println("_____________\n"); 
-		
+
 		System.out.println("\n Under Construction\nPlease check back soon!");
-		System.out.println("What time does the event start (ie. 5:30): ");
-		String time = thisScan.next();
-		System.out.println("What time does the event start (ie. 5:30): ");
-		time += " " + thisScan.next().toUpperCase();
-//		System.out.println("Will the job be 2 days long? (Enter Y for yes or anything else for no): ");
-//		String twoDays = thisScan.next();
-		
+
+		//		System.out.println("Will the job be 2 days long? (Enter Y for yes or anything else for no): ");
+		//		String twoDays = thisScan.next();
+
 		/*
 		System.out.println("Please enter the following information");
 		System.out.print("Title: ");
@@ -98,14 +95,18 @@ public class ParkManagerGui {
 		String description = thisScan.next();
 		System.out.print("\nGrade: ");
 		int grade = thisScan.nextInt();
-		
+
 		if(twoDays.equals("Y") || twoDays.equals("y")){
 			//second date and time entry
 			//second constructor with two dates and two times
+//			System.out.println("What time does the event start (ie. 5:30): ");
+//			String time = thisScan.next();
+//			System.out.println("In the morning or evening, (AM or PM): ");
+//			time += " " + thisScan.next().toUpperCase();
 		} else {
 			//first constructor with only one date and time
 		}
-		
+
 		System.out.print("\nDate: ");
 		String date = thisScan.next();/**
 		//Job newJob = new Job(title, parkName, address, description, grade, date);
@@ -113,10 +114,10 @@ public class ParkManagerGui {
 		jobDoubleCheck(thisScan, newJob);
 		parkManager.getTheManager().submitJob(newJob);
 		System.out.println("Job Submitted");
-		*/
+		 */
 		tools.pause();
 	}
-	
+
 	/**
 	 * My Park Job Screen
 	 * @param parkManager				instance of Park Manager
@@ -132,7 +133,7 @@ public class ParkManagerGui {
 		System.out.println("____________\n");
 		ArrayList<String> myParks = parkManager.getTheManager().getParks();
 		for (String park : myParks) {
-			
+
 			java.util.Iterator<Entry<Integer, Object>> itr = jobs.getMap().entrySet().iterator();
 			while(itr.hasNext()) {
 				Map.Entry<Integer, Object> pair = (Map.Entry<Integer, Object>)itr.next();
@@ -142,7 +143,7 @@ public class ParkManagerGui {
 				itr.remove();
 			}	
 		}
-		
+
 		System.out.println("\nWould you like to see volunteers for a job? (Y/N)");
 		String response = thisScan.next();
 		if (response.toLowerCase().charAt(0) == 'y') {
@@ -150,9 +151,9 @@ public class ParkManagerGui {
 			tools.pause();
 		} else
 			tools.clearScreen();
-		
+
 	}
-	
+
 	/**
 	 * My Account Screen
 	 * @param parkManager			instance of Park Manager
@@ -166,7 +167,7 @@ public class ParkManagerGui {
 		System.out.println("Status: Park Manager");
 		tools.pause();
 	}
-	
+
 	private void seeVolunteers(LogIn parkManager, Scanner thisScan, JobList jobs, UserList users) {
 		System.out.print("\nJob number: ");
 		int jobNum = thisScan.nextInt();
@@ -177,27 +178,27 @@ public class ParkManagerGui {
 			selectedJob = (Job)jobs.getMap().get(jobNum);
 		}
 		boolean isJobPrinted = false;
-		
+
 		java.util.Iterator<Entry<Integer, Object>> itr = users.getMap().entrySet().iterator();
 		while(itr.hasNext()) {
 			Map.Entry<Integer, Object> pair = (Map.Entry<Integer, Object>)itr.next();
 			if (pair.getValue() instanceof Volunteer) {
 				Volunteer itrVolunteer = ((Volunteer)pair.getValue());
-				 ArrayList<Job> itrJob = (ArrayList<Job>) itrVolunteer.getMyJobSignedUp();
-				 
-				 for (Job each : itrJob) {
-					 if (each.compare(selectedJob)) {
-						 isJobPrinted = true;
-						 System.out.println("\n[ " + itrVolunteer.getMyFirst() + itrVolunteer.getMyLast() + "( " + itrVolunteer.getMyEmail() + " )"+ " ]");
-					 }
-				 }
+				ArrayList<Job> itrJob = (ArrayList<Job>) itrVolunteer.getMyJobSignedUp();
+
+				for (Job each : itrJob) {
+					if (each.compare(selectedJob)) {
+						isJobPrinted = true;
+						System.out.println("\n[ " + itrVolunteer.getMyFirst() + itrVolunteer.getMyLast() + "( " + itrVolunteer.getMyEmail() + " )"+ " ]");
+					}
+				}
 			}
 			itr.remove();
 		}
 		if (!isJobPrinted)
 			System.out.println("\nNo Volunteers has signed up yet");
 	}
-	
+
 	/**
 	 * Check to see if the job aligns with business rules
 	 * @param scan				instance of Scanner
