@@ -10,10 +10,10 @@ import java.util.Map.Entry;
 
 public class LogIn {
 	
-	Volunteer theVolunteer;
-	ParkManager theManager;
-	Admin theAdmin;
-	int whoAmI;
+	private Volunteer theVolunteer;
+	private ParkManager theManager;
+	private Admin theAdmin;
+	private int whoAmI;
 	
 	public LogIn() {
 		theVolunteer = null;
