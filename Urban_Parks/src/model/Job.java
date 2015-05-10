@@ -31,6 +31,9 @@ public class Job implements Serializable {
 	 * Start Date for the job 
 	 */
 	private Calendar myStartDate;
+	//Job end date
+	private Calendar myEndDate;
+	
 	/** Job title */
 	private String title; 
 	/** Park name the job belongs to */
@@ -50,8 +53,6 @@ public class Job implements Serializable {
 	/** A list of the volunteers who signed up for the job. */
 	private ArrayList<Volunteer> signedUpList;
 
-	//Job end date
-	private Calendar myEndDate;
 	//Job duration
 	//private int myJobDuration;
 	/** Date of job */

@@ -95,6 +95,14 @@ public class ParkManagerGui {
 		String description = thisScan.next();
 		System.out.print("\nGrade: ");
 		int grade = thisScan.nextInt();
+		System.out.print("\nJob Month (ie. 1 - 12: ")
+		int month = thisScan.nextInt();
+		System.out.print("\nJob Day (ie. 1 - 31: ");
+		int day = thisScan.nextInt();
+		System.out.print("\nJob Year (ie. 2015): ");
+		int year = thisScan.nextInt();
+		
+		
 
 		if(twoDays.equals("Y") || twoDays.equals("y")){
 			//second date and time entry
