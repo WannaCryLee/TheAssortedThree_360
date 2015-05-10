@@ -2,14 +2,18 @@ package model;
 
 import static org.junit.Assert.*;
 
+import java.util.HashMap;
+
 import org.junit.Before;
 import org.junit.Test;
+
 import model.Job;
 public class JobTest {
 
 	private Job myJobTestCompare;
 	private Job myJob;
 	private Job otherJob;
+	private JobList jobList;
 
 	@Before
 	public void setUp() throws Exception {
@@ -250,8 +254,44 @@ public class JobTest {
 
 	@Test
 	public void testIsMaxWeek() {
+		
+		 
+		HashMap<Integer, Object> test = new HashMap<Integer, Object>();
+		
+		Job testJob = new Job("Rock", "Tuscany", "Tacoma, WA", "Clean Rocks", 3, 5, 3, false, 2015, 5, 15, 2015, 5, 15);
+		
+		test.put(test.size(), testJob);
+		
+		testJob = new Job("Bark", "Tuscany", "Tacoma, WA", "New Bark",3, 5, 3, false, 2015, 5, 16, 2015, 5, 16);
+		
+		test.put(test.size(), testJob);
+		
+		testJob = new Job("Sweep", "Wright", "Tacoma, WA", "Sweep Sidewalks", 3, 5, 3, false, 2015, 5, 17, 2015, 5, 17);
+		
+		test.put(test.size(), testJob);
+		
+		testJob = new Job("Garbage", "Wright", "Tacoma, WA", "Change all the Garbage", 3, 5, 3, false, 2015, 5, 18, 2015, 5, 18);
+		
+		test.put(test.size(), testJob);
+		
+		testJob = new Job("New Fountain", "Lighthouse", "Tacoma, WA", "Install new fountain", 3, 5, 3, false, 2015, 5, 19, 2015, 5, 19);
+		
+		test.put(test.size(), testJob);
+		
+		testJob = new Job("BBQ", "LightHouse", "Tacoma, WA", "Cook Meat :)", 3, 5, 3, false, 2015, 5, 20, 2015, 5, 20);
+		
+		test.put(test.size(), testJob);
+		
+		jobList.setMap(test);
+		 
+		 
+		 
 	//	assertTrue();
-	//	assertFalse();
+		
+		
+		Job exJob = (Job) jobList.getMap().get(2);
+		assertFalse("Too many jobs on the given week", exJob.isMaxWeek());
+		//testJob1.isMaxWeek()
 	}
 
 }
