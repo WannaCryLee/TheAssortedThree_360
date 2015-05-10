@@ -93,31 +93,55 @@ public class ParkManagerGui {
 		String address = thisScan.next();
 		System.out.print("\nDescription: ");
 		String description = thisScan.next();
-		System.out.print("\nGrade: ");
-		int grade = thisScan.nextInt();
+		System.out.print("\nNumber of light jobs: ");
+		int numLightJobs = thisScan.nextInt();
+		System.out.print("\nNumber of medium jobs: ");
+		int numMedJobs = thisScan.nextInt();
+		System.out.print("\nNumber of heavy jobs: ");
+		int numHeavyJobs = thisScan.nextInt();
 		System.out.print("\nJob Month (ie. 1 - 12: ")
-		int month = thisScan.nextInt();
+		int startMonth = thisScan.nextInt();
 		System.out.print("\nJob Day (ie. 1 - 31: ");
-		int day = thisScan.nextInt();
+		int startDay = thisScan.nextInt();
 		System.out.print("\nJob Year (ie. 2015): ");
-		int year = thisScan.nextInt();
-		
+		int startYear = thisScan.nextInt();
+		System.out.println("What time does the event start (ie. 5:30): ");
+			String time = thisScan.next();
+			System.out.println("In the morning or evening, (AM or PM): ");
+			time += " " + thisScan.next().toUpperCase();
 		
 
 		if(twoDays.equals("Y") || twoDays.equals("y")){
+		System.out.print("--Enter the job's second day info-- ")
+		System.out.print("\nJob Month (ie. 1 - 12: ")
+			int endMonth = thisScan.nextInt();
+			System.out.print("\nJob Day (ie. 1 - 31: ");
+			int endDay = thisScan.nextInt();
+			System.out.print("\nJob Year (ie. 2015): ");
+			int endYear = thisScan.nextInt();
+			
 			//second date and time entry
 			//second constructor with two dates and two times
-//			System.out.println("What time does the event start (ie. 5:30): ");
-//			String time = thisScan.next();
-//			System.out.println("In the morning or evening, (AM or PM): ");
-//			time += " " + thisScan.next().toUpperCase();
+			System.out.println("What time does the event start (ie. 5:30): ");
+			String time = thisScan.next();
+			System.out.println("In the morning or evening, (AM or PM): ");
+			time += " " + thisScan.next().toUpperCase();			
+			
+			//creates the "Two day" job
+			boolean isTwoDays = true;
+			Job newJob = new Job(title, parkName, address, description, numLightJobs, numMedJobs, numHeavyJobs, isTwoDays, startYear, startMonth, startDay,
+			endYear, endMonth, endDay);
+			
 		} else {
-			//first constructor with only one date and time
+			 //creates the "One day" job
+			 boolean isTwoDays = false;
+			 Job newJob = new Job(title, parkName, address, description, numLightJobs, numMedJobs, numHeavyJobs, isTwoDays, startYear, startMonth, startDay,
+			startYear, startMonth, startDay);
 		}
 
 		System.out.print("\nDate: ");
 		String date = thisScan.next();/**
-		//Job newJob = new Job(title, parkName, address, description, grade, date);
+		//Job newJob = new Job(title, parkName, address, description, numLightJobs, numMedJobs, numHeavyJobs, date); 
 		//Need to check and notify user if job does not align with business rule before submitting!!
 		jobDoubleCheck(thisScan, newJob);
 		parkManager.getTheManager().submitJob(newJob);
