@@ -75,14 +75,16 @@ public class Job implements Serializable {
 		signedUpList = new ArrayList<Volunteer>();
 	}
 
+	
+	
 	/**
-	 * Constructor
+	 * Constructor for two days
 	 * 
 	 * @param theTitle Title of job
 	 * @param theParkName Park name job was created for
 	 * @param theAddress Address
 	 * @param theDescription Description of the job
-	 * @param theGrade Job's dificulty level (easy, med, hard)
+	 * @param theGrade Job's difficulty level (easy, med, hard)
 	 * @param theYear the year of the users job
 	 * @param theMonth the month of the users job
 	 * @param theDay the day of the users job

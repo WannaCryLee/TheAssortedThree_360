@@ -1,5 +1,6 @@
 package view;
 
+import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Map;
 import java.util.Scanner;
@@ -18,10 +19,14 @@ import model.Volunteer;
  *
  */
 public class ParkManagerGui {
+	//Set the format
+	private SimpleDateFormat myDateFormat;
+	private SimpleDateFormat myTimeFormat;
 
 	//Constructor
 	public ParkManagerGui() {
-		
+		myDateFormat = new SimpleDateFormat("MMM dd, yyyy");
+		myTimeFormat = new SimpleDateFormat("h:mm a");
 	}
 	
 	/**
@@ -74,6 +79,13 @@ public class ParkManagerGui {
 		System.out.println("_____________\n"); 
 		
 		System.out.println("\n Under Construction\nPlease check back soon!");
+		System.out.println("What time does the event start (ie. 5:30): ");
+		String time = thisScan.next();
+		System.out.println("What time does the event start (ie. 5:30): ");
+		time += " " + thisScan.next().toUpperCase();
+//		System.out.println("Will the job be 2 days long? (Enter Y for yes or anything else for no): ");
+//		String twoDays = thisScan.next();
+		
 		/*
 		System.out.println("Please enter the following information");
 		System.out.print("Title: ");
@@ -86,6 +98,14 @@ public class ParkManagerGui {
 		String description = thisScan.next();
 		System.out.print("\nGrade: ");
 		int grade = thisScan.nextInt();
+		
+		if(twoDays.equals("Y") || twoDays.equals("y")){
+			//second date and time entry
+			//second constructor with two dates and two times
+		} else {
+			//first constructor with only one date and time
+		}
+		
 		System.out.print("\nDate: ");
 		String date = thisScan.next();/**
 		//Job newJob = new Job(title, parkName, address, description, grade, date);
