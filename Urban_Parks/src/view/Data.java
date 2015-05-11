@@ -78,7 +78,7 @@ public class Data {
 		
 		startingMap.put(startingMap.size(), startingJob);
 		
-		startingJob = new Job("Garbage", "Wright", "Tacoma, WA", "Change all the Garbage", 3, 5, 3, false, 2015, 7, 15, 2015, 7, 15, 5, 30);
+		startingJob = new Job("Garbage", "Wright", "Tacoma, WA", "Change all the Garbage", 3, 5, 3, false, 2015, 8, 15, 2015, 8, 15, 5, 30);
 		
 		startingMap.put(startingMap.size(), startingJob);
 		

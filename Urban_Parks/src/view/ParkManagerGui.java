@@ -77,7 +77,7 @@ public class ParkManagerGui {
 
 		
 		System.out.println("Please enter the following information\n");
-		System.out.print("Title: ");
+		System.out.print("Title (One Word): ");
 		String title = thisScan.next();
 		System.out.print("\nPark Name: ");
 		String parkName = thisScan.next();
