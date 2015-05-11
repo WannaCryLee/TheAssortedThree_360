@@ -130,6 +130,11 @@ public class ParkManager implements Serializable{
 		
 		deserial.serialize(jobs);
 	}
+	
+	public boolean maxPendingJobs(String park) {
+		
+		return true;
+	}
 
 	
 	/**
