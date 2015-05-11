@@ -33,8 +33,10 @@ public class JobGui {
 		HashMap<Integer, Object> map = jobs.getMap();
 		Date today = new Date();
 		
+		System.out.println("Today's Date: " + sdf.format(today) + "\n");
+		
 		for (Map.Entry<Integer,Object> pair : map.entrySet()) {
-			if (((Job)pair.getValue()).getEndCalender().after(today)) {
+			if (((Job)pair.getValue()).getStartDate().after(today)) {
 				System.out.println("[ " + pair.getKey() + " - " + ((Job)pair.getValue()).getTitle() + ", " + ((Job)pair.getValue()).getParkName() + ", " +
 					((Job)pair.getValue()).getDescription() + ", " +
 					sdf.format(((Job)pair.getValue()).getStartDate()) + " ]");		

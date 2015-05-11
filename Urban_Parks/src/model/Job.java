@@ -81,7 +81,7 @@ public class Job implements Serializable {
 			int theStartYear, int theStartMonth, int theStartDay,
 			int theEndYear, int theEndMonth, int theEndDay, int hour, int min) {
 		title = theTitle;
-		parkName = theParkName;
+		parkName = theParkName.toLowerCase();
 		address = theAddress;
 		description = theDescription;
 		numLightJobs = theNumLightJobs;
@@ -141,8 +141,9 @@ public class Job implements Serializable {
 			return 6;
 		else if (numHeavyJobs < 0 || numHeavyJobs > 50) 
 			return 7;
-		else if (!valiDate.Within3Months(myStartDate.get(Calendar.DAY_OF_MONTH), myStartDate.get(Calendar.MONTH), myStartDate.get(Calendar.YEAR)))
+		else if (valiDate.Within3Months(myStartDate)) {
 			return 8;
+		}
 		return 0;
 	}
 	/**
@@ -287,7 +288,7 @@ public class Job implements Serializable {
 	}
 
 	public void setStartDate(int theYear, int theMonth, int theDay){
-		this.myStartDate = new GregorianCalendar(theYear, theMonth-1, theDay);
+		myStartDate = new GregorianCalendar(theYear, theMonth-1, theDay);
 	}
 
 	/** Getters */

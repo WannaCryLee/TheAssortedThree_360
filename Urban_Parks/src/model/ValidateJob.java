@@ -6,7 +6,7 @@
 package model;
 
 import java.util.Calendar;
-import java.util.GregorianCalendar;
+import java.util.Date;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
@@ -53,20 +53,18 @@ public class ValidateJob {
 	}//end check month
 
 
-	public boolean Within3Months(int theDay, int theMonth, int theYear) {
+	public boolean Within3Months(Calendar myStartDate) {
 		// The date 90 days after the current date
 		Calendar threeMonthsAfterCurrentDate = Calendar.getInstance();
 		// The current date
-		Calendar currentDate = Calendar.getInstance();
-		// Set the date given
-		Calendar myStartDate = new GregorianCalendar(theYear, theMonth-1, theDay);
+		Date today = new Date();
 
 		//Set the date 3 months after
 		threeMonthsAfterCurrentDate.add(Calendar.MONTH, 3);
 
 		//BR: Date cannot be in the past nor more than 3 months in the future from the current date
-		if (myStartDate.getTime().before(threeMonthsAfterCurrentDate.getTime())
-				&& myStartDate.getTime().after(currentDate.getTime())) {
+		if (myStartDate.before(threeMonthsAfterCurrentDate.getTime())
+				&& myStartDate.after(today)) {
 			return true;
 		} else {
 			return false;

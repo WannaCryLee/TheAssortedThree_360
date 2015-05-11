@@ -82,7 +82,7 @@ public class ParkManager implements Serializable{
 		email = theEmail;
 		password = thePassword;
 		address = theAddress;
-		parks.add(park);
+		parks.add(park.toLowerCase());
 	}
 
 	/**

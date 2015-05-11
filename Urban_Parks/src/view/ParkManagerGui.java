@@ -81,7 +81,7 @@ public class ParkManagerGui {
 		String title = thisScan.next();
 		System.out.print("\nPark Name: ");
 		String parkName = thisScan.next();
-		while(!parkManager.getTheManager().isMyPark(parkName)) {
+		while(!parkManager.getTheManager().isMyPark(parkName.toLowerCase())) {
 			System.out.print("\nPlease enter one of your park's name: ");
 			parkName = thisScan.next();
 		}
@@ -93,7 +93,6 @@ public class ParkManagerGui {
 			thisScan.nextLine();
 			System.out.print("\nAddress: ");
 			String address = thisScan.nextLine();
-			thisScan.nextLine();
 			System.out.print("\nDescription: ");
 			String description = thisScan.nextLine();
 			System.out.print("\nNumber of light jobs: ");
@@ -154,15 +153,13 @@ public class ParkManagerGui {
 		System.out.println("My Park Jobs");
 		System.out.println("____________\n");
 		ArrayList<String> myParks = parkManager.getTheManager().getParks();
+		
 		for (String park : myParks) {
 
-			java.util.Iterator<Entry<Integer, Object>> itr = jobs.getMap().entrySet().iterator();
-			while(itr.hasNext()) {
-				Map.Entry<Integer, Object> pair = (Map.Entry<Integer, Object>)itr.next();
+			for (Map.Entry<Integer,Object> pair : jobs.getMap().entrySet()) {
 				if (((Job)pair.getValue()).getParkName().toLowerCase().equals(park.toLowerCase())) {
 					System.out.println("[ " + pair.getKey() + " - " + ((Job)pair.getValue()).getTitle() + " in " + ((Job)pair.getValue()).getStartDate() + " ]");
 				}
-				itr.remove();
 			}	
 		}
 
