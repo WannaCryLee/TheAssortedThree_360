@@ -6,12 +6,11 @@
 package model;
 
 import java.io.Serializable;
-import java.text.SimpleDateFormat;
 import java.util.Calendar;
 import java.util.Date;
 import java.util.GregorianCalendar;
+import java.util.HashMap;
 import java.util.Map;
-import java.util.Map.Entry;
 
 /**
  * Creates a job.
@@ -24,10 +23,6 @@ public class Job implements Serializable {
 	 * Generated Serial Version ID
 	 */
 	private static final long serialVersionUID = -7742067979482263151L;
-	/*
-	 * Date format for the jobs
-	 */
-	private static SimpleDateFormat sdf = new SimpleDateFormat("MMMM dd, yyyy");
 	/*
 	 * Start Date for the job 
 	 */
@@ -93,9 +88,7 @@ public class Job implements Serializable {
 		numMedJobs = theNumMedJobs;
 		numHeavyJobs = theNumHeavyJobs;
 		isTwoDays = theTwoDays;
-		myStartDate = new GregorianCalendar();
 		myStartDate = new GregorianCalendar(theStartYear, theStartMonth-1, theStartDay, hour, min);
-		//System.out.println(sdf.format(myStartDate.getTime()));
 		myEndDate = new GregorianCalendar(theEndYear, theEndMonth-1, theEndDay);
 	}
 	
@@ -133,6 +126,7 @@ public class Job implements Serializable {
 	 * @return int of which part of the job is conflicting
 	 */
 	public int jobCheck() {
+		ValidateJob valiDate = new ValidateJob();
 		if (title.equals(""))
 			return 1;
 		else if (parkName.equals("")) 
@@ -147,10 +141,8 @@ public class Job implements Serializable {
 			return 6;
 		else if (numHeavyJobs < 0 || numHeavyJobs > 50) 
 			return 7;
-		
-		//Need to check with conflicting dates?
-		//		else if (date.equals(""))
-		//			return 8;
+		else if (!valiDate.Within3Months(myStartDate.get(Calendar.DAY_OF_MONTH), myStartDate.get(Calendar.MONTH), myStartDate.get(Calendar.YEAR)))
+			return 8;
 		return 0;
 	}
 	/**
@@ -166,38 +158,32 @@ public class Job implements Serializable {
 		int numJobWeek = 0;
 		Cereal getData = new Cereal(1);
 		JobList otherJobs = (JobList) getData.deSerialize();
+		HashMap<Integer, Object> map = otherJobs.getMap();
 		
-		java.util.Iterator<Entry<Integer, Object>> itr = otherJobs.getMap().entrySet().iterator();
-		while(itr.hasNext()) {
-			Map.Entry<Integer, Object> pair = (Map.Entry<Integer, Object>)itr.next();
-			boolean checkTwoDay = false;
-			if (!((Job)pair.getValue()).getStartCalender().equals(((Job)pair.getValue()).getEndCalender())) {
-				checkTwoDay = true;
-			}
+		for (Map.Entry<Integer,Object> pair : map.entrySet()) {
 			
 			//System.out.println("Title: " + ((Job)pair.getValue()).getTitle() + "; Day: " + ((Job)pair.getValue()).getStartCalender().get(Calendar.DATE));
-			System.out.println("\nTitle: " + title + "; Day: " + sdf.format(myStartDate.getTime()));
-			System.out.println("Title: " + ((Job)pair.getValue()).getTitle() + "; Day: " + sdf.format(((Job)pair.getValue()).getStartDate()));
+			//System.out.println("\nTitle: " + title + "; Day: " + sdf.format(myStartDate.getTime()));
+			//System.out.println("Title: " + ((Job)pair.getValue()).getTitle() + "; Day: " + sdf.format(((Job)pair.getValue()).getStartDate()));
 			
 			int otherDay = ((Job)pair.getValue()).getStartCalender().get(Calendar.DATE);	
 			int otherMonth = ((Job)pair.getValue()).getStartCalender().get(Calendar.MONTH);
 			int otherYear = ((Job)pair.getValue()).getStartCalender().get(Calendar.YEAR);
 			if (month == otherMonth && year == otherYear) {
 				if (isWithInThree(myStartDate.get(Calendar.DAY_OF_MONTH), day, otherDay)) {
-					System.out.println("here");
+					//System.out.println("here");
 					numJobWeek++;
 				}
-				if (checkTwoDay) {
+				if (isTwoDays) {
 					if (isWithInThree(myStartDate.get(Calendar.DAY_OF_MONTH), day, ((Job)pair.getValue()).getEndCalender().get(Calendar.DATE))){
-						System.out.println("here");
+						//System.out.println("here");
 						numJobWeek++;
 					}
 				}
 				
 			}
-			itr.remove();
 		}
-		System.out.println(numJobWeek);
+		//System.out.println(numJobWeek);
 		if (numJobWeek >= 5)
 			return false;
 		return true;

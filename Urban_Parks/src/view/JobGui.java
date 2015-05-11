@@ -1,8 +1,9 @@
 package view;
 
 import java.text.SimpleDateFormat;
+import java.util.Date;
+import java.util.HashMap;
 import java.util.Map;
-import java.util.Map.Entry;
 
 import model.Cereal;
 import model.Job;
@@ -29,15 +30,15 @@ public class JobGui {
 	public void printJobs() {
 		Cereal getJobs = new Cereal(1);
 		JobList jobs = (JobList)getJobs.deSerialize();
+		HashMap<Integer, Object> map = jobs.getMap();
+		Date today = new Date();
 		
-
-		java.util.Iterator<Entry<Integer, Object>> itr = jobs.getMap().entrySet().iterator();
-		while(itr.hasNext()) {
-			Map.Entry<Integer, Object> pair = (Map.Entry<Integer, Object>)itr.next();
-			System.out.println("[ " + pair.getKey() + " - " + ((Job)pair.getValue()).getTitle() + ", " + ((Job)pair.getValue()).getParkName() + ", " +
+		for (Map.Entry<Integer,Object> pair : map.entrySet()) {
+			if (((Job)pair.getValue()).getEndCalender().after(today)) {
+				System.out.println("[ " + pair.getKey() + " - " + ((Job)pair.getValue()).getTitle() + ", " + ((Job)pair.getValue()).getParkName() + ", " +
 					((Job)pair.getValue()).getDescription() + ", " +
-					sdf.format(((Job)pair.getValue()).getStartDate()) + " ]");			
-			itr.remove();
+					sdf.format(((Job)pair.getValue()).getStartDate()) + " ]");		
+			}
 		}	
 	}
 }

@@ -14,7 +14,7 @@ public class JobTest {
 	
 	@Before
 	public void setUp() throws Exception {
-		Job myTestJob = new Job();
+		//Job myTestJob = new Job();
 	}
 
 

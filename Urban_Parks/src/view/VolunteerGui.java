@@ -1,7 +1,8 @@
 package view;
 
-import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.Scanner;
+import java.util.Map.Entry;
 
 import model.Cereal;
 import model.Job;
@@ -81,9 +82,9 @@ public class VolunteerGui {
 	private void myJobScreen(LogIn volunteer, UI tools) {
 		System.out.println("My Jobs");
 		System.out.println("_______");
-		ArrayList<Job> jobs = (ArrayList<Job>) volunteer.getTheVolunteer().getMyJobSignedUp();
-		for (Job currentJob : jobs) {
-			System.out.println("\n[ " + currentJob.getTitle() + " At " + currentJob.getStartDate() + " ]");
+		HashMap<Job, Integer> jobs = (HashMap<Job, Integer>) volunteer.getTheVolunteer().getMyJobSignedUp();
+		for (Entry<Job, Integer> pair : jobs.entrySet()) {
+			System.out.println("\n[ " + pair.getKey().getTitle() + " At " + pair.getKey().getStartDate() + " ]");
 		}
 		if (jobs.isEmpty())
 			System.out.println("\nYou have no jobs :(\nChoose option 1 in the next menu to view and sign up for jobs!");
@@ -116,9 +117,14 @@ public class VolunteerGui {
 				System.out.print("\nNumber was out of range\nEnter job number: ");
 				signJob = scan.nextInt();
 			}
-
+			
+			System.out.println("Would you like to sign up for Light, Medium, or Heavy work? (0 = light, 1 = medium, 2 = heavy)");
+			int workload = scan.nextInt();
+			
+			((Job)jobs.getMap().get(signJob)).decrementJobCategory(workload);
+			
 			tools.clearScreen();
-			System.out.println("\n" + ((Volunteer)volunteer.getTheVolunteer()).addJob((Job)(jobs.getMap().get((Integer)signJob))));
+			System.out.println("\n" + ((Volunteer)volunteer.getTheVolunteer()).addJob((Job)(jobs.getMap().get((Integer)signJob)), workload));
 			tools.pause();
 		} else 
 			tools.clearScreen();

@@ -62,10 +62,10 @@ public class VolunteerTest {
 //		System.out.println("Success!! You are signed up to volunteer for " + myJobData2.getTitle() 
 //				+ " on " +  sdf.format(myJobData2.getStartDate())+ ".");
 		//Checks if a job was added or not
-		assertEquals(myVolunteerDefault.addJob(myJobData1), "Success!! You are signed up to volunteer for " + myJobData1.getTitle() 
+		assertEquals(myVolunteerDefault.addJob(myJobData1, 0), "Success!! You are signed up to volunteer for " + myJobData1.getTitle() 
 				+ " on " +  sdf.format(myJobData1.getStartDate())+ ".");
-		assertEquals(myVolunteerDefault.addJob(myJobData1), "You are already volunteering for a job on this day!");
-		assertEquals(myVolunteerDefault.addJob(myJobData2), "Success!! You are signed up to volunteer for " + myJobData2.getTitle() 
+		assertEquals(myVolunteerDefault.addJob(myJobData1, 0), "You are already volunteering for a job on this day!");
+		assertEquals(myVolunteerDefault.addJob(myJobData2, 0), "Success!! You are signed up to volunteer for " + myJobData2.getTitle() 
 				+ " on " +  sdf.format(myJobData2.getStartDate())+ ".");
 		
 //		System.out.println("Success!! You are signed up to volunteer for " + myJobData1.getTitle() 

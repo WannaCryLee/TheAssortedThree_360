@@ -10,7 +10,10 @@ import java.io.Serializable;
 import java.io.UnsupportedEncodingException;
 import java.net.URLDecoder;
 import java.util.ArrayList;
+import java.util.Calendar;
+import java.util.Date;
 import java.util.HashMap;
+import java.util.Map;
 /**
  * Creates a Park Manager.
  * @author Jasmine Pedersen
@@ -131,9 +134,73 @@ public class ParkManager implements Serializable{
 		deserial.serialize(jobs);
 	}
 	
+	/**
+	 * Returns true if pending jobs is 30; returns false if its under
+	 * @param park			String of park name
+	 * @return true if jobs are maxed or false if its okay
+	 */
 	public boolean maxPendingJobs(String park) {
+		Cereal data = new Cereal(1);
+		JobList list = (JobList)data.deSerialize();
+		HashMap<Integer, Object> map = list.getMap();
+		int pendingJobs = 0;
+		Date today = new Date();
+		for (Map.Entry<Integer,Object> pair : map.entrySet()) {
+			  if (!((Job)(pair.getValue())).getIsTwoDays()) {
+				  if (((Job)(pair.getValue())).getParkName().equals(park) && (((Job)(pair.getValue())).getStartDate().after(today))) 
+					  pendingJobs++;
+			  } else {
+				  if (((Job)(pair.getValue())).getParkName().equals(park) && (((Job)(pair.getValue())).getStartDate().after(today))) 
+					  pendingJobs += 2;
+				  else if (((Job)(pair.getValue())).getParkName().equals(park) && (((Job)(pair.getValue())).getEndCalender().after(today)))
+					  pendingJobs++;
+			  }
+		}
+		if (pendingJobs >= 30)
+			return true;
+		else
+			return false;
+	}
+	
+	public boolean maxPendingJobsWeek(String park) {
+		Cereal data = new Cereal(1);
+		JobList list = (JobList)data.deSerialize();
+		HashMap<Integer, Object> map = list.getMap();
+		int pendingJobs = 0;
 		
-		return true;
+		Calendar threeDaysBefore = Calendar.getInstance();
+		threeDaysBefore.add(Calendar.DAY_OF_MONTH, -3);
+		Calendar threeDaysAfter = Calendar.getInstance();
+		threeDaysAfter.add(Calendar.DAY_OF_MONTH, 3);
+		
+		for (Map.Entry<Integer,Object> pair : map.entrySet()) {
+			  if (!((Job)(pair.getValue())).getIsTwoDays()) {
+				  if (((Job)(pair.getValue())).getParkName().equals(park) && (((Job)(pair.getValue())).getStartDate().after(threeDaysBefore.getTime())) && 
+						  (((Job)(pair.getValue())).getStartDate().before(threeDaysAfter.getTime()))) 
+					  pendingJobs++;
+			  } else {
+				  if (((Job)(pair.getValue())).getParkName().equals(park) && (((Job)(pair.getValue())).getStartDate().after(threeDaysBefore.getTime())) && 
+						  (((Job)(pair.getValue())).getStartDate().before(threeDaysAfter.getTime()))) 
+					  pendingJobs += 2;
+				  else if (((Job)(pair.getValue())).getParkName().equals(park) && (((Job)(pair.getValue())).getEndCalender().after(threeDaysBefore.getTime())) && 
+						  (((Job)(pair.getValue())).getEndCalender().before(threeDaysAfter.getTime()))) 
+					  pendingJobs++;
+			  }
+		}
+		
+		if (pendingJobs >= 5) 
+			return true;
+		return false;	
+		
+	}
+	
+	/**
+	 * Returns true if its instance's park else false if not
+	 * @param theJob			instance of the new job
+	 * @return true if its part of park; false if not
+	 */
+	public boolean isMyPark(String thePark) {
+		return parks.contains(thePark);
 	}
 
 	
