@@ -157,6 +157,7 @@ public class JobTest {
 		test.put(test.size(), testJob);
 
 		jobList.setMap(test);
+		
 		//Serialize Data
 		Cereal testStoreData = new Cereal(0);
 		testStoreData.serialize(jobList);
