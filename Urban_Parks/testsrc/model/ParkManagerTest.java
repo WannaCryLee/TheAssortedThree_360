@@ -39,7 +39,7 @@ public class ParkManagerTest implements Serializable{
 	
 	@Test 
 	public void shouldSubmitAJob() {
-		Job originalJob = new Job("Rock", "Tuscany", "Tacoma, WA", "Clean Rocks", 3, 5, 3, false, 2015, 5, 15, 2015, 5, 15);
+		Job originalJob = new Job("Rock", "Tuscany", "Tacoma, WA", "Clean Rocks", 3, 5, 3, false, 2015, 5, 15, 2015, 5, 15, 5, 30);
 		testParkManager.submitJob(originalJob);
 		
 		Cereal checkJob = new Cereal(1);

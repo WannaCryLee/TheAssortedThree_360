@@ -26,9 +26,9 @@ public class VolunteerTest {
 //			int theEndYear, int theEndMonth, int theEndDay)
 	private Volunteer myVolunteerGivenData = new Volunteer("Lysia", "Valu", "jedimaster@gmail.com", "sparkle");
 	private Job myJobData1 = new Job("Lessons", "Huntamer Park", "Lacey Dr.", "Swimming in the air.", 5, 5, 5, true, 
-			2015, 12, 31, 2016,1,1);
+			2015, 12, 31, 2016,1,1, 5, 30);
 	private Job myJobData2 = new Job("Training", "Long Lake", "Canyon Rd.", "Lifeguard Training", 5, 5, 5, true, 
-			2015, 12, 24, 2015,12,25);
+			2015, 12, 24, 2015,12,25, 5, 30);
 	
 	/**
 	 * Test method for {@link model.Volunteer#Volunteer(int, java.lang.String, java.lang.String, java.lang.String, java.lang.String)}.

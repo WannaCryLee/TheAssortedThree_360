@@ -1,7 +1,7 @@
 package view;
 
-import java.text.SimpleDateFormat;
 import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.Map;
 import java.util.Scanner;
 import java.util.Map.Entry;
@@ -19,14 +19,8 @@ import model.Volunteer;
  *
  */
 public class ParkManagerGui {
-	//Set the format
-	private SimpleDateFormat myDateFormat;
-	private SimpleDateFormat myTimeFormat;
-
 	//Constructor
 	public ParkManagerGui() {
-		myDateFormat = new SimpleDateFormat("MMM dd, yyyy");
-		myTimeFormat = new SimpleDateFormat("h:mm a");
 	}
 
 	/**
@@ -75,78 +69,63 @@ public class ParkManagerGui {
 	 * @param thisScan					instance of Scanner
 	 */
 	private void submitJobScreen(LogIn parkManager, UI tools, Scanner thisScan) {
+		Job newJob;
 		System.out.println("Submit a Job!");
 		System.out.println("_____________\n"); 
 
-		System.out.println("\n Under Construction\nPlease check back soon!");
+		//System.out.println("\n Under Construction\nPlease check back soon!");
 
-		//		System.out.println("Will the job be 2 days long? (Enter Y for yes or anything else for no): ");
-		//		String twoDays = thisScan.next();
-
-		/*
-		System.out.println("Please enter the following information");
+		
+		System.out.println("Please enter the following information\n");
 		System.out.print("Title: ");
 		String title = thisScan.next();
 		System.out.print("\nPark Name: ");
 		String parkName = thisScan.next();
+		thisScan.nextLine();
 		System.out.print("\nAddress: ");
-		String address = thisScan.next();
+		String address = thisScan.nextLine();
+		thisScan.nextLine();
 		System.out.print("\nDescription: ");
-		String description = thisScan.next();
+		String description = thisScan.nextLine();
 		System.out.print("\nNumber of light jobs: ");
 		int numLightJobs = thisScan.nextInt();
 		System.out.print("\nNumber of medium jobs: ");
 		int numMedJobs = thisScan.nextInt();
 		System.out.print("\nNumber of heavy jobs: ");
 		int numHeavyJobs = thisScan.nextInt();
-		System.out.print("\nJob Month (ie. 1 - 12: ")
+		System.out.print("\nJob Month (ie. 1 - 12: ");
 		int startMonth = thisScan.nextInt();
 		System.out.print("\nJob Day (ie. 1 - 31: ");
 		int startDay = thisScan.nextInt();
 		System.out.print("\nJob Year (ie. 2015): ");
 		int startYear = thisScan.nextInt();
-		System.out.println("What time does the event start (ie. 5:30): ");
-			String time = thisScan.next();
-			System.out.println("In the morning or evening, (AM or PM): ");
-			time += " " + thisScan.next().toUpperCase();
+		System.out.println("Hour: ");
+		int hour = thisScan.nextInt();
+		System.out.println("Minutes: ");
+		int min = thisScan.nextInt();
 		
+		System.out.println("Will the job be 2 days long? (Y/N): ");
+		String twoDays = thisScan.next();
 
-		if(twoDays.equals("Y") || twoDays.equals("y")){
-		System.out.print("--Enter the job's second day info-- ")
-		System.out.print("\nJob Month (ie. 1 - 12: ")
-			int endMonth = thisScan.nextInt();
-			System.out.print("\nJob Day (ie. 1 - 31: ");
-			int endDay = thisScan.nextInt();
-			System.out.print("\nJob Year (ie. 2015): ");
-			int endYear = thisScan.nextInt();
-			
-			//second date and time entry
-			//second constructor with two dates and two times
-			System.out.println("What time does the event start (ie. 5:30): ");
-			String time = thisScan.next();
-			System.out.println("In the morning or evening, (AM or PM): ");
-			time += " " + thisScan.next().toUpperCase();			
+		if(twoDays.toLowerCase().charAt(0) == 'y') {		
 			
 			//creates the "Two day" job
 			boolean isTwoDays = true;
-			Job newJob = new Job(title, parkName, address, description, numLightJobs, numMedJobs, numHeavyJobs, isTwoDays, startYear, startMonth, startDay,
-			endYear, endMonth, endDay);
+			newJob = new Job(title, parkName, address, description, numLightJobs, numMedJobs, numHeavyJobs, isTwoDays, startYear, startMonth, startDay,
+					startYear, startMonth, startDay + 1, hour, min);
 			
 		} else {
 			 //creates the "One day" job
 			 boolean isTwoDays = false;
-			 Job newJob = new Job(title, parkName, address, description, numLightJobs, numMedJobs, numHeavyJobs, isTwoDays, startYear, startMonth, startDay,
-			startYear, startMonth, startDay);
+			 newJob = new Job(title, parkName, address, description, numLightJobs, numMedJobs, numHeavyJobs, isTwoDays, startYear, startMonth, startDay,
+			startYear, startMonth, startDay, hour, min);
 		}
-
-		System.out.print("\nDate: ");
-		String date = thisScan.next();/**
-		//Job newJob = new Job(title, parkName, address, description, numLightJobs, numMedJobs, numHeavyJobs, date); 
-		//Need to check and notify user if job does not align with business rule before submitting!!
+		
 		jobDoubleCheck(thisScan, newJob);
 		parkManager.getTheManager().submitJob(newJob);
+		tools.clearScreen();
 		System.out.println("Job Submitted");
-		 */
+		
 		tools.pause();
 	}
 
@@ -163,13 +142,13 @@ public class ParkManagerGui {
 		UserList users = (UserList)userData.deSerialize();
 		System.out.println("My Park Jobs");
 		System.out.println("____________\n");
-		ArrayList<String> myParks = parkManager.getTheManager().getParks();
-		for (String park : myParks) {
+		HashMap<String, Integer> myParks = parkManager.getTheManager().getParks();
+		for (Map.Entry<String, Integer> park : myParks.entrySet()) {
 
 			java.util.Iterator<Entry<Integer, Object>> itr = jobs.getMap().entrySet().iterator();
 			while(itr.hasNext()) {
 				Map.Entry<Integer, Object> pair = (Map.Entry<Integer, Object>)itr.next();
-				if (((Job)pair.getValue()).getParkName().toLowerCase().equals(park.toLowerCase())) {
+				if (((Job)pair.getValue()).getParkName().toLowerCase().equals(park.getKey().toLowerCase())) {
 					System.out.println("[ " + pair.getKey() + " - " + ((Job)pair.getValue()).getTitle() + " in " + ((Job)pair.getValue()).getStartDate() + " ]");
 				}
 				itr.remove();
@@ -204,7 +183,7 @@ public class ParkManagerGui {
 		System.out.print("\nJob number: ");
 		int jobNum = thisScan.nextInt();
 		Job selectedJob = (Job)jobs.getMap().get(jobNum);
-		while (!parkManager.getTheManager().getParks().contains(selectedJob.getParkName())) {
+		while (!parkManager.getTheManager().getParks().containsKey(selectedJob.getParkName())) {
 			System.out.print("\nYou do not have this job number for your park\nPlease enter the correct Job Number: ");
 			jobNum = thisScan.nextInt();
 			selectedJob = (Job)jobs.getMap().get(jobNum);
@@ -239,7 +218,7 @@ public class ParkManagerGui {
 	private void jobDoubleCheck(Scanner scan, Job job) {
 		while (job.jobCheck() != 0) {
 			String resolve;
-			int gradeResolve;
+			//int gradeResolve;
 			int problem = job.jobCheck();
 			System.out.println("\n\nUh Oh! There was a problem. \nPlease Resolve");
 			//Title
@@ -265,7 +244,7 @@ public class ParkManagerGui {
 				//Grade
 			} else if (problem == 5) {
 				System.out.println("\nPlease Re-enter approved Grade: ");
-				gradeResolve = scan.nextInt();
+				//gradeResolve = scan.nextInt();
 				//job.setGrade(gradeResolve);
 				//Date
 			} else if (problem == 6) {

@@ -7,7 +7,6 @@ package model;
 
 import java.io.Serializable;
 import java.text.SimpleDateFormat;
-import java.util.ArrayList;
 import java.util.Calendar;
 import java.util.Date;
 import java.util.GregorianCalendar;
@@ -50,8 +49,6 @@ public class Job implements Serializable {
 	private int numLightJobs;
 	private int numMedJobs;
 	private int numHeavyJobs;
-	/** A list of the volunteers who signed up for the job. */
-	private ArrayList<Volunteer> signedUpList;
 
 	//Job duration
 	//private int myJobDuration;
@@ -70,8 +67,6 @@ public class Job implements Serializable {
 		isTwoDays = false;
 		myStartDate = new GregorianCalendar(2015, 12-1, 24);
 		myEndDate = new GregorianCalendar(2015, 12-1, 25);
-
-		signedUpList = new ArrayList<Volunteer>();
 	}
 
 	/**
@@ -89,7 +84,7 @@ public class Job implements Serializable {
 	public Job(String theTitle, String theParkName, String theAddress, 
 			String theDescription, int theNumLightJobs, int theNumMedJobs,int theNumHeavyJobs, boolean theTwoDays,
 			int theStartYear, int theStartMonth, int theStartDay,
-			int theEndYear, int theEndMonth, int theEndDay) {
+			int theEndYear, int theEndMonth, int theEndDay, int hour, int min) {
 		title = theTitle;
 		parkName = theParkName;
 		address = theAddress;
@@ -98,11 +93,10 @@ public class Job implements Serializable {
 		numMedJobs = theNumMedJobs;
 		numHeavyJobs = theNumHeavyJobs;
 		isTwoDays = theTwoDays;
-		myStartDate = new GregorianCalendar(theStartYear, theStartMonth-1, theStartDay);
+		myStartDate = new GregorianCalendar();
+		myStartDate = new GregorianCalendar(theStartYear, theStartMonth-1, theStartDay, hour, min);
 		//System.out.println(sdf.format(myStartDate.getTime()));
 		myEndDate = new GregorianCalendar(theEndYear, theEndMonth-1, theEndDay);
-		
-		signedUpList = new ArrayList<Volunteer>();
 	}
 	
 	/**
@@ -228,43 +222,39 @@ public class Job implements Serializable {
 			return true;
 		return false;
 	}
-
+	
 	/**
-	 * Sign up volunteers for the job.
-	 *  
-	 * @param theVolunteer Volunteer signing up
-	 * @param theWorkCategory 0=Light, 1=Medium, 2=Hard
+	 * Checks if volunteers can sign up for a work category for a job
+	 * @param category			has to be 0,1,2 (Light, Medium, Heavy)
+	 * @return true if its full or false if there is room
 	 */
-	private void signUp(Volunteer theVolunteer, int theWorkCategory) {
-		if (isVolunteerAlreadySignedUp(theVolunteer) == true) {
-			signedUpList.add(theVolunteer);	
-			decrementJobCategory(theWorkCategory);
-		}
+	public boolean isWorkCategoryFull(int category) {
+		switch (category) {
+		case 0:
+			if (numLightJobs > 0)
+				return false;
+			break;
+		case 1:
+			if (numMedJobs > 0)
+				return false;
+			break;
+		case 2:
+			if (numHeavyJobs > 0)
+				return false;
+			break;
+		} 
+		return true;
 	}
+	
+	
 
-	/**
-	 * Business rule:
-	 * Prevents volunteer from signing up for the same job.
-	 * 
-	 * @param theVolunteer Volunteer signing up
-	 * @return true if volunteer exists, false if not
-	 */
-	private boolean isVolunteerAlreadySignedUp(Volunteer theVolunteer) {
-		//Loops through the list of volunteers already signed up for this job
-		for (int i = 0; i < signedUpList.size() - 1; i++) {
-			if (signedUpList.get(i).equals(theVolunteer) == true) {
-				return true;
-			}
-		}
-		return false; //if the volunteer is not already signed up
-	}
 
 	/**
 	 * Decrements the specific job category for the job.
 	 * 
 	 * @param theWorkCategory 0=Light, 1=Medium, 2=Hard
 	 */
-	private void decrementJobCategory(int theWorkCategory) {
+	public void decrementJobCategory(int theWorkCategory) {
 		if (theWorkCategory == 0) { // light 
 			if (numLightJobs > 0) 
 				numLightJobs -= 1;	

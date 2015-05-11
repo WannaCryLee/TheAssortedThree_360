@@ -23,43 +23,43 @@ public class JobTest {
 	 */
 	@Test
 	public void shouldCompare() {
-		Job myJob = new Job("Sweep the park", "Lacey", "address", "sweep", 5, 5, 5, false, 2015, 1, 5, 2015, 1, 5);
+		Job myJob = new Job("Sweep the park", "Lacey", "address", "sweep", 5, 5, 5, false, 2015, 1, 5, 2015, 1, 5, 5, 30);
 
 		//Compare same job
 		assertEquals(myJob.compare(
-				new Job("Sweep the park", "Lacey", "address", "sweep", 5, 5, 5, false, 2015, 1, 5, 2015, 1, 5)), true);
+				new Job("Sweep the park", "Lacey", "address", "sweep", 5, 5, 5, false, 2015, 1, 5, 2015, 1, 5, 5, 30)), true);
 
 		//test title		
 		assertFalse("Testing different titles", myJob.compare(
-				new Job("Install benches", "Lacey", "address", "sweep", 5, 5, 5, false, 2015, 1, 5, 2015, 1, 5)));
+				new Job("Install benches", "Lacey", "address", "sweep", 5, 5, 5, false, 2015, 1, 5, 2015, 1, 5, 5, 30)));
 
 		//test park name		
 		assertFalse("Testing different park name", myJob.compare(
-				new Job("Sweep the park", "Tacoma", "address", "sweep", 5, 5, 5, false, 2015, 1, 5, 2015, 1, 5)));
+				new Job("Sweep the park", "Tacoma", "address", "sweep", 5, 5, 5, false, 2015, 1, 5, 2015, 1, 5, 5, 30)));
 
 		//test address
 		assertFalse("Testing different address", myJob.compare(
-				new Job("Sweep the park", "Lacey", "Diffaddress", "sweep", 5, 5, 5, false, 2015, 1, 5, 2015, 1, 5)));
+				new Job("Sweep the park", "Lacey", "Diffaddress", "sweep", 5, 5, 5, false, 2015, 1, 5, 2015, 1, 5, 5, 30)));
 
 		//test description
 		assertFalse("Testing different description", myJob.compare(
-				new Job("Sweep the park", "Lacey", "address", "Benches", 5, 5, 5, false, 2015, 1, 5, 2015, 1, 5)));
+				new Job("Sweep the park", "Lacey", "address", "Benches", 5, 5, 5, false, 2015, 1, 5, 2015, 1, 5, 5, 30)));
 
 		//test number of light jobs
 		assertFalse("Testing different number of light jobs", myJob.compare(
-				new Job("Sweep the park", "Lacey", "address", "sweep", 1, 5, 5, false, 2015, 1, 5, 2015, 1, 5)));
+				new Job("Sweep the park", "Lacey", "address", "sweep", 1, 5, 5, false, 2015, 1, 5, 2015, 1, 5, 5, 30)));
 
 		//test number of medium jobs
 		assertFalse("Testing different number of medium jobs", myJob.compare(
-				new Job("Sweep the park", "Lacey", "address", "sweep", 5, 1, 5, false, 2015, 1, 5, 2015, 1, 5)));
+				new Job("Sweep the park", "Lacey", "address", "sweep", 5, 1, 5, false, 2015, 1, 5, 2015, 1, 5, 5, 30)));
 
 		//test number of heavy jobs
 		assertFalse("Testing different number of heavy jobs", myJob.compare(
-				new Job("Sweep the park", "Lacey", "address", "sweep", 5, 5, 1, false, 2015, 1, 5, 2015, 1, 5)));
+				new Job("Sweep the park", "Lacey", "address", "sweep", 5, 5, 1, false, 2015, 1, 5, 2015, 1, 5, 5, 30)));
 
 		//test if two jobs
 		assertFalse("Test if the job is two days long", myJob.compare(
-				new Job("Sweep the park", "Lacey", "address", "sweep", 5, 5, 5, true, 2015, 1, 5, 2015, 1, 5)));
+				new Job("Sweep the park", "Lacey", "address", "sweep", 5, 5, 5, true, 2015, 1, 5, 2015, 1, 5, 5, 30)));
 
 	}
 
@@ -68,50 +68,50 @@ public class JobTest {
 	 */
 	@Test
 	public void shouldJobCheck() {
-		Job myJob = new Job("Sweep the park", "Lacey", "address", "sweep", 5, 5, 5, false, 2015, 1, 5, 2015, 1, 5);
+		Job myJob = new Job("Sweep the park", "Lacey", "address", "sweep", 5, 5, 5, false, 2015, 1, 5, 2015, 1, 5, 5, 30);
 		
 		//Checks that all is well
 		assertSame("Everything checks out", 0, myJob.jobCheck());
 
 		//Checks for empty title
 		assertSame("Everything checks out", 1, 
-				new Job("", "Lacey", "address", "sweep", 5, 5, 5, false, 2015, 1, 5, 2015, 1, 30).jobCheck());
+				new Job("", "Lacey", "address", "sweep", 5, 5, 5, false, 2015, 1, 5, 2015, 1, 30, 5, 30).jobCheck());
 
 		//Checks for empty park name
 		assertSame("Everything checks out", 2, 
-				new Job("Sweep the park", "", "address", "sweep", 5, 5, 5, false, 2015, 1, 5, 2015, 1, 30).jobCheck());
+				new Job("Sweep the park", "", "address", "sweep", 5, 5, 5, false, 2015, 1, 5, 2015, 1, 30, 5, 30).jobCheck());
 
 		//Checks for empty address
 		assertSame("Everything checks out", 3, 
-				new Job("Sweep the park", "Lacey", "", "sweep", 5, 5, 5, false, 2015, 1, 5, 2015, 1, 30).jobCheck());
+				new Job("Sweep the park", "Lacey", "", "sweep", 5, 5, 5, false, 2015, 1, 5, 2015, 1, 30, 5, 30).jobCheck());
 
 		//Checks for empty description
 		assertSame("Everything checks out", 4, 
-				new Job("Sweep the park", "Lacey", "address", "", 5, 5, 5, false, 2015, 1, 5, 2015, 1, 30).jobCheck());
+				new Job("Sweep the park", "Lacey", "address", "", 5, 5, 5, false, 2015, 1, 5, 2015, 1, 30, 5, 30).jobCheck());
 
 		//Checks for empty light jobs less than 0
 		assertSame("Everything checks out", 5, 
-				new Job("Sweep the park", "Lacey", "address", "sweep", -100, 5, 5, false, 2015, 1, 5, 2015, 1, 30).jobCheck());
+				new Job("Sweep the park", "Lacey", "address", "sweep", -100, 5, 5, false, 2015, 1, 5, 2015, 1, 30, 5, 30).jobCheck());
 
 		//Checks for empty light jobs above 50
 		assertSame("Everything checks out", 5, 
-				new Job("Sweep the park", "Lacey", "address", "sweep", 100, 5, 5, false, 2015, 1, 5, 2015, 1, 30).jobCheck());
+				new Job("Sweep the park", "Lacey", "address", "sweep", 100, 5, 5, false, 2015, 1, 5, 2015, 1, 30, 5, 30).jobCheck());
 
 		//Checks for empty medium jobs less than 0
 		assertSame("Everything checks out", 6, 
-				new Job("Sweep the park", "Lacey", "address", "sweep", 5, -100, 5, false, 2015, 1, 5, 2015, 1, 30).jobCheck());
+				new Job("Sweep the park", "Lacey", "address", "sweep", 5, -100, 5, false, 2015, 1, 5, 2015, 1, 30, 5, 30).jobCheck());
 
 		//Checks for empty medium jobs above 50
 		assertSame("Everything checks out", 6, 
-				new Job("Sweep the park", "Lacey", "address", "sweep", 5, 100, 5, false, 2015, 1, 5, 2015, 1, 30).jobCheck());
+				new Job("Sweep the park", "Lacey", "address", "sweep", 5, 100, 5, false, 2015, 1, 5, 2015, 1, 30, 5, 30).jobCheck());
 
 		//Checks for empty heavy jobs less than 0
 		assertSame("Everything checks out", 7, 
-				new Job("Sweep the park", "Lacey", "address", "sweep", 5, 5, -100, false, 2015, 1, 5, 2015, 1, 30).jobCheck());
+				new Job("Sweep the park", "Lacey", "address", "sweep", 5, 5, -100, false, 2015, 1, 5, 2015, 1, 30, 5, 30).jobCheck());
 
 		//Checks for empty heavy jobs above 50
 		assertSame("Everything checks out", 7, 
-				new Job("Sweep the park", "Lacey", "address", "sweep", 5, 5, 100, false, 2015, 1, 5, 2015, 1, 30).jobCheck());
+				new Job("Sweep the park", "Lacey", "address", "sweep", 5, 5, 100, false, 2015, 1, 5, 2015, 1, 30, 5, 30).jobCheck());
 
 	}
 
@@ -121,7 +121,7 @@ public class JobTest {
 	@Test
 	public void shouldIsMaxWeek() {
 		//	assertTrue();
-		Job current  = new Job("Sweep", "Wright", "Tacoma, WA", "Sweep Sidewalks", 3, 5, 3, false, 2015, 5, 17, 2015, 5, 17);
+		Job current  = new Job("Sweep", "Wright", "Tacoma, WA", "Sweep Sidewalks", 3, 5, 3, false, 2015, 5, 17, 2015, 5, 17, 5, 30);
 
 		setUpJobList();
 		//Job exJob = (Job) jobList.getMap().get(3);
@@ -136,23 +136,23 @@ public class JobTest {
 		HashMap<Integer, Object> test = new HashMap<Integer, Object>();
 		
 
-		Job testJob = new Job("Rock", "Tuscany", "Tacoma, WA", "Clean Rocks", 3, 5, 3, false, 2015, 5, 15, 2015, 5, 15);
+		Job testJob = new Job("Rock", "Tuscany", "Tacoma, WA", "Clean Rocks", 3, 5, 3, false, 2015, 5, 15, 2015, 5, 15, 5, 30);
 
 		test.put(test.size(), testJob);
 
-		testJob = new Job("Bark", "Tuscany", "Tacoma, WA", "New Bark",3, 5, 3, false, 2015, 5, 16, 2015, 5, 16);
+		testJob = new Job("Bark", "Tuscany", "Tacoma, WA", "New Bark",3, 5, 3, false, 2015, 5, 16, 2015, 5, 16, 5, 30);
 
 		test.put(test.size(), testJob);
 
-		testJob = new Job("Garbage", "Wright", "Tacoma, WA", "Change all the Garbage", 3, 5, 3, false, 2015, 5, 18, 2015, 5, 18);
+		testJob = new Job("Garbage", "Wright", "Tacoma, WA", "Change all the Garbage", 3, 5, 3, false, 2015, 5, 18, 2015, 5, 18, 5, 30);
 
 		test.put(test.size(), testJob);
 
-		testJob = new Job("New Fountain", "Lighthouse", "Tacoma, WA", "Install new fountain", 3, 5, 3, false, 2015, 5, 19, 2015, 5, 19);
+		testJob = new Job("New Fountain", "Lighthouse", "Tacoma, WA", "Install new fountain", 3, 5, 3, false, 2015, 5, 19, 2015, 5, 19, 5, 30);
 
 		test.put(test.size(), testJob);
 
-		testJob = new Job("BBQ", "LightHouse", "Tacoma, WA", "Cook Meat :)", 3, 5, 3, false, 2015, 5, 20, 2015, 5, 20);
+		testJob = new Job("BBQ", "LightHouse", "Tacoma, WA", "Cook Meat :)", 3, 5, 3, false, 2015, 5, 20, 2015, 5, 20, 5, 30);
 
 		test.put(test.size(), testJob);
 
