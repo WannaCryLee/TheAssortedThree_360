@@ -20,19 +20,21 @@ import java.util.regex.Pattern;
  * 
  */
 public class ValidateJob {
-
+	//The current year to date
 	private Calendar myCurrentYear;
+	//The pattern desired to check time
 	private Pattern pattern;
+	//The ability to match all the times
 	private Matcher matcher;
-
-	private static String TIME12HOURS_PATTERN;
-
+	//The wanted pattern to identify appropriate time constraints; non-military time
+	private  String patternForTimes;
+	/**
+	 * Constructor for initializing variables
+	 */
 	public ValidateJob(){
-
 		myCurrentYear = Calendar.getInstance();
-		TIME12HOURS_PATTERN = "(1[012]|[1-9]):[0-5][0-9](\\s)(AM|PM)";
-		pattern = Pattern.compile(TIME12HOURS_PATTERN);
-
+		patternForTimes = "(1[012]|[1-9]):[0-5][0-9](\\s)(AM|PM)";
+		pattern = Pattern.compile(patternForTimes);
 	}
 
 	/**
@@ -51,43 +53,17 @@ public class ValidateJob {
 		return true;
 	}//end check month
 
-	//	/**
-	//	 * Make sure the year given is current
-	//	 * @return
-	//	 */
-	//	public boolean checkYear(int theYear){
-	//
-	//		if (!(theYear == myCurrentYear.getWeekYear() || theYear == myCurrentYear.getWeekYear() + 1)) {  
-	//			return false;
-	//		} 
-	//		return true;
-	//	}//end check year
-
-	//	/**
-	//	 * 
-	//	 * @return
-	//	 */
-	//	public boolean checkDay(int theDay){
-	//		if ((theDay<1) || (theDay>31)) {       
-	//			return false;
-	//		} 		
-	//		return true;
-	//	}//end check day
 
 	public boolean Within3Months(int theDay, int theMonth, int theYear) {
 		// The date 90 days after the current date
 		Calendar threeMonthsAfterCurrentDate = Calendar.getInstance();
 		// The current date
 		Calendar currentDate = Calendar.getInstance();
-		//Set the date given
+		// Set the date given
 		Calendar myStartDate = new GregorianCalendar(theYear, theMonth-1, theDay);
 
 		//Set the date 3 months after
 		threeMonthsAfterCurrentDate.add(Calendar.MONTH, 3);
-
-		//		System.out.println("\n\nCurrent Date:  " + sdf.format(currentDate.getTime()));		
-		//		System.out.println("3 Months After the Current Date:  " + sdf.format(threeMonthsAfterCurrentDate.getTime()));
-		//		System.out.println("The Date to Validate:  " + sdf.format(myStartDate.getTime()));
 
 		//BR: Date cannot be in the past nor more than 3 months in the future from the current date
 		if (myStartDate.getTime().before(threeMonthsAfterCurrentDate.getTime())
@@ -95,9 +71,7 @@ public class ValidateJob {
 			return true;
 		} else {
 			return false;
-
 		}
-
 	}
 
 	/**

@@ -1,6 +1,9 @@
+/*
+ * Ariel McNamara, Jasmine Pedersen, and Jordan Love
+ * TCSS 360: Software Engineering
+ * Spring 2015
+ */
 package model;
-
-import static org.junit.Assert.*;
 
 import java.util.HashMap;
 
@@ -8,18 +11,19 @@ import org.junit.Test;
 
 public class LogInTest {
 
-	LogIn testAdmin = new LogIn();
-	LogIn testVolunteer = new LogIn();
-	LogIn testParkManager = new LogIn();
-	
 	@Test
 	public void shouldGetInstance() {
+		LogIn testUser = new LogIn();
+		//Goes through when there is no data
+		testUser.getInstance("ChecksIfEmpty@gmail.com");
+		//Creates the data
 		setUpUserList();
-		testAdmin.getInstance("bwhale@gmail.com");
-		testVolunteer.getInstance("pwhale@gmail.com");
-		testParkManager.getInstance("owhale@gmail.com");
-		
-		assertEquals(testAdmin.getTheAdmin(), null);
+		//Tests Administrator
+		testUser.getInstance("bwhale@gmail.com");
+		//Tests Volunteer
+		testUser.getInstance("pwhale@gmail.com");
+		//Tests Park Manager
+		testUser.getInstance("owhale@gmail.com");		
 	}
 	
 	private void setUpUserList() {
@@ -56,6 +60,10 @@ public class LogInTest {
 		test.put(test.size(), testAdmin);
 		
 		ParkManager testManager = new ParkManager("Orca", "Whale", "owhale@gmail.com", "password", "Pacific Ocean", "Wright");
+		
+		test.put(test.size(), testManager);
+		
+		testManager = new ParkManager("Twin", "kies", "hostess@gmail.com", "password", "Ocean", "Mermaid");
 		
 		test.put(test.size(), testManager);
 		

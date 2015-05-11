@@ -55,8 +55,6 @@ public class Job implements Serializable {
 
 	//Job duration
 	//private int myJobDuration;
-	/** Date of job */
-	//private String date;
 
 	/**
 	 * Constructor
@@ -72,13 +70,10 @@ public class Job implements Serializable {
 		isTwoDays = false;
 		myStartDate = new GregorianCalendar(2015, 12-1, 24);
 		myEndDate = new GregorianCalendar(2015, 12-1, 25);
-		//date = null;
 
 		signedUpList = new ArrayList<Volunteer>();
 	}
 
-	
-	
 	/**
 	 * Constructor for two days
 	 * 
@@ -105,15 +100,14 @@ public class Job implements Serializable {
 		isTwoDays = theTwoDays;
 		myStartDate = new GregorianCalendar(theStartYear, theStartMonth-1, theStartDay);
 		myEndDate = new GregorianCalendar(theEndYear, theEndMonth-1, theEndDay);
-		//date = theDate;
-
+		
 		signedUpList = new ArrayList<Volunteer>();
 	}
 	
 	/**
 	 * 
-	 * @param other
-	 * @return
+	 * @param other The job given by the user
+	 * @return true or false 
 	 */
 	public boolean compare(Job other) {
 		if (!title.equals(other.getTitle()))
@@ -164,7 +158,12 @@ public class Job implements Serializable {
 		//			return 8;
 		return 0;
 	}
-	
+	/**
+	 * Checks to see if there is already a total number of 5 jobs during that week (3 days on either side of the job days) and if so then
+	 * it will return false.
+	 * 
+	 * @return false if number of jobs in the "week" is 5 or more and true if there is still space to add another
+	 */
 	public boolean isMaxWeek() {
 		int day = myStartDate.get(Calendar.DATE);
 		int month = myStartDate.get(Calendar.MONTH);
@@ -180,26 +179,45 @@ public class Job implements Serializable {
 			if (!((Job)pair.getValue()).getStartCalender().equals(((Job)pair.getValue()).getEndCalender())) {
 				checkTwoDay = true;
 			}
+			
+			System.out.println("Title: " + ((Job)pair.getValue()).getTitle() + "; Day: " + ((Job)pair.getValue()).getStartCalender().get(Calendar.DATE));
+			
 			int otherDay = ((Job)pair.getValue()).getStartCalender().get(Calendar.DATE);	
 			int otherMonth = ((Job)pair.getValue()).getStartCalender().get(Calendar.MONTH);
 			int otherYear = ((Job)pair.getValue()).getStartCalender().get(Calendar.YEAR);
 			if (month == otherMonth && year == otherYear) {
-				if (isWithInThree(myStartDate.get(Calendar.DAY_OF_MONTH), day, otherDay)) 
+				if (isWithInThree(myStartDate.get(Calendar.DAY_OF_MONTH), day, otherDay)) {
+					System.out.println("here");
 					numJobWeek++;
+				}
 				if (checkTwoDay) {
-					if (isWithInThree(myStartDate.get(Calendar.DAY_OF_MONTH), day, ((Job)pair.getValue()).getEndCalender().get(Calendar.DATE)))
+					if (isWithInThree(myStartDate.get(Calendar.DAY_OF_MONTH), day, ((Job)pair.getValue()).getEndCalender().get(Calendar.DATE))){
+						System.out.println("here");
 						numJobWeek++;
+					}
 				}
 				
 			}
 			itr.remove();
-		}	
-		if (numJobWeek > 5)
+		}
+		System.out.println(numJobWeek);
+		if (numJobWeek >= 5)
 			return false;
 		return true;
 	}
-	
+	/**
+	 * Checks to see if their is a job on any of the days either 3 days before or 3 days after
+	 * 
+	 * @param dayInMonth the numbers of days total in the current month
+	 * @param day the day that is given for the current job
+	 * @param otherDay the day that we are comparing too from the list
+	 * @return true or false if the day is within 3 days before or after
+	 */
 	private boolean isWithInThree(int dayInMonth, int day, int otherDay) {
+		System.out.println("day - otherDay <= 3 and >= -3: " + (day - otherDay));
+//		System.out.println();
+//		System.out.println();
+//		System.out.println();
 		
 		if ((day - otherDay <= 3 && day - otherDay >= -3) || 
 				(day - otherDay >= dayInMonth - 3 && day - otherDay <= dayInMonth) || 
