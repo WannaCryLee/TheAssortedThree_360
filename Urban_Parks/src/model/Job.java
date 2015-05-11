@@ -99,6 +99,7 @@ public class Job implements Serializable {
 		numHeavyJobs = theNumHeavyJobs;
 		isTwoDays = theTwoDays;
 		myStartDate = new GregorianCalendar(theStartYear, theStartMonth-1, theStartDay);
+		//System.out.println(sdf.format(myStartDate.getTime()));
 		myEndDate = new GregorianCalendar(theEndYear, theEndMonth-1, theEndDay);
 		
 		signedUpList = new ArrayList<Volunteer>();
@@ -180,7 +181,9 @@ public class Job implements Serializable {
 				checkTwoDay = true;
 			}
 			
-			System.out.println("Title: " + ((Job)pair.getValue()).getTitle() + "; Day: " + ((Job)pair.getValue()).getStartCalender().get(Calendar.DATE));
+			//System.out.println("Title: " + ((Job)pair.getValue()).getTitle() + "; Day: " + ((Job)pair.getValue()).getStartCalender().get(Calendar.DATE));
+			System.out.println("\nTitle: " + title + "; Day: " + sdf.format(myStartDate.getTime()));
+			System.out.println("Title: " + ((Job)pair.getValue()).getTitle() + "; Day: " + sdf.format(((Job)pair.getValue()).getStartDate()));
 			
 			int otherDay = ((Job)pair.getValue()).getStartCalender().get(Calendar.DATE);	
 			int otherMonth = ((Job)pair.getValue()).getStartCalender().get(Calendar.MONTH);
@@ -214,7 +217,7 @@ public class Job implements Serializable {
 	 * @return true or false if the day is within 3 days before or after
 	 */
 	private boolean isWithInThree(int dayInMonth, int day, int otherDay) {
-		System.out.println("day - otherDay <= 3 and >= -3: " + (day - otherDay));
+//		System.out.println("day - otherDay <= 3 and >= -3: " + (day - otherDay));
 //		System.out.println();
 //		System.out.println();
 //		System.out.println();

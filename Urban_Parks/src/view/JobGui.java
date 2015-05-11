@@ -1,5 +1,6 @@
 package view;
 
+import java.text.SimpleDateFormat;
 import java.util.Map;
 import java.util.Map.Entry;
 
@@ -13,7 +14,7 @@ import model.JobList;
  *
  */
 public class JobGui {
-
+	private static SimpleDateFormat sdf = new SimpleDateFormat("MMMM dd, yyyy");
 	//Constructor
 	public JobGui() {
 		
@@ -32,7 +33,7 @@ public class JobGui {
 			Map.Entry<Integer, Object> pair = (Map.Entry<Integer, Object>)itr.next();
 			System.out.println("[ " + pair.getKey() + " - " + ((Job)pair.getValue()).getTitle() + ", " + ((Job)pair.getValue()).getParkName() + ", " +
 					((Job)pair.getValue()).getDescription() + ", " +
-					((Job)pair.getValue()).getStartDate() + " ]");			
+					sdf.format(((Job)pair.getValue()).getStartCalender().getTime()) + " ]");			
 			itr.remove();
 		}	
 	}
