@@ -9,8 +9,8 @@ import java.io.File;
 import java.io.Serializable;
 import java.io.UnsupportedEncodingException;
 import java.net.URLDecoder;
+import java.util.ArrayList;
 import java.util.HashMap;
-
 /**
  * Creates a Park Manager.
  * @author Jasmine Pedersen
@@ -47,7 +47,7 @@ public class ParkManager implements Serializable{
 	/** Address */
 	private String address;
 	// Parks
-	private HashMap<String, Integer> parks;
+	private ArrayList<String> parks;
 
 	
 	/**
@@ -59,7 +59,7 @@ public class ParkManager implements Serializable{
 		email = DEFAULT_EMAIL;
 		password = DEFAULT_PASSWORD;
 		address = DEFAULT_ADDRESS;
-		parks = new HashMap<String, Integer>();
+		parks = new ArrayList<String>();
 	}
 	
 
@@ -73,13 +73,13 @@ public class ParkManager implements Serializable{
 	 * @param theAddress Address
 	 */
 	public ParkManager(String theFirst, String theLast, String theEmail, String thePassword, String theAddress, String park) {
-		parks = new HashMap<String, Integer>();
+		parks = new ArrayList<String>();
 		first = theFirst;
 		last = theLast;
 		email = theEmail;
 		password = thePassword;
 		address = theAddress;
-		parks.put(park, 0);
+		parks.add(park);
 	}
 
 	/**
@@ -129,18 +129,6 @@ public class ParkManager implements Serializable{
 		jobs.setMap(jobList);
 		
 		deserial.serialize(jobs);
-	}
-	
-	public boolean isMaxPendingJob(String park) {
-		
-		if (parks.get(park) == 30)
-			return true;
-		
-		return false;
-	}
-	
-	public void incrementPendingJob(String park) {
-		parks.replace(park, parks.get(park) + 1);
 	}
 
 	
@@ -209,12 +197,12 @@ public class ParkManager implements Serializable{
 	}	
 	
 	//Getters and Setters for parks
-	public HashMap<String, Integer> getParks() {
-		HashMap<String, Integer> returnPark = parks;
+	public ArrayList<String> getParks() {
+		ArrayList<String> returnPark = parks;
 		return returnPark;
 	}
 
-	public void setParks(HashMap<String, Integer> parks) {
+	public void setParks(ArrayList<String> parks) {
 		this.parks = parks;
 	}
 

@@ -1,7 +1,6 @@
 package view;
 
 import java.util.ArrayList;
-import java.util.HashMap;
 import java.util.Map;
 import java.util.Scanner;
 import java.util.Map.Entry;
@@ -142,13 +141,13 @@ public class ParkManagerGui {
 		UserList users = (UserList)userData.deSerialize();
 		System.out.println("My Park Jobs");
 		System.out.println("____________\n");
-		HashMap<String, Integer> myParks = parkManager.getTheManager().getParks();
-		for (Map.Entry<String, Integer> park : myParks.entrySet()) {
+		ArrayList<String> myParks = parkManager.getTheManager().getParks();
+		for (String park : myParks) {
 
 			java.util.Iterator<Entry<Integer, Object>> itr = jobs.getMap().entrySet().iterator();
 			while(itr.hasNext()) {
 				Map.Entry<Integer, Object> pair = (Map.Entry<Integer, Object>)itr.next();
-				if (((Job)pair.getValue()).getParkName().toLowerCase().equals(park.getKey().toLowerCase())) {
+				if (((Job)pair.getValue()).getParkName().toLowerCase().equals(park.toLowerCase())) {
 					System.out.println("[ " + pair.getKey() + " - " + ((Job)pair.getValue()).getTitle() + " in " + ((Job)pair.getValue()).getStartDate() + " ]");
 				}
 				itr.remove();
@@ -183,7 +182,7 @@ public class ParkManagerGui {
 		System.out.print("\nJob number: ");
 		int jobNum = thisScan.nextInt();
 		Job selectedJob = (Job)jobs.getMap().get(jobNum);
-		while (!parkManager.getTheManager().getParks().containsKey(selectedJob.getParkName())) {
+		while (!parkManager.getTheManager().getParks().contains(selectedJob.getParkName())) {
 			System.out.print("\nYou do not have this job number for your park\nPlease enter the correct Job Number: ");
 			jobNum = thisScan.nextInt();
 			selectedJob = (Job)jobs.getMap().get(jobNum);
