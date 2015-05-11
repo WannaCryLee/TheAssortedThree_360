@@ -7,6 +7,8 @@ package model;
 
 import static org.junit.Assert.*;
 
+import java.util.Calendar;
+import java.util.GregorianCalendar;
 
 import org.junit.Test;
 
@@ -44,12 +46,15 @@ public class ValidateJobTest {
 
 	/**
 	 * Test method for {@link model.ValidateJob#validate(java.lang.String)}.
-	 
+	 */
 	@Test
 	public void shouldBeWithin3Months() {
-		assertEquals(myVJ.Within3Months(9, 9, 2015), false);
-		assertEquals(myVJ.Within3Months(7, 8, 2015), true);
-		assertEquals(myVJ.Within3Months(5, 5, 2015), false);
+		Calendar start = new GregorianCalendar(2015, 10, 5);
+		assertFalse(myVJ.Within3Months(start));
+		start = new GregorianCalendar(2015, 6, 2);
+		assertTrue(myVJ.Within3Months(start));
+		start = new GregorianCalendar(2015, 3, 2);
+		assertFalse(myVJ.Within3Months(start));
 	}
 
 	/**

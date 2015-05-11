@@ -5,25 +5,44 @@
  */
 package model;
 
+import static org.junit.Assert.*;
+
 import java.util.HashMap;
 
 import org.junit.Test;
 
 public class LogInTest {
 
+	private Admin tAdmin;
+	private ParkManager tManager;
+	private Volunteer tVolunteer;
+	
 	@Test
 	public void shouldGetInstance() {
-		LogIn testUser = new LogIn();
-		//Goes through when there is no data
-		testUser.getInstance("ChecksIfEmpty@gmail.com");
+		LogIn testAdmin = new LogIn();
+		LogIn testVolunteer = new LogIn();
+		LogIn testManager = new LogIn();
 		//Creates the data
 		setUpUserList();
 		//Tests Administrator
-		testUser.getInstance("bwhale@gmail.com");
+		testAdmin.getInstance("bwhale@gmail.com");
+		if (!testAdmin.getTheAdmin().getMyEmail().equals(tAdmin.getMyEmail()))
+			fail("Does not grab the right admin");
+		assertEquals(testAdmin.getTheManager(), null);
+		assertEquals(testAdmin.getTheVolunteer(), null);
 		//Tests Volunteer
-		testUser.getInstance("pwhale@gmail.com");
+		testVolunteer.getInstance("pwhale@gmail.com");
+		if (!testVolunteer.getTheVolunteer().getMyEmail().equals(tVolunteer.getMyEmail()))
+			fail("Does not grab the right volunteer");
+		assertEquals(testVolunteer.getTheManager(), null);
+		assertEquals(testVolunteer.getTheAdmin(), null);
 		//Tests Park Manager
-		testUser.getInstance("owhale@gmail.com");		
+		testManager.getInstance("owhale@gmail.com");	
+		if (!testManager.getTheManager().getEmail().equals(tManager.getEmail()))
+			fail("Does not grab the right manager");
+		assertEquals(testManager.getTheAdmin(), null);
+		assertEquals(testManager.getTheVolunteer(), null);
+		
 	}
 	
 	private void setUpUserList() {
@@ -51,21 +70,17 @@ public class LogInTest {
 		
 		test.put(test.size(), testVolunteer);
 		
-		testVolunteer = new Volunteer("Pilot", "Whale", "pwhale@gmail.com", "password");
+		tVolunteer = new Volunteer("Pilot", "Whale", "pwhale@gmail.com", "password");
 		
-		test.put(test.size(), testVolunteer);
+		test.put(test.size(), tVolunteer);
 		
-		Admin testAdmin = new Admin("Blue", "Whale", "bwhale@gmail.com", "Pacific Ocean", "password");
+		tAdmin = new Admin("Blue", "Whale", "bwhale@gmail.com", "Pacific Ocean", "password");
 		
-		test.put(test.size(), testAdmin);
+		test.put(test.size(), tAdmin);
 		
-		ParkManager testManager = new ParkManager("Orca", "Whale", "owhale@gmail.com", "password", "Pacific Ocean", "Wright");
+		tManager = new ParkManager("Orca", "Whale", "owhale@gmail.com", "password", "Pacific Ocean", "Wright");
 		
-		test.put(test.size(), testManager);
-		
-		testManager = new ParkManager("Twin", "kies", "hostess@gmail.com", "password", "Ocean", "Mermaid");
-		
-		test.put(test.size(), testManager);
+		test.put(test.size(), tManager);
 		
 		list.setMap(test);
 		

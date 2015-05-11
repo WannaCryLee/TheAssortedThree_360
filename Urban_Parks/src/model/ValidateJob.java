@@ -6,7 +6,6 @@
 package model;
 
 import java.util.Calendar;
-import java.util.Date;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
@@ -57,13 +56,13 @@ public class ValidateJob {
 		// The date 90 days after the current date
 		Calendar threeMonthsAfterCurrentDate = Calendar.getInstance();
 		// The current date
-		Date today = new Date();
+		Calendar today = Calendar.getInstance();
 
 		//Set the date 3 months after
 		threeMonthsAfterCurrentDate.add(Calendar.MONTH, 3);
 
 		//BR: Date cannot be in the past nor more than 3 months in the future from the current date
-		if (myStartDate.before(threeMonthsAfterCurrentDate.getTime())
+		if (myStartDate.before(threeMonthsAfterCurrentDate)
 				&& myStartDate.after(today)) {
 			return true;
 		} else {

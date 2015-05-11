@@ -29,6 +29,7 @@ public class VolunteerTest {
 			2015, 12, 31, 2016,1,1, 5, 30);
 	private Job myJobData2 = new Job("Training", "Long Lake", "Canyon Rd.", "Lifeguard Training", 5, 5, 5, true, 
 			2015, 12, 24, 2015,12,25, 5, 30);
+	private Job myJobDatePast = new Job("Diving", "Real Lake", "Lacey Dr", "Diving off the deep end", 2,2,2,false,2015,2,2,2015,2,2,5,30);
 	
 	/**
 	 * Test method for {@link model.Volunteer#Volunteer(int, java.lang.String, java.lang.String, java.lang.String, java.lang.String)}.
@@ -67,6 +68,7 @@ public class VolunteerTest {
 		assertEquals(myVolunteerDefault.addJob(myJobData1, 0), "You are already volunteering for a job on this day!");
 		assertEquals(myVolunteerDefault.addJob(myJobData2, 0), "Success!! You are signed up to volunteer for " + myJobData2.getTitle() 
 				+ " on " +  sdf.format(myJobData2.getStartDate())+ ".");
+		assertEquals("This job already passed!",myVolunteerDefault.addJob(myJobDatePast, 0));
 		
 //		System.out.println("Success!! You are signed up to volunteer for " + myJobData1.getTitle() 
 //				+ " on " +  sdf.format(myJobData1.getStartDate())+ ".");

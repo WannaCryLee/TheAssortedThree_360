@@ -7,7 +7,7 @@ package model;
 
 import java.io.Serializable;
 import java.text.SimpleDateFormat;
-import java.util.Date;
+import java.util.Calendar;
 import java.util.HashMap;
 import java.util.Map.Entry;
 
@@ -82,7 +82,7 @@ public class Volunteer implements Serializable {
 	public String addJob(Job theJob, int workload){
 		boolean volunteered = false;
 		boolean pastJob = false;
-		Date today = new Date();
+		Calendar today = Calendar.getInstance();
 
 		for (Entry<Job, Integer> pair : myJobSignedUp.entrySet()) {
 			if (theJob.getEndCalender().before(today))

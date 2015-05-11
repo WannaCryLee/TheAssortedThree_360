@@ -144,13 +144,14 @@ public class ParkManager implements Serializable{
 		JobList list = (JobList)data.deSerialize();
 		HashMap<Integer, Object> map = list.getMap();
 		int pendingJobs = 0;
-		Date today = new Date();
+		Date todayDate = new Date();
+		Calendar today = Calendar.getInstance();
 		for (Map.Entry<Integer,Object> pair : map.entrySet()) {
 			  if (!((Job)(pair.getValue())).getIsTwoDays()) {
-				  if (((Job)(pair.getValue())).getParkName().equals(park) && (((Job)(pair.getValue())).getStartDate().after(today))) 
+				  if (((Job)(pair.getValue())).getParkName().equals(park) && (((Job)(pair.getValue())).getStartDate().after(todayDate))) 
 					  pendingJobs++;
 			  } else {
-				  if (((Job)(pair.getValue())).getParkName().equals(park) && (((Job)(pair.getValue())).getStartDate().after(today))) 
+				  if (((Job)(pair.getValue())).getParkName().equals(park) && (((Job)(pair.getValue())).getStartDate().after(todayDate))) 
 					  pendingJobs += 2;
 				  else if (((Job)(pair.getValue())).getParkName().equals(park) && (((Job)(pair.getValue())).getEndCalender().after(today)))
 					  pendingJobs++;
@@ -169,21 +170,21 @@ public class ParkManager implements Serializable{
 		int pendingJobs = 0;
 		
 		Calendar threeDaysBefore = Calendar.getInstance();
-		threeDaysBefore.add(Calendar.DAY_OF_MONTH, -3);
+		threeDaysBefore.add(Calendar.DAY_OF_MONTH, -4);
 		Calendar threeDaysAfter = Calendar.getInstance();
-		threeDaysAfter.add(Calendar.DAY_OF_MONTH, 3);
+		threeDaysAfter.add(Calendar.DAY_OF_MONTH, 4);
 		
 		for (Map.Entry<Integer,Object> pair : map.entrySet()) {
 			  if (!((Job)(pair.getValue())).getIsTwoDays()) {
-				  if (((Job)(pair.getValue())).getParkName().equals(park) && (((Job)(pair.getValue())).getStartDate().after(threeDaysBefore.getTime())) && 
-						  (((Job)(pair.getValue())).getStartDate().before(threeDaysAfter.getTime()))) 
+				  if (((Job)(pair.getValue())).getParkName().equals(park) && (((Job)(pair.getValue())).getStartCalender().after(threeDaysBefore)) && 
+						  (((Job)(pair.getValue())).getStartCalender().before(threeDaysAfter))) 
 					  pendingJobs++;
 			  } else {
-				  if (((Job)(pair.getValue())).getParkName().equals(park) && (((Job)(pair.getValue())).getStartDate().after(threeDaysBefore.getTime())) && 
-						  (((Job)(pair.getValue())).getStartDate().before(threeDaysAfter.getTime()))) 
+				  if (((Job)(pair.getValue())).getParkName().equals(park) && (((Job)(pair.getValue())).getStartCalender().after(threeDaysBefore)) && 
+						  (((Job)(pair.getValue())).getStartCalender().before(threeDaysAfter))) 
 					  pendingJobs += 2;
-				  else if (((Job)(pair.getValue())).getParkName().equals(park) && (((Job)(pair.getValue())).getEndCalender().after(threeDaysBefore.getTime())) && 
-						  (((Job)(pair.getValue())).getEndCalender().before(threeDaysAfter.getTime()))) 
+				  else if (((Job)(pair.getValue())).getParkName().equals(park) && (((Job)(pair.getValue())).getEndCalender().after(threeDaysBefore)) && 
+						  (((Job)(pair.getValue())).getEndCalender().before(threeDaysAfter))) 
 					  pendingJobs++;
 			  }
 		}

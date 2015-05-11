@@ -9,8 +9,6 @@ import java.io.Serializable;
 import java.util.Calendar;
 import java.util.Date;
 import java.util.GregorianCalendar;
-import java.util.HashMap;
-import java.util.Map;
 
 /**
  * Creates a job.
@@ -115,9 +113,6 @@ public class Job implements Serializable {
 		if (isTwoDays != other.getIsTwoDays()) {
 			return false;
 		}
-		//		if (date.equals(other.getDate()))
-		//			return false;
-
 		return true;
 	}
 
@@ -141,73 +136,10 @@ public class Job implements Serializable {
 			return 6;
 		else if (numHeavyJobs < 0 || numHeavyJobs > 50) 
 			return 7;
-		else if (valiDate.Within3Months(myStartDate)) {
+		else if (!valiDate.Within3Months(myStartDate)) {
 			return 8;
 		}
 		return 0;
-	}
-	/**
-	 * Checks to see if there is already a total number of 5 jobs during that week (3 days on either side of the job days) and if so then
-	 * it will return false.
-	 * 
-	 * @return false if number of jobs in the "week" is 5 or more and true if there is still space to add another
-	 */
-	public boolean isMaxWeek() {
-		int day = myStartDate.get(Calendar.DATE);
-		int month = myStartDate.get(Calendar.MONTH);
-		int year = myStartDate.get(Calendar.YEAR);
-		int numJobWeek = 0;
-		Cereal getData = new Cereal(1);
-		JobList otherJobs = (JobList) getData.deSerialize();
-		HashMap<Integer, Object> map = otherJobs.getMap();
-		
-		for (Map.Entry<Integer,Object> pair : map.entrySet()) {
-			
-			//System.out.println("Title: " + ((Job)pair.getValue()).getTitle() + "; Day: " + ((Job)pair.getValue()).getStartCalender().get(Calendar.DATE));
-			//System.out.println("\nTitle: " + title + "; Day: " + sdf.format(myStartDate.getTime()));
-			//System.out.println("Title: " + ((Job)pair.getValue()).getTitle() + "; Day: " + sdf.format(((Job)pair.getValue()).getStartDate()));
-			
-			int otherDay = ((Job)pair.getValue()).getStartCalender().get(Calendar.DATE);	
-			int otherMonth = ((Job)pair.getValue()).getStartCalender().get(Calendar.MONTH);
-			int otherYear = ((Job)pair.getValue()).getStartCalender().get(Calendar.YEAR);
-			if (month == otherMonth && year == otherYear) {
-				if (isWithInThree(myStartDate.get(Calendar.DAY_OF_MONTH), day, otherDay)) {
-					//System.out.println("here");
-					numJobWeek++;
-				}
-				if (isTwoDays) {
-					if (isWithInThree(myStartDate.get(Calendar.DAY_OF_MONTH), day, ((Job)pair.getValue()).getEndCalender().get(Calendar.DATE))){
-						//System.out.println("here");
-						numJobWeek++;
-					}
-				}
-				
-			}
-		}
-		//System.out.println(numJobWeek);
-		if (numJobWeek >= 5)
-			return false;
-		return true;
-	}
-	/**
-	 * Checks to see if their is a job on any of the days either 3 days before or 3 days after
-	 * 
-	 * @param dayInMonth the numbers of days total in the current month
-	 * @param day the day that is given for the current job
-	 * @param otherDay the day that we are comparing too from the list
-	 * @return true or false if the day is within 3 days before or after
-	 */
-	private boolean isWithInThree(int dayInMonth, int day, int otherDay) {
-//		System.out.println("day - otherDay <= 3 and >= -3: " + (day - otherDay));
-//		System.out.println();
-//		System.out.println();
-//		System.out.println();
-		
-		if ((day - otherDay <= 3 && day - otherDay >= -3) || 
-				(day - otherDay >= dayInMonth - 3 && day - otherDay <= dayInMonth) || 
-				(day - otherDay <= (dayInMonth - 3) * (-1) && day - otherDay >= (dayInMonth) * (-1)))
-			return true;
-		return false;
 	}
 	
 	/**
