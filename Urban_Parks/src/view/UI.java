@@ -1,10 +1,16 @@
 package view;
-
+/*
+ * Ariel McNamara, Jasmine Pedersen, and Jordan Love
+ * The Assorted Three
+ * TCSS 360: Software Engineering
+ * Spring 2015
+ */
 import java.util.Scanner;
 
 /**
  * UI tools 
- * @author Jordan Love
+ * @author Jordan Love, Ariel McNamara, and Jasmine Pedersen
+ * @version Spring 2015
  *
  */
 public class UI {

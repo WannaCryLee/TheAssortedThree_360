@@ -1,10 +1,10 @@
+package model;
 /*
  * Ariel McNamara, Jasmine Pedersen, and Jordan Love
+ * The Assorted Three
  * TCSS 360: Software Engineering
  * Spring 2015
  */
-package model;
-
 import java.io.Serializable;
 import java.util.Calendar;
 import java.util.Date;
@@ -12,7 +12,9 @@ import java.util.GregorianCalendar;
 
 /**
  * Creates a job.
- * @author Jasmine Pedersen
+ * 
+ * @author Jordan Love, Ariel McNamara, and Jasmine Pedersen
+ * @version Spring 2015
  *
  */
 public class Job implements Serializable {
@@ -93,6 +95,7 @@ public class Job implements Serializable {
 	/**
 	 * 
 	 * @param other The job given by the user
+	 * 
 	 * @return true or false 
 	 */
 	public boolean compare(Job other) {
@@ -118,6 +121,7 @@ public class Job implements Serializable {
 
 	/**
 	 * Checks if job is aligned with Business Rules
+	 * 
 	 * @return int of which part of the job is conflicting
 	 */
 	public int jobCheck() {
@@ -144,8 +148,9 @@ public class Job implements Serializable {
 	
 	/**
 	 * Checks if volunteers can sign up for a work category for a job
+	 * 
 	 * @param category			has to be 0,1,2 (Light, Medium, Heavy)
-	 * @return true if its full or false if there is room
+	 * @return 					true if its full or false if there is room
 	 */
 	public boolean isWorkCategoryFull(int category) {
 		switch (category) {
@@ -171,7 +176,7 @@ public class Job implements Serializable {
 	/**
 	 * Decrements the specific job category for the job.
 	 * 
-	 * @param theWorkCategory 0=Light, 1=Medium, 2=Hard
+	 * @param theWorkCategory 	0 = Light, 1 = Medium, 2 = Hard
 	 */
 	public void decrementJobCategory(int theWorkCategory) {
 		if (theWorkCategory == 0) { // light 
@@ -266,7 +271,14 @@ public class Job implements Serializable {
 	public Calendar getEndCalender() {
 		return myEndDate;
 	}
-
+	/**
+	 * Returns all the info of the Job
+	 * 
+	 * @return a string of the Job's information
+	 */
+	public String toString(){
+		return "";
+	}
 }
 
 

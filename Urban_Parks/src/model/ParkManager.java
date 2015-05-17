@@ -1,10 +1,10 @@
+package model;
 /*
  * Ariel McNamara, Jasmine Pedersen, and Jordan Love
+ * The Assorted Three
  * TCSS 360: Software Engineering
  * Spring 2015
  */
-package model;
-
 import java.io.File;
 import java.io.Serializable;
 import java.io.UnsupportedEncodingException;
@@ -16,8 +16,10 @@ import java.util.HashMap;
 import java.util.Map;
 /**
  * Creates a Park Manager.
- * @author Jasmine Pedersen
- *
+ * 
+ * @author Jordan Love, Ariel McNamara, and Jasmine Pedersen
+ * @version Spring 2015
+ * 
  */
 public class ParkManager implements Serializable{
 	
@@ -87,6 +89,7 @@ public class ParkManager implements Serializable{
 
 	/**
 	 * This method logs Park Managers in with given email and password
+	 * 
 	 * @param email Email string
 	 * @param password Password string
 	 * @return string if they were logged in or not
@@ -102,6 +105,7 @@ public class ParkManager implements Serializable{
 	
 	/**
 	 * Submitting a Job
+	 * 
 	 * @param theJob Job class object
 	 */
 	public void submitJob(Job theJob) {
@@ -136,6 +140,7 @@ public class ParkManager implements Serializable{
 	
 	/**
 	 * Returns true if pending jobs is 30; returns false if its under
+	 * 
 	 * @param park			String of park name
 	 * @return true if jobs are maxed or false if its okay
 	 */
@@ -162,7 +167,12 @@ public class ParkManager implements Serializable{
 		else
 			return false;
 	}
-	
+	/**
+	 * Check if the max number off jobs has been reached for the week
+	 * 
+	 * @param park			the park name
+	 * @return true/false	if the park does have more than 5 or less than 5
+	 */
 	public boolean maxPendingJobsWeek(String park) {
 		Cereal data = new Cereal(1);
 		JobList list = (JobList)data.deSerialize();
@@ -197,8 +207,9 @@ public class ParkManager implements Serializable{
 	
 	/**
 	 * Returns true if its instance's park else false if not
+	 * 
 	 * @param theJob			instance of the new job
-	 * @return true if its part of park; false if not
+	 * @return true 			if its part of park; false if not
 	 */
 	public boolean isMyPark(String thePark) {
 		return parks.contains(thePark);
@@ -278,5 +289,13 @@ public class ParkManager implements Serializable{
 	public void setParks(ArrayList<String> parks) {
 		this.parks = parks;
 	}
-
+	
+	/**
+	 * Returns all the info of the Park Manager
+	 * 
+	 * @return a string of the PM's information
+	 */
+	public String toString(){
+		return "";
+	}
 }

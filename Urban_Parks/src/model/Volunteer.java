@@ -1,16 +1,22 @@
+package model;
 /*
  * Ariel McNamara, Jasmine Pedersen, and Jordan Love
+ * The Assorted Three
  * TCSS 360: Software Engineering
  * Spring 2015
  */
-package model;
-
 import java.io.Serializable;
 import java.text.SimpleDateFormat;
 import java.util.Calendar;
 import java.util.HashMap;
 import java.util.Map.Entry;
-
+/**
+*
+* Creates a volunteer
+* 
+* @author Jordan Love, Ariel McNamara, and Jasmine Pedersen
+* @version Spring 2015
+*/
 public class Volunteer implements Serializable {
 	/**
 	 * Generated Serial Version ID
@@ -43,6 +49,7 @@ public class Volunteer implements Serializable {
 
 	/**
 	 * Create a volunteer
+	 * 
 	 * @param theFirst, first name of the volunteer
 	 * @param theLast, last name of the volunteer
 	 * @param theEmail, email of the volunteer
@@ -58,6 +65,7 @@ public class Volunteer implements Serializable {
 
 	/**
 	 * logIn provides the volunteer with the ability to enter into the system.
+	 * 
 	 * @param theEmail the email of the signing in volunteer
 	 * @param thePassword, the volunteers chosen password
 	 * @return string if they were logged in or not
@@ -155,11 +163,18 @@ public class Volunteer implements Serializable {
 	public HashMap<Job, Integer> getMyJobSignedUp() {
 		return myJobSignedUp;
 	}
-
+	
 	public void setMyJobSignedUp(HashMap<Job, Integer> theJobSignedUp) {
 		myJobSignedUp = theJobSignedUp;
 	}
 
-
+	/**
+	 * Returns all the info of the Volunteer
+	 * 
+	 * @return a string of the Volunteers information
+	 */
+	public String toString(){
+		return "";
+	}
 
 }

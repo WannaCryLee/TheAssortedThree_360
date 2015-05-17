@@ -1,5 +1,11 @@
 package view;
-
+/*
+ * Ariel McNamara, Jasmine Pedersen, and Jordan Love
+ * The Assorted Three
+ * TCSS 360: Software Engineering
+ * Spring 2015
+ */
+import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.Map;
@@ -15,16 +21,23 @@ import model.Volunteer;
 
 /**
  * Displays Park Manager Screen
- * @author Jordan Love
- *
+ * @author Jordan Love, Ariel McNamara, and Jasmine Pedersen
+ * @version Spring 2015
+ * 
  */
 public class ParkManagerGui {
+	/*
+	 * Date format for the jobs
+	 */
+	private static SimpleDateFormat sdf = new SimpleDateFormat("MMMM dd, yyyy");
+	
 	//Constructor
 	public ParkManagerGui() {
 	}
 
 	/**
 	 * Main Screen
+	 * 
 	 * @param parkManager      Instance of Park Manager
 	 */
 	public void printScreen(LogIn parkManager) {
@@ -64,6 +77,7 @@ public class ParkManagerGui {
 
 	/**
 	 * Submit a Job Screen
+	 * 
 	 * @param parkManager				instance of Park Manager
 	 * @param tools						instance of UI
 	 * @param thisScan					instance of Scanner
@@ -74,7 +88,6 @@ public class ParkManagerGui {
 		System.out.println("_____________\n"); 
 
 		//System.out.println("\n Under Construction\nPlease check back soon!");
-
 		
 		System.out.println("Please enter the following information\n");
 		System.out.print("Title (One Word): ");
@@ -158,7 +171,7 @@ public class ParkManagerGui {
 
 			for (Map.Entry<Integer,Object> pair : jobs.getMap().entrySet()) {
 				if (((Job)pair.getValue()).getParkName().toLowerCase().equals(park.toLowerCase())) {
-					System.out.println("[ " + pair.getKey() + " - " + ((Job)pair.getValue()).getTitle() + " in " + ((Job)pair.getValue()).getStartDate() + " ]");
+					System.out.println("[ " + pair.getKey() + " - " + ((Job)pair.getValue()).getTitle() + " in " + sdf.format(((Job)pair.getValue()).getStartDate()) + " ]");
 				}
 			}	
 		}

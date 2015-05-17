@@ -1,5 +1,6 @@
 /*
  * Ariel McNamara, Jasmine Pedersen, and Jordan Love
+ * The Assorted Three
  * TCSS 360: Software Engineering
  * Spring 2015
  */
@@ -10,7 +11,13 @@ import static org.junit.Assert.*;
 import java.util.HashMap;
 
 import org.junit.Test;
-
+/**
+ * Test Log In Class
+ * 
+ * @author Jordan Love, Ariel McNamara, and Jasmine Pedersen
+ * @version Spring 2015
+ *
+ */
 public class LogInTest {
 
 	private Admin tAdmin;

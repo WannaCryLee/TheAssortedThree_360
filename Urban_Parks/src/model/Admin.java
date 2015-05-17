@@ -1,10 +1,10 @@
+package model;
 /*
  * Ariel McNamara, Jasmine Pedersen, and Jordan Love
+ * The Assorted Three
  * TCSS 360: Software Engineering
  * Spring 2015
  */
-package model;
-
 import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.HashMap;
@@ -13,7 +13,9 @@ import java.util.Map.Entry;
 
 /**
  * Creates an Administrator 
- * @author Jordan Love
+ * 
+ * @author Jordan Love, Ariel McNamara, and Jasmine Pedersen
+ * @version Spring 2015
  *
  */
 public class Admin implements Serializable{
@@ -35,7 +37,7 @@ public class Admin implements Serializable{
 	
 	
 	/**
-	 * Constructor
+	 * Constructor for default admin
 	 */
 	public Admin() {
 		myFirst = "John";
@@ -46,7 +48,8 @@ public class Admin implements Serializable{
 	}
 
 	/**
-	 * Constructor
+	 * Constructor for input administrator
+	 * 
 	 * @param theFirst, String
 	 * @param theLast, String
 	 * @param theEmail, String
@@ -62,6 +65,7 @@ public class Admin implements Serializable{
 	
 	/**
 	 * This method logs admin in with given email and password
+	 * 
 	 * @param email, string
 	 * @param password, string
 	 * @return string if they were loged in or not
@@ -77,7 +81,8 @@ public class Admin implements Serializable{
 	/**
 	 * Searches through the database for the input lastname and return
 	 * a arraylist of userid if found or return null if nothing was found
-	 * @param theLastName, the last name of the Volunteer
+	 * 
+	 * @param theLastName the last name of the Volunteer
 	 * @return ArrayList<Integer>, List of user id with the given last name
 	 */
 	public ArrayList<Volunteer> getVolunteer(String theLastName) {
@@ -167,5 +172,14 @@ public class Admin implements Serializable{
 
 	public void setMyAddress(String theAddress) {
 		myAddress = theAddress;
+	}
+	
+	/**
+	 * Returns all the info of the Administrator
+	 * 
+	 * @return a string of the Administrators information
+	 */
+	public String toString(){
+		return "";
 	}
 }

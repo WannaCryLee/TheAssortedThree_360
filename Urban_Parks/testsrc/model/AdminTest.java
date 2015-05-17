@@ -1,5 +1,6 @@
 /*
  * Ariel McNamara, Jasmine Pedersen, and Jordan Love
+ * The Assorted Three
  * TCSS 360: Software Engineering
  * Spring 2015
  */
@@ -15,7 +16,9 @@ import org.junit.Test;
 
 /**
  * Test Admin Class
- * @author Jordan Love
+ * 
+ * @author Jordan Love, Ariel McNamara, and Jasmine Pedersen
+ * @version Spring 2015
  *
  */
 public class AdminTest implements Serializable{

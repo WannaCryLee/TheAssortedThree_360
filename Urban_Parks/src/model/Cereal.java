@@ -1,10 +1,10 @@
+package model;
 /*
  * Ariel McNamara, Jasmine Pedersen, and Jordan Love
+ * The Assorted Three
  * TCSS 360: Software Engineering
  * Spring 2015
  */
-package model;
-
 import java.io.FileInputStream;
 import java.io.FileOutputStream;
 import java.io.IOException;
@@ -16,7 +16,9 @@ import java.net.URLDecoder;
 
 /**
  * Allows Serialization of Objects
- * @author Jordan Love
+ * 
+ * @author Jordan Love, Ariel McNamara, and Jasmine Pedersen
+ * @version Spring 2015
  *
  */
 public class Cereal implements Serializable{
@@ -47,13 +49,16 @@ public class Cereal implements Serializable{
 	
 	/**
 	 * Constructor
+	 * 
 	 * @param objectNumber, 1 for saving JobList class, 0 for saving UserList class
 	 */
 	public Cereal(int theType) {
 		myType = theType;
 		findFile();
 	}
-	
+	/**
+	 * Search for the file of the serealized class
+	 */
 	private void findFile() {
 		path = Cereal.class.getProtectionDomain().getCodeSource().getLocation().getPath();
 		try {
@@ -67,11 +72,10 @@ public class Cereal implements Serializable{
 	
 	/**
 	 * This saves (serializes) a inputed class object
+	 * 
 	 * @param theClass, Object to be written to file
 	 */
-	public void serialize(Object theClass) {
-		
-		
+	public void serialize(Object theClass) {		
 		try {
 			if (myType == 0)
 				outFile = new FileOutputStream( decodedPath + "/user.ser");
@@ -92,6 +96,7 @@ public class Cereal implements Serializable{
 	
 	/**
 	 * Reads file and returns a Object class
+	 * 
 	 * @return Object, from file
 	 */
 	public Object deSerialize() {

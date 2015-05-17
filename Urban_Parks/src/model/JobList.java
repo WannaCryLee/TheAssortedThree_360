@@ -1,17 +1,19 @@
+package model;
 /*
  * Ariel McNamara, Jasmine Pedersen, and Jordan Love
+ * The Assorted Three
  * TCSS 360: Software Engineering
  * Spring 2015
  */
-package model;
-
 import java.io.Serializable;
 import java.util.HashMap;
 
 /**
  * Creates a list of Jobs
- * @author Jordan Love
- *
+ * 
+ * @author Jordan Love, Ariel McNamara, and Jasmine Pedersen
+ * @version Spring 2015
+ * 
  */
 public class JobList implements Serializable{
 	
@@ -24,6 +26,7 @@ public class JobList implements Serializable{
 	
 	/**
 	 * Constructor that declares HashMap to be integer for key
+	 * 
 	 * and Object[] for value
 	 */
 	public JobList() {
@@ -32,6 +35,7 @@ public class JobList implements Serializable{
 	
 	/**
 	 * Returns current map
+	 * 
 	 * @return HashMap with Integer and Object[]
 	 */
 	public HashMap<Integer, Object> getMap() {
@@ -42,6 +46,7 @@ public class JobList implements Serializable{
 	
 	/**
 	 * Updates map with a map that has been modified
+	 * 
 	 * @param theMap, HashMap<Integer, Object[]>
 	 */
 	public void setMap(HashMap<Integer, Object> theMap) {
@@ -49,5 +54,18 @@ public class JobList implements Serializable{
 		myMap.putAll(theMap);
 	}
 	
-	
+	/**
+	 * Returns the contents within the HashMap as a string
+	 * 
+	 * @return the contents as a string
+	 */
+	public String toString(){
+		String result = "[";
+		
+		if(!(myMap.isEmpty())){
+			
+		}
+				
+		return result + "]";
+	}	
 }

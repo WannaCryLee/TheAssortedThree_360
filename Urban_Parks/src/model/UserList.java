@@ -1,17 +1,19 @@
+package model;
 /*
  * Ariel McNamara, Jasmine Pedersen, and Jordan Love
+ * The Assorted Three
  * TCSS 360: Software Engineering
  * Spring 2015
  */
-package model;
-
 import java.io.Serializable;
 import java.util.HashMap;
 
 /**
  * Creates as list of users
- * @author Jordan Love
- *
+ * 
+ * @author Jordan Love, Ariel McNamara, and Jasmine Pedersen
+ * @version Spring 2015
+ * 
  */
 public class UserList implements Serializable{
 	
@@ -32,7 +34,8 @@ public class UserList implements Serializable{
 	}
 	
 	/**
-	 * Returns current map
+	 * Returns current map.
+	 * 
 	 * @return HashMap with Integer and Object[]
 	 */
 	public HashMap<Integer, Object> getMap() {
@@ -43,6 +46,7 @@ public class UserList implements Serializable{
 	
 	/**
 	 * Updates map with a map that has been modified
+	 * 
 	 * @param theMap, HashMap<Integer, Object[]>
 	 */
 	public void setMap(HashMap<Integer, Object> theMap) {
@@ -50,6 +54,19 @@ public class UserList implements Serializable{
 		myMap.putAll(theMap);
 	}
 	
-	
+	/**
+	 * Returns the contents within the HashMap as a string
+	 * 
+	 * @return the contents as a string
+	 */
+	public String toString(){
+		String result = "[";
+		
+		if(!(myMap.isEmpty())){
+			
+		}
+				
+		return result + "]";
+	}
 	
 }

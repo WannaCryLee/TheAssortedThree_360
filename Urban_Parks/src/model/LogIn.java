@@ -1,13 +1,19 @@
+package model;
 /*
  * Ariel McNamara, Jasmine Pedersen, and Jordan Love
+ * The Assorted Three
  * TCSS 360: Software Engineering
  * Spring 2015
  */
-package model;
-
 import java.util.Map;
 import java.util.Map.Entry;
-
+/**
+*
+* Checks the log in information in order to display appropriate Menu
+* 
+* @author Jordan Love, Ariel McNamara, and Jasmine Pedersen
+* @version Spring 2015
+*/
 public class LogIn {
 	
 	private Volunteer theVolunteer;
@@ -20,7 +26,11 @@ public class LogIn {
 		theManager = null;
 		theAdmin = null;
 	}
-	
+	/**
+	 * Check which person is trying to sign into the system
+	 * 
+	 * @param username the given username of the user signing in
+	 */
 	public void getInstance(String username) {
 		Cereal read = new Cereal(0);
 		UserList list = (UserList) read.deSerialize();

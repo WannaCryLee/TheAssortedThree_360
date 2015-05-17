@@ -1,5 +1,10 @@
 package view;
-
+/*
+ * Ariel McNamara, Jasmine Pedersen, and Jordan Love
+ * The Assorted Three
+ * TCSS 360: Software Engineering
+ * Spring 2015
+ */
 import java.text.SimpleDateFormat;
 import java.util.Date;
 import java.util.HashMap;
@@ -11,7 +16,8 @@ import model.JobList;
 
 /**
  * Displays jobs 
- * @author Jordan Love
+ * @author Jordan Love, Ariel McNamara, and Jasmine Pedersen
+ * @version Spring 2015
  *
  */
 public class JobGui {
