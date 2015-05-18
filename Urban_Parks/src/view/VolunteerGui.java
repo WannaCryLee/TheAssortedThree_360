@@ -13,6 +13,7 @@ import model.Cereal;
 import model.Job;
 import model.JobList;
 import model.LogIn;
+import model.UserList;
 import model.Volunteer;
 
 /**
@@ -63,7 +64,35 @@ public class VolunteerGui {
 				thisScan.next();
 			
 		} while (choice != 4);
+		saveUser(volunteer);
 		thisScan.close();
+	}
+	
+	/**
+	 * Save the user data
+	 * @param volunteer
+	 */
+	private void saveUser(LogIn volunteer) {
+		Cereal saver = new Cereal(0);
+		UserList userList = new UserList();
+		HashMap<Integer, Object> userMap = userList.getMap();
+		Volunteer theVolunteer = volunteer.getTheVolunteer();
+		int key = -1;
+		
+		for (Entry<Integer, Object> pair : userMap.entrySet()) {
+			if (pair.getValue() instanceof Volunteer) {
+				if (((Volunteer)pair.getValue()).equals(theVolunteer))
+					key = pair.getKey();
+			}
+		}
+
+		if (key == -1) {
+			userMap.put(userMap.size(), theVolunteer);
+		} else {
+			userMap.replace(key, theVolunteer);
+		}
+		userList.setMap(userMap);
+		saver.serialize(userList);
 	}
 	
 	/**

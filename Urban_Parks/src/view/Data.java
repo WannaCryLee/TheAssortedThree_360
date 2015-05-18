@@ -5,6 +5,9 @@ package view;
  * TCSS 360: Software Engineering
  * Spring 2015
  */
+import java.io.File;
+import java.io.UnsupportedEncodingException;
+import java.net.URLDecoder;
 import java.util.HashMap;
 
 import model.Admin;
@@ -103,5 +106,53 @@ public class Data {
 		Cereal storeJobData = new Cereal(1);
 		storeUserData.serialize(userList);
 		storeJobData.serialize(jobList);
+	}
+	
+	/**
+	 * Search for the file of the serealized Job class
+	 */
+	private String findJobFile() {
+		String decodedPath = "";
+		String path = Cereal.class.getProtectionDomain().getCodeSource().getLocation().getPath();
+		try {
+			decodedPath = URLDecoder.decode(path, "UTF-8");
+		} catch (UnsupportedEncodingException e) {
+			e.printStackTrace();
+		}
+		if (decodedPath.contains("/Urban_Parks.jar"))
+			decodedPath = decodedPath.substring(0, decodedPath.indexOf("/Urban_Parks.jar"));
+		
+		return decodedPath + "/job.ser";
+	}
+	
+	public boolean hasJobFile() {
+		File job = new File(findJobFile());
+		if (job.exists()) 
+			return true;
+		return false;
+	}
+	
+	/**
+	 * Search for the file of the serealized User class
+	 */
+	private String findUserFile() {
+		String decodedPath = "";
+		String path = Cereal.class.getProtectionDomain().getCodeSource().getLocation().getPath();
+		try {
+			decodedPath = URLDecoder.decode(path, "UTF-8");
+		} catch (UnsupportedEncodingException e) {
+			e.printStackTrace();
+		}
+		if (decodedPath.contains("/Urban_Parks.jar"))
+			decodedPath = decodedPath.substring(0, decodedPath.indexOf("/Urban_Parks.jar"));
+		
+		return decodedPath + "/user.ser";
+	}
+	
+	public boolean hasUserFile() {
+		File user = new File(findUserFile());
+		if (user.exists())
+			return true;
+		return false;
 	}
 }

@@ -24,7 +24,8 @@ public class Console {
 		JobGui jobs = new JobGui();
 		Scanner scan = new Scanner(System.in);
 		
-		data.freshData();
+		if (!data.hasUserFile())
+			data.freshData();
 		tools.clearScreen();
 		
 		System.out.println("Would you like to log in? (Y for yes or anything else to bypass)");
