@@ -24,7 +24,7 @@ public class Console {
 		JobGui jobs = new JobGui();
 		Scanner scan = new Scanner(System.in);
 		
-		if (!data.hasUserFile())
+		if (!data.hasUserFile() && !data.hasJobFile())
 			data.freshData();
 		tools.clearScreen();
 		

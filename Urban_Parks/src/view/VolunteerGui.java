@@ -74,14 +74,14 @@ public class VolunteerGui {
 	 */
 	private void saveUser(LogIn volunteer) {
 		Cereal saver = new Cereal(0);
-		UserList userList = new UserList();
+		UserList userList = (UserList)saver.deSerialize();
 		HashMap<Integer, Object> userMap = userList.getMap();
 		Volunteer theVolunteer = volunteer.getTheVolunteer();
 		int key = -1;
 		
 		for (Entry<Integer, Object> pair : userMap.entrySet()) {
 			if (pair.getValue() instanceof Volunteer) {
-				if (((Volunteer)pair.getValue()).equals(theVolunteer))
+				if (((Volunteer)pair.getValue()).getMyEmail().equals(theVolunteer.getMyEmail()))
 					key = pair.getKey();
 			}
 		}

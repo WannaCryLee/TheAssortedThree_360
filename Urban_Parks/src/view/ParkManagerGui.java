@@ -217,9 +217,9 @@ public class ParkManagerGui {
 				HashMap<Job, Integer> itrJob = (HashMap<Job, Integer>) itrVolunteer.getMyJobSignedUp();
 
 				for (Entry<Job, Integer> jobPair : itrJob.entrySet()) {
-					if (jobPair.getKey().compare(selectedJob)) {
+					if (jobPair.getKey().getTitle().compareTo(selectedJob.getTitle()) == 0) {
 						isJobPrinted = true;
-						System.out.println("\n[ " + itrVolunteer.getMyFirst() + itrVolunteer.getMyLast() + "( " + itrVolunteer.getMyEmail() + " )"+ " ]");
+						System.out.println("\n[ " + itrVolunteer.getMyFirst() + " " + itrVolunteer.getMyLast() + "( " + itrVolunteer.getMyEmail() + " )"+ " ]");
 					}
 				}
 			}
