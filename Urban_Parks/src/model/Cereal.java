@@ -27,6 +27,8 @@ public class Cereal implements Serializable{
 	 * Generated serial version id
 	 */
 	private static final long serialVersionUID = -2615628136259107665L;
+	
+	private static final int USER_LIST = 0;
 
 	//outFile creates the stream to serialize an object
 	private FileOutputStream outFile;
@@ -77,7 +79,7 @@ public class Cereal implements Serializable{
 	 */
 	public void serialize(Object theClass) {		
 		try {
-			if (myType == 0)
+			if (myType == USER_LIST)
 				outFile = new FileOutputStream( decodedPath + "/user.ser");
 			else
 				outFile = new FileOutputStream( decodedPath + "/job.ser");
@@ -103,7 +105,7 @@ public class Cereal implements Serializable{
 		Object freshData = null;
 		
 		try {
-			if (myType == 0)
+			if (myType == USER_LIST)
 				inFile = new FileInputStream(decodedPath + "/user.ser");
 			else
 				inFile = new FileInputStream(decodedPath + "/job.ser");

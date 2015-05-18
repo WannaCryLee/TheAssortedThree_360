@@ -40,6 +40,16 @@ public class ParkManager implements Serializable{
 	private static final String DEFAULT_PASSWORD = "myWatchBegins";
 	//Address Variable
 	private static final String DEFAULT_ADDRESS = "North";
+	
+	private static final int MAX_PENDING_JOBS = 30;
+	
+	private static final int TWO_DAYS = 2;
+	
+	private static final int THREE_DAYS_BELOW_CURRENT = -4;
+	
+	private static final int THREE_DAYS_ABOVE_CURRENT = 4;
+	
+	private static final int MAX_JOBS_IN_WEEK = 5;
 
 	/** First Name */
 	private String first;
@@ -139,7 +149,7 @@ public class ParkManager implements Serializable{
 	}
 	
 	/**
-	 * Returns true if pending jobs is 30; returns false if its under
+	 * Returns true if pending jobs is MAX_PENDING_JOBS; returns false if its under
 	 * 
 	 * @param park			String of park name
 	 * @return true if jobs are maxed or false if its okay
@@ -157,12 +167,12 @@ public class ParkManager implements Serializable{
 					  pendingJobs++;
 			  } else {
 				  if (((Job)(pair.getValue())).getParkName().equals(park) && (((Job)(pair.getValue())).getStartDate().after(todayDate))) 
-					  pendingJobs += 2;
+					  pendingJobs += TWO_DAYS;
 				  else if (((Job)(pair.getValue())).getParkName().equals(park) && (((Job)(pair.getValue())).getEndCalender().after(today)))
 					  pendingJobs++;
 			  }
 		}
-		if (pendingJobs >= 30)
+		if (pendingJobs >= MAX_PENDING_JOBS)
 			return true;
 		else
 			return false;
@@ -180,9 +190,9 @@ public class ParkManager implements Serializable{
 		int pendingJobs = 0;
 		
 		Calendar threeDaysBefore = Calendar.getInstance();
-		threeDaysBefore.add(Calendar.DAY_OF_MONTH, -4);
+		threeDaysBefore.add(Calendar.DAY_OF_MONTH, THREE_DAYS_BELOW_CURRENT);
 		Calendar threeDaysAfter = Calendar.getInstance();
-		threeDaysAfter.add(Calendar.DAY_OF_MONTH, 4);
+		threeDaysAfter.add(Calendar.DAY_OF_MONTH, THREE_DAYS_ABOVE_CURRENT);
 		
 		for (Map.Entry<Integer,Object> pair : map.entrySet()) {
 			  if (!((Job)(pair.getValue())).getIsTwoDays()) {
@@ -199,7 +209,7 @@ public class ParkManager implements Serializable{
 			  }
 		}
 		
-		if (pendingJobs >= 5) 
+		if (pendingJobs >= MAX_JOBS_IN_WEEK) 
 			return true;
 		return false;	
 		

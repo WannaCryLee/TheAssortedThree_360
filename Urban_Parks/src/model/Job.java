@@ -23,6 +23,10 @@ public class Job implements Serializable {
 	 * Generated Serial Version ID
 	 */
 	private static final long serialVersionUID = -7742067979482263151L;
+	
+	private static final int MIN_NUM_VOLUNTEERS = 0;
+	
+	private static final int MAX_NUM_VOLUNTEERS = 50;
 	/*
 	 * Start Date for the job 
 	 */
@@ -134,11 +138,11 @@ public class Job implements Serializable {
 			return 3;
 		else if (description.equals(""))
 			return 4;
-		else if (numLightJobs < 0 || numLightJobs > 50) 
+		else if (numLightJobs < MIN_NUM_VOLUNTEERS || numLightJobs > MAX_NUM_VOLUNTEERS) 
 			return 5;
-		else if (numMedJobs < 0 || numMedJobs > 50) 
+		else if (numMedJobs < MIN_NUM_VOLUNTEERS || numMedJobs > MAX_NUM_VOLUNTEERS) 
 			return 6;
-		else if (numHeavyJobs < 0 || numHeavyJobs > 50) 
+		else if (numHeavyJobs < MIN_NUM_VOLUNTEERS || numHeavyJobs > MAX_NUM_VOLUNTEERS) 
 			return 7;
 		else if (!valiDate.Within3Months(myStartDate)) {
 			return 8;
@@ -155,15 +159,15 @@ public class Job implements Serializable {
 	public boolean isWorkCategoryFull(int category) {
 		switch (category) {
 		case 0:
-			if (numLightJobs > 0)
+			if (numLightJobs > MIN_NUM_VOLUNTEERS)
 				return false;
 			break;
 		case 1:
-			if (numMedJobs > 0)
+			if (numMedJobs > MIN_NUM_VOLUNTEERS)
 				return false;
 			break;
 		case 2:
-			if (numHeavyJobs > 0)
+			if (numHeavyJobs > MIN_NUM_VOLUNTEERS)
 				return false;
 			break;
 		} 
@@ -180,13 +184,13 @@ public class Job implements Serializable {
 	 */
 	public void decrementJobCategory(int theWorkCategory) {
 		if (theWorkCategory == 0) { // light 
-			if (numLightJobs > 0) 
+			if (numLightJobs > MIN_NUM_VOLUNTEERS) 
 				numLightJobs -= 1;	
 		} else if (theWorkCategory == 1) { // medium 
-			if (numMedJobs > 0) 
+			if (numMedJobs > MIN_NUM_VOLUNTEERS) 
 				numMedJobs -= 1;
 		} else if (theWorkCategory == 2) { // hard 
-			if (numHeavyJobs > 0) 
+			if (numHeavyJobs > MIN_NUM_VOLUNTEERS) 
 				numHeavyJobs -= 1;
 		}
 	}

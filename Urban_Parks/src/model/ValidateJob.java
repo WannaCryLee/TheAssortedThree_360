@@ -17,6 +17,12 @@ import java.util.regex.Pattern;
  * @version Spring 2015
  */
 public class ValidateJob {
+	/**
+	 * The start number for a month or week
+	 */
+	private static final int START_DAY_AND_MONTH = 1;
+	private static final int FINAL_MONTH = 12;
+	private static final int MAX_MONTHS_RANGE = 3;
 	//The current year to date
 	private Calendar myCurrentYear;
 	//The pattern desired to check time
@@ -33,6 +39,9 @@ public class ValidateJob {
 		patternForTimes = "(1[012]|[1-9]):[0-5][0-9](\\s)(AM|PM)";
 		pattern = Pattern.compile(patternForTimes);
 	}
+	
+	
+	////SET THE DAY OF THE MONTH TO WHAT THE MONTH GIVEN BY THE USER WAS!!!
 
 	/**
 	 * Make sure the month give is an actual month
@@ -41,11 +50,11 @@ public class ValidateJob {
 	 */
 	public boolean checkDate(int theMonth, int theDay, int theYear){
 
-		if ((theMonth < 1) || (theMonth > 12)){
+		if ((theMonth < START_DAY_AND_MONTH) || (theMonth > FINAL_MONTH)){
 			return false;
-		} else if ((theDay<1) || (theDay>31)) {       
+		} else if ((theDay < START_DAY_AND_MONTH) || (theDay > 31)) {       
 			return false;
-		} else if (!(theYear == myCurrentYear.getWeekYear() || theYear == myCurrentYear.getWeekYear() + 1)) {  
+		} else if (!(theYear == myCurrentYear.getWeekYear() || theYear == myCurrentYear.getWeekYear() + START_DAY_AND_MONTH)) {  
 			return false;
 		} 
 		return true;
@@ -63,10 +72,10 @@ public class ValidateJob {
 		// The current date
 		Calendar today = Calendar.getInstance();
 
-		//Set the date 3 months after
-		threeMonthsAfterCurrentDate.add(Calendar.MONTH, 3);
+		//Set the date MAX_MONTHS_RANGE months after
+		threeMonthsAfterCurrentDate.add(Calendar.MONTH, MAX_MONTHS_RANGE);
 
-		//BR: Date cannot be in the past nor more than 3 months in the future from the current date
+		//BR: Date cannot be in the past nor more than MAX_MONTHS_RANGE months in the future from the current date
 		if (myStartDate.before(threeMonthsAfterCurrentDate)
 				&& myStartDate.after(today)) {
 			return true;
