@@ -180,6 +180,6 @@ public class Admin implements Serializable{
 	 * @return a string of the Administrators information
 	 */
 	public String toString(){
-		return "";
+		return myFirst + " " + myLast + "\n" + myEmail + "\n" + "Status: Admin";
 	}
 }

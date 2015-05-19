@@ -194,9 +194,10 @@ public class ParkManagerGui {
 	private void myAccountScreen(LogIn parkManager, UI tools) {
 		System.out.println("My Account");
 		System.out.println("__________\n");
-		System.out.println(parkManager.getTheManager().getFirst() + " " + parkManager.getTheManager().getLast());
-		System.out.println(parkManager.getTheManager().getEmail());
-		System.out.println("Status: Park Manager");
+		System.out.println(parkManager.getTheManager().toString());
+		//System.out.println(parkManager.getTheManager().getFirst() + " " + parkManager.getTheManager().getLast());
+		//System.out.println(parkManager.getTheManager().getEmail());
+		//System.out.println("Status: Park Manager");
 		tools.pause();
 	}
 

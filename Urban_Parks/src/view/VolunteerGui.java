@@ -103,9 +103,10 @@ public class VolunteerGui {
 	private void myAccountScreen(LogIn volunteer, UI tools) {
 		System.out.println("My Account");
 		System.out.println("__________\n");
-		System.out.println(volunteer.getTheVolunteer().getMyFirst() + " " + volunteer.getTheVolunteer().getMyLast());
-		System.out.println(volunteer.getTheVolunteer().getMyEmail());
-		System.out.println("Status: Volunteer");
+		System.out.println(volunteer.getTheVolunteer().toString());
+		//System.out.println(volunteer.getTheVolunteer().getMyFirst() + " " + volunteer.getTheVolunteer().getMyLast());
+		//System.out.println(volunteer.getTheVolunteer().getMyEmail());
+		//System.out.println("Status: Volunteer");
 		tools.pause();
 	}
 	

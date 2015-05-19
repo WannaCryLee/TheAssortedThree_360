@@ -306,6 +306,6 @@ public class ParkManager implements Serializable{
 	 * @return a string of the PM's information
 	 */
 	public String toString(){
-		return "";
+		return first + " " + last + "\n" + email + "\n" + "Status: Park Manager";
 	}
 }

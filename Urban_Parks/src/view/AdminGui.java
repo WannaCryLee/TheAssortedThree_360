@@ -68,9 +68,10 @@ public class AdminGui {
 	private void myAccountScreen(LogIn admin, UI tools) {
 		System.out.println("My Account");
 		System.out.println("__________\n");
-		System.out.println(admin.getTheAdmin().getMyFirst() + " " + admin.getTheAdmin().getMyLast());
-		System.out.println(admin.getTheAdmin().getMyEmail());
-		System.out.println("Status: Admin");
+		System.out.println(admin.getTheAdmin().toString());
+		//System.out.println(admin.getTheAdmin().getMyFirst() + " " + admin.getTheAdmin().getMyLast());
+		//System.out.println(admin.getTheAdmin().getMyEmail());
+		//System.out.println("Status: Admin");
 		tools.pause();
 	}
 	
