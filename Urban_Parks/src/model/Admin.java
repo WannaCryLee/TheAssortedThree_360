@@ -24,15 +24,15 @@ public class Admin implements Serializable{
 	 * Generated Serial Version ID
 	 */
 	private static final long serialVersionUID = -5892491024213894664L;
-	//First Name Variable
+
 	private String myFirst;
-	//Last Name Variable
+	
 	private String myLast;
-	//Email Variable
+	
 	private String myEmail;
-	//Password Variable
+	
 	private String myPassword;
-	//Address Variable
+	
 	private String myAddress;
 	
 	

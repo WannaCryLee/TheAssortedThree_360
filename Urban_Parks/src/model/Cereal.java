@@ -29,21 +29,16 @@ public class Cereal implements Serializable{
 	private static final long serialVersionUID = -2615628136259107665L;
 	
 	private static final int USER_LIST = 0;
-
-	//outFile creates the stream to serialize an object
-	private FileOutputStream outFile;
 	
-	//inFile creates the stream to deserialize an object
-	private FileInputStream inFile;
+	private FileOutputStream outFile; //outFile creates the stream to serialize an object
+		
+	private FileInputStream inFile; //inFile creates the stream to deserialize an object
+		
+	private ObjectOutputStream out; //out is the variable that you can save a object to file
 	
-	//out is the variable that you can save a object to file
-	private ObjectOutputStream out;
+	private ObjectInputStream in; //in is the variable that you can read a file to object
 	
-	//in is the variable that you can read a file to object
-	private ObjectInputStream in;
-	
-	//type 0 if user or 1 if job
-	private int myType;
+	private int myType; //type 0 if user or 1 if job
 	
 	private String path;
 	

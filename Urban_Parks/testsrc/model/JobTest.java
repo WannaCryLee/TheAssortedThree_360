@@ -19,12 +19,13 @@ import model.Job;
  *
  */
 public class JobTest {
-	
+
 	JobList jobList = new JobList();
-	
+	Job myJob;
+
 	@Before
 	public void setUp() throws Exception {
-		//Job myTestJob = new Job();
+		myJob = new Job("Sweep the park", "Lacey", "address", "sweep", 5, 5, 5, false, 2015, 1, 5, 2015, 1, 5, 5, 30);
 	}
 
 
@@ -32,97 +33,147 @@ public class JobTest {
 	 * Test method for {@link model.Job#compare(model.Job)}.
 	 */
 	@Test
-	public void shouldCompare() {
-		Job myJob = new Job("Sweep the park", "Lacey", "address", "sweep", 5, 5, 5, false, 2015, 1, 5, 2015, 1, 5, 5, 30);
-
-		//Compare same job
+	public void shouldCompareSameJob() {
 		assertEquals(myJob.compare(
 				new Job("Sweep the park", "Lacey", "address", "sweep", 5, 5, 5, false, 2015, 1, 5, 2015, 1, 5, 5, 30)), true);
+	}
 
-		//test title		
+	/**
+	 * Test method for {@link model.Job#compare(model.Job)}.
+	 */
+	public void shouldCompareDifferentTitle() {	
 		assertFalse("Testing different titles", myJob.compare(
 				new Job("Install benches", "Lacey", "address", "sweep", 5, 5, 5, false, 2015, 1, 5, 2015, 1, 5, 5, 30)));
-
-		//test park name		
+	}
+	/**
+	 * Test method for {@link model.Job#compare(model.Job)}.
+	 */
+	public void shouldCompareDifferentParks(){		
 		assertFalse("Testing different park name", myJob.compare(
 				new Job("Sweep the park", "Tacoma", "address", "sweep", 5, 5, 5, false, 2015, 1, 5, 2015, 1, 5, 5, 30)));
-
-		//test address
+	}
+	/**
+	 * Test method for {@link model.Job#compare(model.Job)}.
+	 */
+	public void shouldCompareDifferentAddress(){
 		assertFalse("Testing different address", myJob.compare(
 				new Job("Sweep the park", "Lacey", "Diffaddress", "sweep", 5, 5, 5, false, 2015, 1, 5, 2015, 1, 5, 5, 30)));
-
-		//test description
+	}
+	/**
+	 * Test method for {@link model.Job#compare(model.Job)}.
+	 */
+	public void shouldCompareDifferentDescription(){		
 		assertFalse("Testing different description", myJob.compare(
 				new Job("Sweep the park", "Lacey", "address", "Benches", 5, 5, 5, false, 2015, 1, 5, 2015, 1, 5, 5, 30)));
-
-		//test number of light jobs
+	}
+	/**
+	 * Test method for {@link model.Job#compare(model.Job)}.
+	 */
+	public void shouldCompareDifferentLightJobs(){	
 		assertFalse("Testing different number of light jobs", myJob.compare(
 				new Job("Sweep the park", "Lacey", "address", "sweep", 1, 5, 5, false, 2015, 1, 5, 2015, 1, 5, 5, 30)));
-
-		//test number of medium jobs
+	}
+	/**
+	 * Test method for {@link model.Job#compare(model.Job)}.
+	 */
+	public void shouldCompareDifferentMediumJobs(){		
 		assertFalse("Testing different number of medium jobs", myJob.compare(
 				new Job("Sweep the park", "Lacey", "address", "sweep", 5, 1, 5, false, 2015, 1, 5, 2015, 1, 5, 5, 30)));
-
-		//test number of heavy jobs
+	}
+	/**
+	 * Test method for {@link model.Job#compare(model.Job)}.
+	 */
+	public void shouldCompareDifferentHeavyJobs(){		
 		assertFalse("Testing different number of heavy jobs", myJob.compare(
 				new Job("Sweep the park", "Lacey", "address", "sweep", 5, 5, 1, false, 2015, 1, 5, 2015, 1, 5, 5, 30)));
-
-		//test if two jobs
+	}
+	/**
+	 * Test method for {@link model.Job#compare(model.Job)}.
+	 */
+	public void shouldCompareDifferentNumOfJobs(){		
 		assertFalse("Test if the job is two days long", myJob.compare(
 				new Job("Sweep the park", "Lacey", "address", "sweep", 5, 5, 5, true, 2015, 1, 5, 2015, 1, 5, 5, 30)));
-
 	}
+
+
 
 	/**
 	 * Test method for {@link model.Job#jobCheck()}.
 	 */
 	@Test
 	public void shouldJobCheck() {
-		Job myJob = new Job("Sweep the park", "Lacey", "address", "sweep", 5, 5, 5, false, 2015, 1, 5, 2015, 1, 5, 5, 30);
-		
-		//Checks that all is well
+		//Job myJob = new Job("Sweep the park", "Lacey", "address", "sweep", 5, 5, 5, false, 2015, 1, 5, 2015, 1, 5, 5, 30);
 		assertSame("Everything checks out", 8, myJob.jobCheck());
+	}
+	/**
+	 * Test method for {@link model.Job#jobCheck()}.
+	 */
+	public void shouldCompareEmptyTitle() {	
 
-		//Checks for empty title
-		assertSame("Everything checks out", 1, 
+		assertSame("Empty title", 1, 
 				new Job("", "Lacey", "address", "sweep", 5, 5, 5, false, 2015, 6, 5, 2015, 6, 5, 5, 30).jobCheck());
-
-		//Checks for empty park name
-		assertSame("Everything checks out", 2, 
+	}
+	/**
+	 * Test method for {@link model.Job#jobCheck()}.
+	 */
+	public void shouldCompareEmptyParks(){		
+		assertSame("Empty park name", 2, 
 				new Job("Sweep the park", "", "address", "sweep", 5, 5, 5, false, 2015, 6, 5, 2015, 6, 5, 5, 30).jobCheck());
+	}
 
-		//Checks for empty address
-		assertSame("Everything checks out", 3, 
+	public void shouldCompareEmptyAddress(){
+		assertSame("Empty address", 3, 
 				new Job("Sweep the park", "Lacey", "", "sweep", 5, 5, 5, false, 2015, 6, 5, 2015, 6, 5, 5, 30).jobCheck());
-
-		//Checks for empty description
-		assertSame("Everything checks out", 4, 
+	}
+	/**
+	 * Test method for {@link model.Job#jobCheck()}.
+	 */
+	public void shouldCompareEmptyDescription(){		
+		assertSame("Empty description", 4, 
 				new Job("Sweep the park", "Lacey", "address", "", 5, 5, 5, false, 2015, 6, 5, 2015, 6, 5, 5, 30).jobCheck());
-
-		//Checks for empty light jobs less than 0
-		assertSame("Everything checks out", 5, 
+	}
+	/**
+	 * Test method for {@link model.Job#jobCheck()}.
+	 */
+	public void shouldCompareLightJobsLessThanLimit(){	
+		assertSame("Light jobs less than limit", 5, 
 				new Job("Sweep the park", "Lacey", "address", "sweep", -100, 5, 5, false, 2015, 6, 5, 2015, 6, 5, 5, 30).jobCheck());
-
-		//Checks for empty light jobs above 50
-		assertSame("Everything checks out", 5, 
+	}
+	/**
+	 * Test method for {@link model.Job#jobCheck()}.
+	 */
+	public void shouldCompareLightJobsMoreThanLimit(){	
+		assertSame("Light jobs above limit", 5, 
 				new Job("Sweep the park", "Lacey", "address", "sweep", 100, 5, 5, false, 2015, 6, 5, 2015, 6, 5, 5, 30).jobCheck());
+	}
+	/**
+	 * Test method for {@link model.Job#jobCheck()}.
+	 */
+	public void shouldCompareEmptyMediumJobsLessThanLimit(){		
 
-		//Checks for empty medium jobs less than 0
-		assertSame("Everything checks out", 6, 
+		assertSame("Medium jobs less than limit", 6, 
 				new Job("Sweep the park", "Lacey", "address", "sweep", 5, -100, 5, false, 2015, 6, 5, 2015, 6, 5, 5, 30).jobCheck());
-
-		//Checks for empty medium jobs above 50
-		assertSame("Everything checks out", 6, 
+	}
+	/**
+	 * Test method for {@link model.Job#jobCheck()}.
+	 */
+	public void shouldCompareMediumJobsMoreThanLimit(){	
+		assertSame("Medium jobs above limit", 6, 
 				new Job("Sweep the park", "Lacey", "address", "sweep", 5, 100, 5, false, 2015, 6, 5, 2015, 6, 5, 5, 30).jobCheck());
-
-		//Checks for empty heavy jobs less than 0
-		assertSame("Everything checks out", 7, 
+	}
+	/**
+	 * Test method for {@link model.Job#jobCheck()}.
+	 */
+	public void shouldCompareEmptyHeavyJobsLessThanLimit(){		
+		assertSame("Heavy jobs less than limit", 7, 
 				new Job("Sweep the park", "Lacey", "address", "sweep", 5, 5, -100, false, 2015, 6, 5,2015, 6, 5, 5, 30).jobCheck());
-
-		//Checks for empty heavy jobs above 50
-		assertSame("Everything checks out", 7, 
+	}
+	/**
+	 * Test method for {@link model.Job#jobCheck()}.
+	 */
+	public void shouldCompareHeavyJobsMoreThanLimit(){	
+		assertSame("Heavy jobs above limit", 7, 
 				new Job("Sweep the park", "Lacey", "address", "sweep", 5, 5, 100, false, 2015, 6, 5, 2015, 6, 5, 5, 30).jobCheck());
-
 	}
 
 }
