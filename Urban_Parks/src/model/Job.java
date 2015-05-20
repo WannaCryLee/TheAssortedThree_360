@@ -174,9 +174,6 @@ public class Job implements Serializable {
 		return true;
 	}
 	
-	
-
-
 	/**
 	 * Decrements the specific job category for the job.
 	 * 
