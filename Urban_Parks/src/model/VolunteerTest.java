@@ -36,25 +36,25 @@ public class VolunteerTest {
 			2015, 12, 24, 2015,12,25, 5, 30);
 	private Job myJobDatePast = new Job("Diving", "Real Lake", "Lacey Dr", "Diving off the deep end", 2,2,2,false,2015,2,2,2015,2,2,5,30);
 	
-	/**
-	 * Test method for {@link model.Volunteer#Volunteer(int, java.lang.String, java.lang.String, java.lang.String, java.lang.String)}.
-	 */
-	@Test
-	public void shouldLogIn() {
-		//Testing constructor with no parameters to log in
-		assertEquals(myVolunteerDefault.logIn("doe@gmail.com", "password"), 
-				"Your email or password does not match our database");
-		assertEquals(myVolunteerDefault.logIn("janedoe@gmail.com", "pass"), 
-				"Your email or password does not match our database");
-		assertEquals(myVolunteerDefault.logIn("janedoe@gmail.com", "password"), "Welcome! Jane Doe");
-		
-		//Testing constructor with parameters to log in
-		assertEquals(myVolunteerGivenData.logIn("jedi@gmail.com", "sparkle"), 
-				"Your email or password does not match our database");
-		assertEquals(myVolunteerGivenData.logIn("jedimaster@gmail.com", "spark"), 
-				"Your email or password does not match our database");
-		assertEquals(myVolunteerGivenData.logIn("jedimaster@gmail.com", "sparkle"), "Welcome! Lysia Valu");
-	}
+//	/**
+//	 * Test method for {@link model.Volunteer#Volunteer(int, java.lang.String, java.lang.String, java.lang.String, java.lang.String)}.
+//	 */
+//	@Test
+//	public void shouldLogIn() {
+//		//Testing constructor with no parameters to log in
+//		assertEquals(myVolunteerDefault.logIn("doe@gmail.com", "password"), 
+//				"Your email or password does not match our database");
+//		assertEquals(myVolunteerDefault.logIn("janedoe@gmail.com", "pass"), 
+//				"Your email or password does not match our database");
+//		assertEquals(myVolunteerDefault.logIn("janedoe@gmail.com", "password"), "Welcome! Jane Doe");
+//		
+//		//Testing constructor with parameters to log in
+//		assertEquals(myVolunteerGivenData.logIn("jedi@gmail.com", "sparkle"), 
+//				"Your email or password does not match our database");
+//		assertEquals(myVolunteerGivenData.logIn("jedimaster@gmail.com", "spark"), 
+//				"Your email or password does not match our database");
+//		assertEquals(myVolunteerGivenData.logIn("jedimaster@gmail.com", "sparkle"), "Welcome! Lysia Valu");
+//	}
 
 	/**
 	 * Test method for {@link model.Volunteer#addJob(model.Job)}.

@@ -5,6 +5,7 @@ package view;
  * TCSS 360: Software Engineering
  * Spring 2015
  */
+import java.text.SimpleDateFormat;
 import java.util.HashMap;
 import java.util.Scanner;
 import java.util.Map.Entry;
@@ -143,6 +144,7 @@ public class VolunteerGui {
 		
 		jobGui.printJobs();
 		
+		
 		//To sign up for a job
 		System.out.println("\nWould you like to sign up for a job? (Y/N)");
 		String ans = scan.next();
@@ -160,6 +162,19 @@ public class VolunteerGui {
 			((Job)jobs.getMap().get(signJob)).decrementJobCategory(workload);
 			
 			tools.clearScreen();
+			int result = ((Volunteer)volunteer.getTheVolunteer()).addJob((Job)(jobs.getMap().get((Integer)signJob)), workload);
+			if (result == 0)
+				System.out.print("\n This job already passed!");
+			if (result == 1){
+				System.out.print("\n You are already volunteering for a job on this day!");
+			} else {
+				//Sets format for Date Strings
+				SimpleDateFormat sdf = new SimpleDateFormat("MMM dd, yyyy");
+				Job job = (Job) (jobs.getMap().get((Integer)signJob));
+				System.out.print("\n Success!! You are signed up to volunteer for " + job.getTitle() + " on " + sdf.format(job.getStartDate())+ ".");
+			}
+			
+			System.out.println("\n" );
 			System.out.println("\n" + ((Volunteer)volunteer.getTheVolunteer()).addJob((Job)(jobs.getMap().get((Integer)signJob)), workload));
 			tools.pause();
 		} else 

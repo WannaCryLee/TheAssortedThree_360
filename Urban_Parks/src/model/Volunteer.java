@@ -32,8 +32,8 @@ public class Volunteer implements Serializable {
 	private String myPassword;
 	//List of jobs volunteer has signed up for
 	private HashMap<Job, Integer> myJobSignedUp;
-	//Sets format for Date Strings
-	private static SimpleDateFormat sdf = new SimpleDateFormat("MMM dd, yyyy");
+//	//Sets format for Date Strings
+//	private static SimpleDateFormat sdf = new SimpleDateFormat("MMM dd, yyyy");
 	
 
 	/**
@@ -63,19 +63,20 @@ public class Volunteer implements Serializable {
 		myJobSignedUp = new HashMap<Job, Integer>();
 	}
 
-	/**
-	 * logIn provides the volunteer with the ability to enter into the system.
-	 * 
-	 * @param theEmail the email of the signing in volunteer
-	 * @param thePassword, the volunteers chosen password
-	 * @return string if they were logged in or not
-	 */
-	public String logIn(String theEmail, String thePassword) {
-		if (!theEmail.equals(myEmail) && !thePassword.equals(myPassword)){
-			return "Your email or password does not match our database";
-		}
-		return "Welcome! " + myFirst + " " + myLast;
-	}
+//	/**
+//	 * logIn provides the volunteer with the ability to enter into the system.
+//	 * 
+//	 * @param theEmail the email of the signing in volunteer
+//	 * @param thePassword, the volunteers chosen password
+//	 * @return string if they were logged in or not
+//	 */
+//	public String logIn(String theEmail, String thePassword) {
+//		if (!theEmail.equals(myEmail) && !thePassword.equals(myPassword)){
+//			return "Your email or password does not match our database";
+//		}
+//		return "Welcome! " + myFirst + " " + myLast;
+//	}
+//	
 	
 	
 	/**
@@ -84,7 +85,7 @@ public class Volunteer implements Serializable {
 	 * and they it's not already in their list.
 	 * @param theJob, the position the volunteer wishes to sign up for
 	 */
-	public String addJob(Job theJob, int workload){
+	public int addJob(Job theJob, int workload){
 		boolean volunteered = false;
 		boolean pastJob = false;
 		Calendar today = Calendar.getInstance();
@@ -97,12 +98,12 @@ public class Volunteer implements Serializable {
 		}
 
 		if (pastJob)
-			return "This job already passed!";
+			return 0; // "This job already passed!";
 		if(volunteered){
-			return "You are already volunteering for a job on this day!";
+			return 1; //"You are already volunteering for a job on this day!";
 		} else {
 			myJobSignedUp.put(theJob, workload);
-			return "Success!! You are signed up to volunteer for " + theJob.getTitle() + " on " + sdf.format(theJob.getStartDate())+ ".";
+			return 2; //"Success!! You are signed up to volunteer for " + theJob.getTitle() + " on " + sdf.format(theJob.getStartDate())+ ".";
 		}
 	}
 
