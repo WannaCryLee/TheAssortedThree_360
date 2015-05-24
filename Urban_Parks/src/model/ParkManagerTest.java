@@ -31,18 +31,18 @@ public class ParkManagerTest implements Serializable{
 	private ParkManager testEmptyPM = new ParkManager();
 	private ParkManager testParkManager = new ParkManager("Jasmine", "Pedersen", "jtp@uw.edu", "password", "", "");
 	
-	@Test
-	public void shouldLogIn() {
-		//Testing constructor with no parameters to log in
-		assertEquals(testEmptyPM.logIn("forTheNorth@winterIsComing.com", "myWatchBeginsTomorrow"), "Your email or password does not match our database");
-		assertEquals(testEmptyPM.logIn("realtalk", "password"), "Your email or password does not match our database");
-		assertEquals(testEmptyPM.logIn("forTheNorth@winterIsComing.com", "myWatchBegins"), "Welcome! Jon Snow");
-		
-		//Testing constructor with parameters to log in
-		assertEquals(testParkManager.logIn("jtp@uw.edu", "password1234"), "Your email or password does not match our database");
-		assertEquals(testParkManager.logIn("something", "password"), "Your email or password does not match our database");
-		assertEquals(testParkManager.logIn("jtp@uw.edu", "password"), "Welcome! Jasmine Pedersen");
-	}
+//	@Test
+//	public void shouldLogIn() {
+//		//Testing constructor with no parameters to log in
+//		assertEquals(testEmptyPM.logIn("forTheNorth@winterIsComing.com", "myWatchBeginsTomorrow"), "Your email or password does not match our database");
+//		assertEquals(testEmptyPM.logIn("realtalk", "password"), "Your email or password does not match our database");
+//		assertEquals(testEmptyPM.logIn("forTheNorth@winterIsComing.com", "myWatchBegins"), "Welcome! Jon Snow");
+//		
+//		//Testing constructor with parameters to log in
+//		assertEquals(testParkManager.logIn("jtp@uw.edu", "password1234"), "Your email or password does not match our database");
+//		assertEquals(testParkManager.logIn("something", "password"), "Your email or password does not match our database");
+//		assertEquals(testParkManager.logIn("jtp@uw.edu", "password"), "Welcome! Jasmine Pedersen");
+//	}
 	
 	@Test 
 	public void shouldSubmitAJob() {

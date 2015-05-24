@@ -31,18 +31,18 @@ public class AdminTest implements Serializable{
 	private Admin testAdminData = new Admin("Jordan", "Love", "jlove934@uw.edu", "", "password");
 	private UserList list = new UserList();
 	
-	@Test
-	public void shouldLogIn() {
-		//Testing constructor with no parameters to log in
-		assertEquals(testAdmin.logIn("johndoe@gmail.com", "password1"), "Your email or password does not match our database");
-		assertEquals(testAdmin.logIn("realtalk", "password"), "Your email or password does not match our database");
-		assertEquals(testAdmin.logIn("johndoe@gmail.com", "password"), "Welcome! John Doe");
-		
-		//Testing constructor with parameters to log in
-		assertEquals(testAdminData.logIn("jlove934@uw.edu", "password1"), "Your email or password does not match our database");
-		assertEquals(testAdminData.logIn("realtalk", "password"), "Your email or password does not match our database");
-		assertEquals(testAdminData.logIn("jlove934@uw.edu", "password"), "Welcome! Jordan Love");
-	}
+//	@Test
+//	public void shouldLogIn() {
+//		//Testing constructor with no parameters to log in
+//		assertEquals(testAdmin.logIn("johndoe@gmail.com", "password1"), "Your email or password does not match our database");
+//		assertEquals(testAdmin.logIn("realtalk", "password"), "Your email or password does not match our database");
+//		assertEquals(testAdmin.logIn("johndoe@gmail.com", "password"), "Welcome! John Doe");
+//		
+//		//Testing constructor with parameters to log in
+//		assertEquals(testAdminData.logIn("jlove934@uw.edu", "password1"), "Your email or password does not match our database");
+//		assertEquals(testAdminData.logIn("realtalk", "password"), "Your email or password does not match our database");
+//		assertEquals(testAdminData.logIn("jlove934@uw.edu", "password"), "Welcome! Jordan Love");
+//	}
 	
 	@Test
 	public void shouldGetListOfVolunteers() {
