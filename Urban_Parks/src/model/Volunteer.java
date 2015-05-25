@@ -11,12 +11,12 @@ import java.util.Calendar;
 import java.util.HashMap;
 import java.util.Map.Entry;
 /**
-*
-* Creates a volunteer
-* 
-* @author Jordan Love, Ariel McNamara, and Jasmine Pedersen
-* @version Spring 2015
-*/
+ *
+ * Creates a volunteer
+ * 
+ * @author Jordan Love, Ariel McNamara, and Jasmine Pedersen
+ * @version Spring 2015
+ */
 public class Volunteer implements Serializable {
 	/**
 	 * Generated Serial Version ID
@@ -32,9 +32,7 @@ public class Volunteer implements Serializable {
 	private String myPassword;
 	//List of jobs volunteer has signed up for
 	private HashMap<Job, Integer> myJobSignedUp;
-//	//Sets format for Date Strings
-//	private static SimpleDateFormat sdf = new SimpleDateFormat("MMM dd, yyyy");
-	
+
 
 	/**
 	 * Create and set a default volunteer
@@ -63,22 +61,7 @@ public class Volunteer implements Serializable {
 		myJobSignedUp = new HashMap<Job, Integer>();
 	}
 
-//	/**
-//	 * logIn provides the volunteer with the ability to enter into the system.
-//	 * 
-//	 * @param theEmail the email of the signing in volunteer
-//	 * @param thePassword, the volunteers chosen password
-//	 * @return string if they were logged in or not
-//	 */
-//	public String logIn(String theEmail, String thePassword) {
-//		if (!theEmail.equals(myEmail) && !thePassword.equals(myPassword)){
-//			return "Your email or password does not match our database";
-//		}
-//		return "Welcome! " + myFirst + " " + myLast;
-//	}
-//	
-	
-	
+
 	/**
 	 * addJob places the Job the volunteer signed up for in a list, if they do not already have a job that day
 	 * 
@@ -90,13 +73,15 @@ public class Volunteer implements Serializable {
 		boolean pastJob = false;
 		Calendar today = Calendar.getInstance();
 
-		for (Entry<Job, Integer> pair : myJobSignedUp.entrySet()) {
-			if (theJob.getEndCalender().before(today))
-				pastJob = true;
-			if(theJob.getStartDate().compareTo(pair.getKey().getStartDate()) == 0)
-				volunteered = true;
+		if (theJob.getEndCalender().before(today)){
+			pastJob = true;
+		} else {		
+			for (Entry<Job, Integer> pair : myJobSignedUp.entrySet()) {				
+				if(theJob.getStartDate().compareTo(pair.getKey().getStartDate()) == 0)
+					volunteered = true;
+			}
 		}
-
+		
 		if (pastJob)
 			return 0; // "This job already passed!";
 		if(volunteered){
@@ -161,7 +146,7 @@ public class Volunteer implements Serializable {
 	public HashMap<Job, Integer> getMyJobSignedUp() {
 		return myJobSignedUp;
 	}
-	
+
 	public void setMyJobSignedUp(HashMap<Job, Integer> theJobSignedUp) {
 		myJobSignedUp = theJobSignedUp;
 	}

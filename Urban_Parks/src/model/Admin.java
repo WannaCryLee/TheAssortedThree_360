@@ -63,20 +63,6 @@ public class Admin implements Serializable{
 		myPassword = thePassword;
 	}
 	
-//	/**
-//	 * This method logs admin in with given email and password
-//	 * 
-//	 * @param email, string
-//	 * @param password, string
-//	 * @return string if they were loged in or not
-//	 */
-//	public String logIn(String email, String password) {
-//		if (!email.equals(myEmail))
-//			return "Your email or password does not match our database";
-//		if (!password.equals(myPassword))
-//			return "Your email or password does not match our database";
-//		return "Welcome! " + myFirst + " " + myLast;
-//	}
 	
 	/**
 	 * Searches through the database for the input lastname and return

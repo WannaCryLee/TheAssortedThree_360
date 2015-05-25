@@ -12,6 +12,7 @@ import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.HashMap;
 
+import org.junit.Before;
 import org.junit.Test;
 
 /**
@@ -27,44 +28,73 @@ public class AdminTest implements Serializable{
 	 * Generated Serial Version ID
 	 */
 	private static final long serialVersionUID = -8713016574919857541L;
-	private Admin testAdmin = new Admin();
-	private Admin testAdminData = new Admin("Jordan", "Love", "jlove934@uw.edu", "", "password");
-	private UserList list = new UserList();
+	private Admin testAdmin;
+	private Admin testAdminData;
 	
-//	@Test
-//	public void shouldLogIn() {
-//		//Testing constructor with no parameters to log in
-//		assertEquals(testAdmin.logIn("johndoe@gmail.com", "password1"), "Your email or password does not match our database");
-//		assertEquals(testAdmin.logIn("realtalk", "password"), "Your email or password does not match our database");
-//		assertEquals(testAdmin.logIn("johndoe@gmail.com", "password"), "Welcome! John Doe");
-//		
-//		//Testing constructor with parameters to log in
-//		assertEquals(testAdminData.logIn("jlove934@uw.edu", "password1"), "Your email or password does not match our database");
-//		assertEquals(testAdminData.logIn("realtalk", "password"), "Your email or password does not match our database");
-//		assertEquals(testAdminData.logIn("jlove934@uw.edu", "password"), "Welcome! Jordan Love");
-//	}
+	private UserList list;
+	ArrayList<Volunteer> testVolunteerList;
 	
-	@Test
-	public void shouldGetListOfVolunteers() {
+	@Before
+	public void setUp() throws Exception {
+		testAdmin = new Admin();
+		testAdminData = new Admin("Jordan", "Love", "jlove934@uw.edu", "", "password");
+		list = new UserList();
 		setUpUserList();
-		//Testing constructor with no parameters to get volunteer
-		ArrayList<Volunteer> testVolunteerList = testAdmin.getVolunteer("Boki");
+		testVolunteerList = testAdmin.getVolunteer("Boki");		
+	}
+	
+	/**
+	 * Test method for {@link model.Admin#addJob(model.Job)}.
+	 */
+	@Test
+	public void shouldGetListOfVolunteersWithDefaultConstructor() {
+
+		testVolunteerList = testAdmin.getVolunteer("Boki");	
 		for (Volunteer person : testVolunteerList) {
-			if (!(person.getMyLast().toLowerCase().equals("Boki".toLowerCase()))) {
-				fail("getVolunteer does not grab the volunteer with the same last name with the parameter");
-			}
+			assertEquals(person.getMyLast(), "Boki");
+//			if (!(person.getMyLast().toLowerCase().equals("Boki".toLowerCase()))) {
+//				fail("getVolunteer does not grab the volunteer with the same last name with the parameter");
+//			}
 		}
+		
+	}
+	/**
+	 * Test method for {@link model.Volunteer#addJob(model.Job)}.
+	 */
+	@Test
+	public void shouldGetListOfVolunteersWithGivenDataForConstructor() {
 		
 		//Testing constructor with parameters to get volunteer
 		testVolunteerList = testAdminData.getVolunteer("Shi");
 		for (Volunteer person : testVolunteerList) {
-			if (!(person.getMyLast().toLowerCase().equals("Shi".toLowerCase()))) {
-				fail("getVolunteer does not grab the volunteer with the same last name with the parameter");
-			}
+			assertEquals(person.getMyLast(), "Shi");
+//			if (!(person.getMyLast().toLowerCase().equals("Shi".toLowerCase()))) {
+//				fail("getVolunteer does not grab the volunteer with the same last name with the parameter");
+//			}
 		}
-		if (testVolunteerList.size() != 2)
-			fail("Did not find all the Volunteers with the last name given");
+		
 	}
+	
+	/**
+	* Test method for {@link model.Admin#getVolunteer(java.lang.String)}.
+	*/
+	@Test
+	public void shouldGetListOfVolunteersWhenNotInSystem() {
+	
+		//Testing constructor with parameters to get volunteer
+		testVolunteerList = testAdminData.getVolunteer("Mac");
+
+		assertEquals(testVolunteerList.size(), 0);
+	}
+
+//	public void shouldGetListOfVolunteers2() {
+//		setUpUserList();
+//		
+//		ArrayList<Volunteer> testVolunteerList = testAdmin.getVolunteer("Boki");
+//		
+//		if (testVolunteerList.size() != 2)
+//			fail("Did not find all the Volunteers with the last name given");
+//	}
 	
 	/**
 	 * Set up the data for the UserList to test getVolunteer

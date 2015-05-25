@@ -97,22 +97,6 @@ public class ParkManager implements Serializable{
 		parks.add(park.toLowerCase());
 	}
 
-//	/**
-//	 * This method logs Park Managers in with given email and password
-//	 * 
-//	 * @param email Email string
-//	 * @param password Password string
-//	 * @return string if they were logged in or not
-//	 */
-//	public String logIn(String theEmail, String thePassword) {
-//		if (!email.equals(theEmail))
-//			return "Your email or password does not match our database";
-//		
-//		if (!password.equals(thePassword))
-//			return "Your email or password does not match our database";
-//		return "Welcome! " + first + " " + last;
-//	}
-	
 	/**
 	 * Submitting a Job
 	 * 

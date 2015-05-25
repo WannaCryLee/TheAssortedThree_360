@@ -10,6 +10,7 @@ import static org.junit.Assert.*;
 
 import java.util.HashMap;
 
+import org.junit.Before;
 import org.junit.Test;
 /**
  * Test Log In Class
@@ -24,29 +25,59 @@ public class LogInTest {
 	private ParkManager tManager;
 	private Volunteer tVolunteer;
 	
-	@Test
-	public void shouldGetInstance() {
-		LogIn testAdmin = new LogIn();
-		LogIn testVolunteer = new LogIn();
-		LogIn testManager = new LogIn();
-		//Creates the data
+	@Before
+	public void setUp() throws Exception {
+		tAdmin = new Admin("Blue", "Whale", "bwhale@gmail.com", "Pacific Ocean", "password");
+		tManager = new ParkManager("Orca", "Whale", "owhale@gmail.com", "password", "Pacific Ocean", "Wright");
+		tVolunteer = new Volunteer("Pilot", "Whale", "pwhale@gmail.com", "password");
 		setUpUserList();
+	}
+	
+	@Test
+	public void shouldGetInstanceOfAdmin() {
+		LogIn testAdmin = new LogIn();
 		//Tests Administrator
 		testAdmin.getInstance("bwhale@gmail.com");
-		if (!testAdmin.getTheAdmin().getMyEmail().equals(tAdmin.getMyEmail()))
-			fail("Does not grab the right admin");
+		
+		String testEmail = testAdmin.getTheAdmin().getMyEmail();
+		String email = tAdmin.getMyEmail();
+		
+		assertEquals(testEmail.equals(email), true);
+//		if (!testAdmin.getTheAdmin().getMyEmail().equals(tAdmin.getMyEmail()))
+//			fail("Does not grab the right admin");
 		assertEquals(testAdmin.getTheManager(), null);
 		assertEquals(testAdmin.getTheVolunteer(), null);
+		
+	}
+	
+	@Test
+	public void shouldGetInstanceOfVolunteer() {
+		LogIn testVolunteer = new LogIn();
 		//Tests Volunteer
 		testVolunteer.getInstance("pwhale@gmail.com");
-		if (!testVolunteer.getTheVolunteer().getMyEmail().equals(tVolunteer.getMyEmail()))
-			fail("Does not grab the right volunteer");
+		
+		String testEmail = testVolunteer.getTheVolunteer().getMyEmail();
+		String email = tVolunteer.getMyEmail();
+		
+		assertEquals(testEmail.equals(email), true);
+//		if (!testVolunteer.getTheVolunteer().getMyEmail().equals(tVolunteer.getMyEmail()))
+//			fail("Does not grab the right volunteer");
 		assertEquals(testVolunteer.getTheManager(), null);
 		assertEquals(testVolunteer.getTheAdmin(), null);
+	}
+	
+	@Test
+	public void shouldGetInstanceOfManagerWhenManagerExists() {
+		LogIn testManager = new LogIn();
 		//Tests Park Manager
-		testManager.getInstance("owhale@gmail.com");	
-		if (!testManager.getTheManager().getEmail().equals(tManager.getEmail()))
-			fail("Does not grab the right manager");
+		testManager.getInstance("owhale@gmail.com");
+		
+		String testEmail = testManager.getTheManager().getEmail();
+		String email = tManager.getEmail();
+		
+		assertEquals(testEmail.equals(email), true);
+//		if (!testManager.getTheManager().getEmail().equals(tManager.getEmail()))
+//			fail("Does not grab the right manager");
 		assertEquals(testManager.getTheAdmin(), null);
 		assertEquals(testManager.getTheVolunteer(), null);
 		
@@ -77,16 +108,10 @@ public class LogInTest {
 		
 		test.put(test.size(), testVolunteer);
 		
-		tVolunteer = new Volunteer("Pilot", "Whale", "pwhale@gmail.com", "password");
-		
 		test.put(test.size(), tVolunteer);
-		
-		tAdmin = new Admin("Blue", "Whale", "bwhale@gmail.com", "Pacific Ocean", "password");
-		
+			
 		test.put(test.size(), tAdmin);
-		
-		tManager = new ParkManager("Orca", "Whale", "owhale@gmail.com", "password", "Pacific Ocean", "Wright");
-		
+			
 		test.put(test.size(), tManager);
 		
 		list.setMap(test);

@@ -10,6 +10,8 @@ import java.util.Calendar;
 import java.util.Date;
 import java.util.GregorianCalendar;
 
+import org.junit.Test;
+
 /**
  * Creates a job.
  * 
@@ -272,6 +274,9 @@ public class Job implements Serializable {
 	public Calendar getEndCalender() {
 		return myEndDate;
 	}
+	public Date getEndDate() {
+		return myEndDate.getTime();
+	}
 	/**
 	 * Returns all the info of the Job
 	 * 
@@ -281,8 +286,6 @@ public class Job implements Serializable {
 		return "";
 	}
 }
-
-
 
 
 
