@@ -68,9 +68,6 @@ public class AdminTest implements Serializable{
 		testVolunteerList = testAdminData.getVolunteer("Shi");
 		for (Volunteer person : testVolunteerList) {
 			assertEquals(person.getMyLast(), "Shi");
-//			if (!(person.getMyLast().toLowerCase().equals("Shi".toLowerCase()))) {
-//				fail("getVolunteer does not grab the volunteer with the same last name with the parameter");
-//			}
 		}
 		
 	}
@@ -86,15 +83,15 @@ public class AdminTest implements Serializable{
 
 		assertEquals(testVolunteerList.size(), 0);
 	}
-
-//	public void shouldGetListOfVolunteers2() {
-//		setUpUserList();
-//		
-//		ArrayList<Volunteer> testVolunteerList = testAdmin.getVolunteer("Boki");
-//		
-//		if (testVolunteerList.size() != 2)
-//			fail("Did not find all the Volunteers with the last name given");
-//	}
+	/**
+	* Test method for {@link model.Admin#getVolunteer(java.lang.String)}.
+	*/
+	@Test
+	public void shouldGetListOfVolunteersWhenSizeMoreThanOne() {
+		
+		ArrayList<Volunteer> testVolunteerList = testAdmin.getVolunteer("Shi");
+		assertEquals(testVolunteerList.size(), 2);
+	}
 	
 	/**
 	 * Set up the data for the UserList to test getVolunteer
