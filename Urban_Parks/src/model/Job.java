@@ -10,6 +10,8 @@ import java.util.Calendar;
 import java.util.Date;
 import java.util.GregorianCalendar;
 
+import org.junit.Test;
+
 /**
  * Creates a job.
  * 
@@ -23,9 +25,9 @@ public class Job implements Serializable {
 	 * Generated Serial Version ID
 	 */
 	private static final long serialVersionUID = -7742067979482263151L;
-	
+
 	private static final int MIN_NUM_VOLUNTEERS = 0;
-	
+
 	private static final int MAX_NUM_VOLUNTEERS = 50;
 	/*
 	 * Start Date for the job 
@@ -33,7 +35,7 @@ public class Job implements Serializable {
 	private Calendar myStartDate;
 	//Job end date
 	private Calendar myEndDate;
-	
+
 	/** Job title */
 	private String title; 
 	/** Park name the job belongs to */
@@ -95,7 +97,7 @@ public class Job implements Serializable {
 		myStartDate = new GregorianCalendar(theStartYear, theStartMonth-1, theStartDay, hour, min);
 		myEndDate = new GregorianCalendar(theEndYear, theEndMonth-1, theEndDay);
 	}
-	
+
 	/**
 	 * 
 	 * @param other The job given by the user
@@ -144,12 +146,12 @@ public class Job implements Serializable {
 			return 6;
 		else if (numHeavyJobs < MIN_NUM_VOLUNTEERS || numHeavyJobs > MAX_NUM_VOLUNTEERS) 
 			return 7;
-		else if (!valiDate.Within3Months(myStartDate)) {
+		else if (!valiDate.WithinMaxRangeMonths(myStartDate)) {
 			return 8;
 		}
 		return 0;
 	}
-	
+
 	/**
 	 * Checks if volunteers can sign up for a work category for a job
 	 * 
@@ -173,7 +175,7 @@ public class Job implements Serializable {
 		} 
 		return true;
 	}
-	
+
 	/**
 	 * Decrements the specific job category for the job.
 	 * 
@@ -220,7 +222,7 @@ public class Job implements Serializable {
 	public void setNumHeavyJobs(int theH) {
 		numHeavyJobs = theH;
 	}
-	
+
 	public void setIsTwoDays(boolean theTwoDays) {
 		isTwoDays = theTwoDays;
 	}
@@ -257,7 +259,7 @@ public class Job implements Serializable {
 	public int getNumHeavyJobs() {
 		return numHeavyJobs;
 	}
-	
+
 	public boolean getIsTwoDays() {
 		return isTwoDays;
 	}
@@ -265,7 +267,7 @@ public class Job implements Serializable {
 	public Date getStartDate(){
 		return myStartDate.getTime();
 	}
-	
+
 	public Calendar getStartCalender() {
 		return myStartDate;
 	}

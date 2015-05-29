@@ -16,14 +16,14 @@ import java.util.HashMap;
  * 
  */
 public class JobList implements Serializable{
-	
+
 	/**
 	 * Generated Serial Version ID
 	 */
 	private static final long serialVersionUID = 1239457467190085015L;
 	//Creates HashMap for a job list
 	private HashMap<Integer, Object> myMap;
-	
+
 	/**
 	 * Constructor that declares HashMap to be integer for key
 	 * 
@@ -32,7 +32,7 @@ public class JobList implements Serializable{
 	public JobList() {
 		myMap = new HashMap<Integer, Object>();
 	}
-	
+
 	/**
 	 * Returns current map
 	 * 
@@ -43,7 +43,7 @@ public class JobList implements Serializable{
 		copyMap.putAll(myMap);
 		return copyMap;
 	}
-	
+
 	/**
 	 * Updates map with a map that has been modified
 	 * 
@@ -53,7 +53,7 @@ public class JobList implements Serializable{
 		myMap.clear();
 		myMap.putAll(theMap);
 	}
-	
+
 	/**
 	 * Returns the contents within the HashMap as a string
 	 * 
@@ -61,11 +61,11 @@ public class JobList implements Serializable{
 	 */
 	public String toString(){
 		String result = "[";
-		
+
 		if(!(myMap.isEmpty())){
-			
+
 		}
-				
+
 		return result + "]";
 	}	
 }

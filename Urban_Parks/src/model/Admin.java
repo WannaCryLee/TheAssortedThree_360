@@ -19,23 +19,23 @@ import java.util.Map.Entry;
  *
  */
 public class Admin implements Serializable{
-	
+
 	/**
 	 * Generated Serial Version ID
 	 */
 	private static final long serialVersionUID = -5892491024213894664L;
 
 	private String myFirst;
-	
+
 	private String myLast;
-	
+
 	private String myEmail;
-	
+
 	private String myPassword;
-	
+
 	private String myAddress;
-	
-	
+
+
 	/**
 	 * Constructor for default admin
 	 */
@@ -62,8 +62,8 @@ public class Admin implements Serializable{
 		myAddress = theAddress;
 		myPassword = thePassword;
 	}
-	
-	
+
+
 	/**
 	 * Searches through the database for the input lastname and return
 	 * a arraylist of userid if found or return null if nothing was found
@@ -76,10 +76,10 @@ public class Admin implements Serializable{
 		ArrayList<Volunteer> foundVolunteer = new ArrayList<Volunteer>();
 		//To deserialize the data
 		Cereal readUserList = new Cereal(0);
-		
+
 		//UserList list = new UserList();
 		HashMap<Integer, Object> map = ((UserList) readUserList.deSerialize()).getMap();
-		
+
 		java.util.Iterator<Entry<Integer, Object>> itr = map.entrySet().iterator();
 		while(itr.hasNext()) {
 			Map.Entry<Integer, Object> pair = (Map.Entry<Integer, Object>)itr.next();
@@ -92,10 +92,10 @@ public class Admin implements Serializable{
 			}
 			itr.remove();
 		}
-		
+
 		return foundVolunteer;
 	}
-	
+
 	/**
 	 * Getters and Setters for First Name
 	 */
@@ -108,7 +108,7 @@ public class Admin implements Serializable{
 		myFirst = theFirstName;
 	}
 
-	
+
 	/**
 	 * Getters and Setters for Last Name
 	 */
@@ -121,7 +121,7 @@ public class Admin implements Serializable{
 		myLast = theLastName;
 	}
 
-	
+
 	/**
 	 * Getters and Setters for Email
 	 */
@@ -134,7 +134,7 @@ public class Admin implements Serializable{
 		myEmail = theEmail;
 	}
 
-	
+
 	/**
 	 * Getters and Setters for Password
 	 */
@@ -147,7 +147,7 @@ public class Admin implements Serializable{
 		myPassword = thePassword;
 	}
 
-	
+
 	/**
 	 * Getters and Setters for Address
 	 */
@@ -159,7 +159,7 @@ public class Admin implements Serializable{
 	public void setMyAddress(String theAddress) {
 		myAddress = theAddress;
 	}
-	
+
 	/**
 	 * Returns all the info of the Administrator
 	 * 

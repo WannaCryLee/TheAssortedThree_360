@@ -66,7 +66,7 @@ public class ValidateJob {
 	 * @param myStartDate		the date given
 	 * @return true				if the date is before the time range given and before yesterday, false otherwise
 	 */
-	public boolean Within3Months(Calendar myStartDate) {
+	public boolean WithinMaxRangeMonths(Calendar myStartDate) {
 		// The date 90 days after the current date
 		Calendar threeMonthsAfterCurrentDate = Calendar.getInstance();
 		// The current date
