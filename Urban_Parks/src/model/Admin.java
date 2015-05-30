@@ -8,7 +8,6 @@ package model;
 import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.HashMap;
-import java.util.Map;
 import java.util.Map.Entry;
 
 /**
@@ -72,25 +71,19 @@ public class Admin implements Serializable{
 	 * @return ArrayList<Integer>, List of user id with the given last name
 	 */
 	public ArrayList<Volunteer> getVolunteer(String theLastName) {
-		//To store the found volunteers
-		ArrayList<Volunteer> foundVolunteer = new ArrayList<Volunteer>();
-		//To deserialize the data
-		Cereal readUserList = new Cereal(0);
+		ArrayList<Volunteer> foundVolunteer = new ArrayList<Volunteer>(); //Initialized found volunteers
 
-		//UserList list = new UserList();
-		HashMap<Integer, Object> map = ((UserList) readUserList.deSerialize()).getMap();
+		Cereal readUserList = new Cereal(0); //Grabs data
 
-		java.util.Iterator<Entry<Integer, Object>> itr = map.entrySet().iterator();
-		while(itr.hasNext()) {
-			Map.Entry<Integer, Object> pair = (Map.Entry<Integer, Object>)itr.next();
-			//This checks value[1] to equal the given last name and checks to see if its a volunteer
-			//Make sure to check instance not just volunteer? maybe it will break the code
-			if (pair.getValue() instanceof Volunteer) {	
-				if (((Volunteer)(pair.getValue())).getMyLast().toLowerCase().equals(theLastName.toLowerCase())) {
-					foundVolunteer.add((Volunteer)(pair.getValue()));
+		HashMap<Integer, Object> map = ((UserList) readUserList.deSerialize()).getMap(); //Grabs a map of the user list
+		
+		for (Entry<Integer, Object> pair : map.entrySet()) { //Iterate through the map
+			if (pair.getValue() instanceof Volunteer) { 
+				Volunteer aVolunteer = (Volunteer) pair.getValue();
+				if (aVolunteer.getMyLast().toLowerCase().equals(theLastName.toLowerCase())) { //Case insensitive
+					foundVolunteer.add(aVolunteer);
 				}
 			}
-			itr.remove();
 		}
 
 		return foundVolunteer;

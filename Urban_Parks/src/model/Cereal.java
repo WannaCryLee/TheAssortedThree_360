@@ -57,14 +57,14 @@ public class Cereal implements Serializable{
 	 * Search for the file of the serealized class
 	 */
 	private void findFile() {
-		path = Cereal.class.getProtectionDomain().getCodeSource().getLocation().getPath();
+		path = Cereal.class.getProtectionDomain().getCodeSource().getLocation().getPath(); //Finds the path of the running instance
 		try {
 			decodedPath = URLDecoder.decode(path, "UTF-8");
 		} catch (UnsupportedEncodingException e) {
 			e.printStackTrace();
 		}
-		if (decodedPath.contains("/Urban_Parks.jar"))
-			decodedPath = decodedPath.substring(0, decodedPath.indexOf("/Urban_Parks.jar"));
+		if (decodedPath.contains("/Urban_Parks.jar")) //If the running instance is a jar
+			decodedPath = decodedPath.substring(0, decodedPath.indexOf("/Urban_Parks.jar")); //Cut Urban_Parks.jar out to save outside the jar
 	}
 	
 	/**

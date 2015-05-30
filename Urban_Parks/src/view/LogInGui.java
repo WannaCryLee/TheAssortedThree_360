@@ -59,19 +59,19 @@ public class LogInGui {
 			if (!access.getTheAdmin().getMyPassword().equals(givenPassword))
 				return false;
 			else
-				admin.printScreen(access);
+				admin.printScreen(access.getTheAdmin());
 		//User is a Park Manager
 		} else if (access.getTheManager() != null && access.getWhoAmI() == 1) {
 			if (!access.getTheManager().getPassword().equals(givenPassword))
 				return false;
 			else 
-				manager.printScreen(access);
+				manager.printScreen(access.getTheManager());
 		//User is a volunteer
 		} else if (access.getTheVolunteer() != null && access.getWhoAmI() == 0) {
 			if (!access.getTheVolunteer().getMyPassword().equals(givenPassword))
 				return false;
 			else 
-				volunteer.printScreen(access);
+				volunteer.printScreen(access.getTheVolunteer());
 		} else {
 		//Did not find user
 			return false;

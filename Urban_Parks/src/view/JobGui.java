@@ -38,14 +38,15 @@ public class JobGui {
 		JobList jobs = (JobList)getJobs.deSerialize();
 		HashMap<Integer, Object> map = jobs.getMap();
 		Date today = new Date();
+		int index = 0;
 		
 		System.out.println("Today's Date: " + sdf.format(today) + "\n");
 		
 		for (Map.Entry<Integer,Object> pair : map.entrySet()) {
-			if (((Job)pair.getValue()).getStartDate().after(today)) {
-				System.out.println("[ " + pair.getKey() + " - " + ((Job)pair.getValue()).getTitle() + ", " + ((Job)pair.getValue()).getParkName() + ", " +
-					((Job)pair.getValue()).getDescription() + ", " +
-					sdf.format(((Job)pair.getValue()).getStartDate()) + " ]");		
+			Job aJob = (Job) pair.getValue();
+			if (aJob.getStartDate().after(today)) {
+				System.out.println("[ " + index++ + " - " + aJob.getTitle() + ", " + aJob.getParkName() + ", " +
+						aJob.getDescription() + ", " + sdf.format(aJob.getStartDate()) + " ]");		
 			}
 		}	
 	}

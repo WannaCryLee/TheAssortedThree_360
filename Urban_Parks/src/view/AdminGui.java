@@ -8,7 +8,7 @@ package view;
 import java.util.ArrayList;
 import java.util.Scanner;
 
-import model.LogIn;
+import model.Admin;
 import model.Volunteer;
 
 /**
@@ -29,7 +29,7 @@ public class AdminGui {
 	 * Main Screen
 	 * @param admin		Instance of Administrator
 	 */
-	public void printScreen(LogIn admin) {
+	public void printScreen(Admin admin) {
 		Scanner thisScan = new Scanner(System.in);
 		UI tools = new UI();
 		int choice = 0;
@@ -44,7 +44,6 @@ public class AdminGui {
 			System.out.println("3) Exit");
 			if (thisScan.hasNextInt()) {
 				choice = thisScan.nextInt();
-				//helperAdmin(choice, admin, thisScan);
 				tools.clearScreen();
 				switch (choice) {
 				case 1:
@@ -63,15 +62,12 @@ public class AdminGui {
 	/**
 	 * My Account Screen
 	 * @param admin			instance of Admin
-	 * @param tools			instacne of UI
+	 * @param tools			instance of UI
 	 */
-	private void myAccountScreen(LogIn admin, UI tools) {
+	private void myAccountScreen(Admin admin, UI tools) {
 		System.out.println("My Account");
 		System.out.println("__________\n");
-		System.out.println(admin.getTheAdmin().toString());
-		//System.out.println(admin.getTheAdmin().getMyFirst() + " " + admin.getTheAdmin().getMyLast());
-		//System.out.println(admin.getTheAdmin().getMyEmail());
-		//System.out.println("Status: Admin");
+		System.out.println(admin.toString());
 		tools.pause();
 	}
 	
@@ -81,12 +77,12 @@ public class AdminGui {
 	 * @param tools			instance of UI
 	 * @param thisScan		instance of Scanner
 	 */
-	private void searchVolunteerScreen(LogIn admin, UI tools, Scanner thisScan) {
+	private void searchVolunteerScreen(Admin admin, UI tools, Scanner thisScan) {
 		System.out.println("Find Volunteers");
 		System.out.println("_______________\n");
 		System.out.print("Last Name: ");
 		String lastName = thisScan.next();
-		ArrayList<Volunteer> list = admin.getTheAdmin().getVolunteer(lastName);
+		ArrayList<Volunteer> list = admin.getVolunteer(lastName);
 		tools.clearScreen();
 		if (list.size() == 0) {
 			System.out.println("No Match Found");

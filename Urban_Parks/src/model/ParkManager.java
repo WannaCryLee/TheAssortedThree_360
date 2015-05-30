@@ -106,19 +106,8 @@ public class ParkManager implements Serializable{
 		Cereal deserial = new Cereal(1);
 		JobList jobs;
 		HashMap<Integer, Object> jobList;
-		String path = Cereal.class.getProtectionDomain().getCodeSource().getLocation().getPath();
-		String decodedPath = "";
-		try {
-			decodedPath = URLDecoder.decode(path, "UTF-8");
-		} catch (UnsupportedEncodingException e) {
-			e.printStackTrace();
-		}
-		if (decodedPath.contains("/Urban_Parks.jar"))
-			decodedPath = decodedPath.substring(0, decodedPath.indexOf("/Urban_Parks.jar"));
 		
-		File fileFound = new File( decodedPath + "/job.ser");
-		
-		if (fileFound.exists()) {
+		if (isFileFound()) {
 			jobs = (JobList) deserial.deSerialize();
 			jobList = jobs.getMap();
 		} else {
@@ -146,13 +135,14 @@ public class ParkManager implements Serializable{
 		Date todayDate = new Date();
 		Calendar today = Calendar.getInstance();
 		for (Map.Entry<Integer,Object> pair : map.entrySet()) {
-			  if (!((Job)(pair.getValue())).getIsTwoDays()) {
-				  if (((Job)(pair.getValue())).getParkName().equals(park) && (((Job)(pair.getValue())).getStartDate().after(todayDate))) 
+			Job aJob = (Job) pair.getValue();
+			  if (!aJob.getIsTwoDays()) {
+				  if (aJob.getParkName().equals(park) && aJob.getStartDate().after(todayDate)) 
 					  pendingJobs++;
 			  } else {
-				  if (((Job)(pair.getValue())).getParkName().equals(park) && (((Job)(pair.getValue())).getStartDate().after(todayDate))) 
+				  if (aJob.getParkName().equals(park) && aJob.getStartDate().after(todayDate))
 					  pendingJobs += TWO_DAYS;
-				  else if (((Job)(pair.getValue())).getParkName().equals(park) && (((Job)(pair.getValue())).getEndCalender().after(today)))
+				  else if (aJob.getParkName().equals(park) && aJob.getEndCalender().after(today))
 					  pendingJobs++;
 			  }
 		}
@@ -179,16 +169,17 @@ public class ParkManager implements Serializable{
 		threeDaysAfter.add(Calendar.DAY_OF_MONTH, THREE_DAYS_ABOVE_CURRENT);
 		
 		for (Map.Entry<Integer,Object> pair : map.entrySet()) {
-			  if (!((Job)(pair.getValue())).getIsTwoDays()) {
-				  if (((Job)(pair.getValue())).getParkName().equals(park) && (((Job)(pair.getValue())).getStartCalender().after(threeDaysBefore)) && 
-						  (((Job)(pair.getValue())).getStartCalender().before(threeDaysAfter))) 
+			Job aJob = (Job) pair.getValue();
+			  if (!aJob.getIsTwoDays()) {
+				  if (aJob.getParkName().equals(park) && (aJob.getStartCalender().after(threeDaysBefore)) && 
+						  (aJob.getStartCalender().before(threeDaysAfter))) 
 					  pendingJobs++;
 			  } else {
-				  if (((Job)(pair.getValue())).getParkName().equals(park) && (((Job)(pair.getValue())).getStartCalender().after(threeDaysBefore)) && 
-						  (((Job)(pair.getValue())).getStartCalender().before(threeDaysAfter))) 
+				  if (aJob.getParkName().equals(park) && (aJob.getStartCalender().after(threeDaysBefore)) && 
+						  (aJob.getStartCalender().before(threeDaysAfter))) 
 					  pendingJobs += 2;
-				  else if (((Job)(pair.getValue())).getParkName().equals(park) && (((Job)(pair.getValue())).getEndCalender().after(threeDaysBefore)) && 
-						  (((Job)(pair.getValue())).getEndCalender().before(threeDaysAfter))) 
+				  else if (aJob.getParkName().equals(park) && (aJob.getEndCalender().after(threeDaysBefore)) && 
+						  (aJob.getEndCalender().before(threeDaysAfter))) 
 					  pendingJobs++;
 			  }
 		}
@@ -197,6 +188,26 @@ public class ParkManager implements Serializable{
 			return true;
 		return false;	
 		
+	}
+	
+	/**
+	 * Checks to see if job database exist
+	 * @return True if there is a current database else false
+	 */
+	private boolean isFileFound() {
+		String path = Cereal.class.getProtectionDomain().getCodeSource().getLocation().getPath();
+		String decodedPath = "";
+		try {
+			decodedPath = URLDecoder.decode(path, "UTF-8");
+		} catch (UnsupportedEncodingException e) {
+			e.printStackTrace();
+		}
+		if (decodedPath.contains("/Urban_Parks.jar"))
+			decodedPath = decodedPath.substring(0, decodedPath.indexOf("/Urban_Parks.jar"));
+		
+		File fileFound = new File( decodedPath + "/job.ser");
+		
+		return fileFound.exists();
 	}
 	
 	/**

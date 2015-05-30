@@ -28,11 +28,11 @@ public class VolunteerTest {
 	
 	@Before
 	public void setUp() throws Exception {
-		myJobData1 = new Job("Lessons", "Huntamer Park", "Lacey Dr.", "Swimming in the air.", 5, 5, 5, true, 
+		myJobData1 = new Job("Lessons", "Huntamer Park", "Swimming in the air.", 5, 5, 5, true, 
 				2015, 12, 31, 2016,1,1, 5, 30);
-		myJobData2  = new Job("Training", "Long Lake", "Canyon Rd.", "Lifeguard Training", 5, 5, 5, true, 
+		myJobData2  = new Job("Training", "Long Lake", "Lifeguard Training", 5, 5, 5, true, 
 				2015, 12, 24, 2015,12,25, 5, 30);
-		myJobDatePast = new Job("Diving", "Real Lake", "Lacey Dr", "Diving off the deep end", 2, 2, 2, false,
+		myJobDatePast = new Job("Diving", "Real Lake", "Diving off the deep end", 2, 2, 2, false,
 				2015, 2, 2, 2015, 2, 2, 5, 30);
 	}
 

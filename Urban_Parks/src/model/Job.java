@@ -10,7 +10,6 @@ import java.util.Calendar;
 import java.util.Date;
 import java.util.GregorianCalendar;
 
-import org.junit.Test;
 
 /**
  * Creates a job.
@@ -40,8 +39,6 @@ public class Job implements Serializable {
 	private String title; 
 	/** Park name the job belongs to */
 	private String parkName;
-	/** Address of job's location */
-	private String address;
 	/** Variable for describing the job's details */
 	private String description;
 	/** True = Jobs takes Two days, False = Job is only for One day */
@@ -60,7 +57,6 @@ public class Job implements Serializable {
 	public Job() {
 		title = null;
 		parkName = null;
-		address = null;
 		description = null;
 		numLightJobs = 0;
 		numMedJobs = 0;
@@ -82,13 +78,12 @@ public class Job implements Serializable {
 	 * @param theMonth the month of the users job
 	 * @param theDay the day of the users job
 	 */
-	public Job(String theTitle, String theParkName, String theAddress, 
+	public Job(String theTitle, String theParkName,  
 			String theDescription, int theNumLightJobs, int theNumMedJobs,int theNumHeavyJobs, boolean theTwoDays,
 			int theStartYear, int theStartMonth, int theStartDay,
 			int theEndYear, int theEndMonth, int theEndDay, int hour, int min) {
 		title = theTitle;
 		parkName = theParkName.toLowerCase();
-		address = theAddress;
 		description = theDescription;
 		numLightJobs = theNumLightJobs;
 		numMedJobs = theNumMedJobs;
@@ -108,8 +103,6 @@ public class Job implements Serializable {
 		if (!title.equals(other.getTitle()))
 			return false;
 		if (!parkName.equals(other.getParkName()))
-			return false;
-		if (!address.equals(other.getAddress()))
 			return false;
 		if (!description.equals(other.getDescription()))
 			return false;
@@ -136,8 +129,6 @@ public class Job implements Serializable {
 			return 1;
 		else if (parkName.equals("")) 
 			return 2;
-		else if (address.equals("")) 
-			return 3;
 		else if (description.equals(""))
 			return 4;
 		else if (numLightJobs < MIN_NUM_VOLUNTEERS || numLightJobs > MAX_NUM_VOLUNTEERS) 
@@ -204,10 +195,6 @@ public class Job implements Serializable {
 		parkName = theParkName;
 	}
 
-	public void setAddress(String theAddress) {
-		address = theAddress;
-	}
-
 	public void setDescription(String theD) {
 		description = theD;
 	}
@@ -238,10 +225,6 @@ public class Job implements Serializable {
 
 	public String getParkName() {
 		return parkName;
-	}
-
-	public String getAddress() {
-		return address;
 	}
 
 	public String getDescription() {

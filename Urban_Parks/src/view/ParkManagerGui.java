@@ -15,7 +15,7 @@ import java.util.Map.Entry;
 import model.Cereal;
 import model.Job;
 import model.JobList;
-import model.LogIn;
+import model.ParkManager;
 import model.UserList;
 import model.Volunteer;
 
@@ -40,7 +40,7 @@ public class ParkManagerGui {
 	 * 
 	 * @param parkManager      Instance of Park Manager
 	 */
-	public void printScreen(LogIn parkManager) {
+	public void printScreen(ParkManager parkManager) {
 		Scanner thisScan = new Scanner(System.in);
 		UI tools = new UI();
 
@@ -56,7 +56,6 @@ public class ParkManagerGui {
 			System.out.println("4) Exit");
 			if (thisScan.hasNextInt()) {
 				choice = thisScan.nextInt();
-				//helperManager(choice, parkManager, thisScan);
 				tools.clearScreen();
 				switch (choice) {
 				case 1:
@@ -74,6 +73,29 @@ public class ParkManagerGui {
 		}
 		thisScan.close();
 	}
+	
+	/**
+	 * Checks what park the manager wants to choose
+	 * @param theManager
+	 * @param scan
+	 * @return String of the park name
+	 */
+	private String whichPark(ParkManager theManager, Scanner scan) {
+		int picked = -1;
+		ArrayList<String> parkList = theManager.getParks();
+		int index = 0;
+		System.out.println("Which park?");
+		for (String park : parkList)
+			System.out.println(index++ + ": " + park);
+		while (picked > parkList.size() || picked < 0) {
+			System.out.print("Please enter a park number: ");
+			if (scan.hasNextInt())
+				picked = scan.nextInt();
+			else
+				scan.next();
+		}
+		return parkList.get(picked);
+	}
 
 	/**
 	 * Submit a Job Screen
@@ -82,30 +104,21 @@ public class ParkManagerGui {
 	 * @param tools						instance of UI
 	 * @param thisScan					instance of Scanner
 	 */
-	private void submitJobScreen(LogIn parkManager, UI tools, Scanner thisScan) {
+	private void submitJobScreen(ParkManager parkManager, UI tools, Scanner thisScan) {
 		Job newJob;
 		System.out.println("Submit a Job!");
 		System.out.println("_____________\n"); 
-
-		//System.out.println("\n Under Construction\nPlease check back soon!");
 		
 		System.out.println("Please enter the following information\n");
 		System.out.print("Title (One Word): ");
 		String title = thisScan.next();
-		System.out.print("\nPark Name: ");
-		String parkName = thisScan.next();
-		while(!parkManager.getTheManager().isMyPark(parkName.toLowerCase())) {
-			System.out.print("\nPlease enter one of your park's name: ");
-			parkName = thisScan.next();
-		}
+		String parkName = whichPark(parkManager, thisScan);
 		
-		if (parkManager.getTheManager().maxPendingJobs(parkName) || parkManager.getTheManager().maxPendingJobsWeek(parkName))
+		if (parkManager.maxPendingJobs(parkName) || parkManager.maxPendingJobsWeek(parkName))
 			System.out.println("The jobs for this park is at its max!");
 		else {
 		
 			thisScan.nextLine();
-			System.out.print("\nAddress: ");
-			String address = thisScan.nextLine();
 			System.out.print("\nDescription: ");
 			String description = thisScan.nextLine();
 			System.out.print("\nNumber of light jobs: ");
@@ -132,18 +145,18 @@ public class ParkManagerGui {
 			
 				//creates the "Two day" job
 				boolean isTwoDays = true;
-				newJob = new Job(title, parkName, address, description, numLightJobs, numMedJobs, numHeavyJobs, isTwoDays, startYear, startMonth, startDay,
+				newJob = new Job(title, parkName, description, numLightJobs, numMedJobs, numHeavyJobs, isTwoDays, startYear, startMonth, startDay,
 					startYear, startMonth, startDay + 1, hour, min);
 			
 			} else {
 				//creates the "One day" job
 				boolean isTwoDays = false;
-				newJob = new Job(title, parkName, address, description, numLightJobs, numMedJobs, numHeavyJobs, isTwoDays, startYear, startMonth, startDay,
+				newJob = new Job(title, parkName, description, numLightJobs, numMedJobs, numHeavyJobs, isTwoDays, startYear, startMonth, startDay,
 						startYear, startMonth, startDay, hour, min);
 			}
 		
 			jobDoubleCheck(thisScan, newJob);
-			parkManager.getTheManager().submitJob(newJob);
+			parkManager.submitJob(newJob);
 			tools.clearScreen();
 			System.out.println("Job Submitted");
 		
@@ -158,32 +171,48 @@ public class ParkManagerGui {
 	 * @param tools						instance of UI
 	 * @param thisScan					instance of Scanner
 	 */
-	private void myParkJobScreen(LogIn parkManager, UI tools, Scanner thisScan) {
+	private void myParkJobScreen(ParkManager parkManager, UI tools, Scanner thisScan) {
 		Cereal jobData = new Cereal(1);
 		JobList jobs = (JobList)jobData.deSerialize();
 		Cereal userData = new Cereal(0);
 		UserList users = (UserList)userData.deSerialize();
 		System.out.println("My Park Jobs");
 		System.out.println("____________\n");
-		ArrayList<String> myParks = parkManager.getTheManager().getParks();
+		ArrayList<Job> myJobs = getJobs(parkManager.getParks(), jobs);
+		int jobId = 0;
+
+		for (Job job : myJobs) 
+			System.out.println("[ " + jobId++ + " - " + job.getTitle() + " in " + sdf.format(job.getStartDate()) + " ]");
 		
-		for (String park : myParks) {
-
-			for (Map.Entry<Integer,Object> pair : jobs.getMap().entrySet()) {
-				if (((Job)pair.getValue()).getParkName().toLowerCase().equals(park.toLowerCase())) {
-					System.out.println("[ " + pair.getKey() + " - " + ((Job)pair.getValue()).getTitle() + " in " + sdf.format(((Job)pair.getValue()).getStartDate()) + " ]");
-				}
-			}	
-		}
-
+		
 		System.out.println("\nWould you like to see volunteers for a job? (Y/N)");
 		String response = thisScan.next();
 		if (response.toLowerCase().charAt(0) == 'y') {
-			seeVolunteers(parkManager, thisScan, jobs, users);
+			Job selectedJob = selectJob(myJobs, thisScan);
+			seeVolunteers(users, selectedJob);
 			tools.pause();
 		} else
 			tools.clearScreen();
 
+	}
+	
+	/**
+	 * Creates a list of jobs from the parks of the ParkManager
+	 * @param myParks Parks of the ParkManager
+	 * @param jobs List of Jobs
+	 * @return List of Jobs thats the ParkManager manages 
+	 */
+	private ArrayList<Job> getJobs(ArrayList<String> myParks, JobList jobs) {
+		ArrayList<Job> myJobs = new ArrayList<Job>();
+		for (String park : myParks) {
+			for (Map.Entry<Integer,Object> pair : jobs.getMap().entrySet()) {
+				Job aJob = (Job) pair.getValue();
+				if (aJob.getParkName().toLowerCase().equals(park.toLowerCase())) {
+					myJobs.add(aJob);
+				}
+			}	
+		}
+		return myJobs;
 	}
 
 	/**
@@ -191,25 +220,38 @@ public class ParkManagerGui {
 	 * @param parkManager			instance of Park Manager
 	 * @param tools					instance of UI
 	 */
-	private void myAccountScreen(LogIn parkManager, UI tools) {
+	private void myAccountScreen(ParkManager parkManager, UI tools) {
 		System.out.println("My Account");
 		System.out.println("__________\n");
-		System.out.println(parkManager.getTheManager().toString());
-		//System.out.println(parkManager.getTheManager().getFirst() + " " + parkManager.getTheManager().getLast());
-		//System.out.println(parkManager.getTheManager().getEmail());
-		//System.out.println("Status: Park Manager");
+		System.out.println(parkManager.toString());
 		tools.pause();
 	}
-
-	private void seeVolunteers(LogIn parkManager, Scanner thisScan, JobList jobs, UserList users) {
-		System.out.print("\nJob number: ");
-		int jobNum = thisScan.nextInt();
-		Job selectedJob = (Job)jobs.getMap().get(jobNum);
-		while (!parkManager.getTheManager().getParks().contains(selectedJob.getParkName())) {
-			System.out.print("\nYou do not have this job number for your park\nPlease enter the correct Job Number: ");
-			jobNum = thisScan.nextInt();
-			selectedJob = (Job)jobs.getMap().get(jobNum);
+	
+	/**
+	 * Selects a job from the user
+	 * @param myJobs List of jobs of the park manager
+	 * @param scan Scanner
+	 * @return a job depending on the users pick
+	 */
+	private Job selectJob(ArrayList<Job> myJobs, Scanner scan) {
+		int picked = -1;
+		while (picked > myJobs.size() || picked < 0) {
+			System.out.print("Please enter a job number: ");
+			if (scan.hasNextInt())
+				picked = scan.nextInt();
+			else
+				scan.next();
 		}
+		return myJobs.get(picked);
+	}
+
+	/**
+	 * Prints out all the volunteers for specified job
+	 * @param users UserList of volunteers
+	 * @param selectedJob A job to find volunteers
+	 */
+	private void seeVolunteers(UserList users, Job selectedJob) {
+		
 		boolean isJobPrinted = false;
 
 		for (Entry<Integer, Object> pair : users.getMap().entrySet()) {
@@ -218,7 +260,9 @@ public class ParkManagerGui {
 				HashMap<Job, Integer> itrJob = (HashMap<Job, Integer>) itrVolunteer.getMyJobSignedUp();
 
 				for (Entry<Job, Integer> jobPair : itrJob.entrySet()) {
-					if (jobPair.getKey().getTitle().compareTo(selectedJob.getTitle()) == 0) {
+					Job aJob = jobPair.getKey();
+					
+					if (aJob.getTitle().compareTo(selectedJob.getTitle()) == 0) {
 						isJobPrinted = true;
 						System.out.println("\n[ " + itrVolunteer.getMyFirst() + " " + itrVolunteer.getMyLast() + "( " + itrVolunteer.getMyEmail() + " )"+ " ]");
 					}
@@ -252,12 +296,6 @@ public class ParkManagerGui {
 				System.out.println("\nPlease Re-enter approved Park Name: ");
 				resolve = scan.nextLine();
 				job.setParkName(resolve);
-				break;
-				//Address
-			case 3:
-				System.out.println("\nPlease Re-enter approved Address: ");
-				resolve = scan.nextLine();
-				job.setAddress(resolve);
 				break;
 				//Description
 			case 4:

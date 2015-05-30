@@ -55,27 +55,27 @@ public class CerealTest {
 	private void setUpJobList() {
 		HashMap<Integer, Object> test = new HashMap<Integer, Object>();
 		
-		Job testJob = new Job("Rock", "Tuscany", "Tacoma, WA", "Clean Rocks", 3, 5, 3, false, 2015, 5, 15, 2015, 5, 15, 5, 30);
+		Job testJob = new Job("Rock", "Tuscany",  "Clean Rocks", 3, 5, 3, false, 2015, 5, 15, 2015, 5, 15, 5, 30);
 		
 		test.put(test.size(), testJob);
 		
-		testJob = new Job("Bark", "Tuscany", "Tacoma, WA", "New Bark",3, 5, 3, false, 2015, 5, 30, 2015, 5, 30, 5, 30);
+		testJob = new Job("Bark", "Tuscany",  "New Bark",3, 5, 3, false, 2015, 5, 30, 2015, 5, 30, 5, 30);
 		
 		test.put(test.size(), testJob);
 		
-		testJob = new Job("Sweep", "Wright", "Tacoma, WA", "Sweep Sidewalks", 3, 5, 3, false, 2015, 6, 15, 2015, 6, 15, 5, 30);
+		testJob = new Job("Sweep", "Wright",  "Sweep Sidewalks", 3, 5, 3, false, 2015, 6, 15, 2015, 6, 15, 5, 30);
 		
 		test.put(test.size(), testJob);
 		
-		testJob = new Job("Garbage", "Wright", "Tacoma, WA", "Change all the Garbage", 3, 5, 3, false, 2015, 7, 15, 2015, 7, 15, 5, 30);
+		testJob = new Job("Garbage", "Wright",  "Change all the Garbage", 3, 5, 3, false, 2015, 7, 15, 2015, 7, 15, 5, 30);
 		
 		test.put(test.size(), testJob);
 		
-		testJob = new Job("New Fountain", "Lighthouse", "Tacoma, WA", "Install new fountain", 3, 5, 3, false, 2015, 8, 15, 2015, 8, 15, 5, 30);
+		testJob = new Job("New Fountain", "Lighthouse",  "Install new fountain", 3, 5, 3, false, 2015, 8, 15, 2015, 8, 15, 5, 30);
 		
 		test.put(test.size(), testJob);
 		
-		testJob = new Job("BBQ", "LightHouse", "Tacoma, WA", "Cook Meat :)", 3, 5, 3, false, 2015, 9, 15, 2015, 9, 15, 5, 30);
+		testJob = new Job("BBQ", "LightHouse",  "Cook Meat :)", 3, 5, 3, false, 2015, 9, 15, 2015, 9, 15, 5, 30);
 		
 		test.put(test.size(), testJob);
 		

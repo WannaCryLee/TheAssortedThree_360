@@ -6,7 +6,6 @@ package model;
  * Spring 2015
  */
 import java.io.Serializable;
-import java.text.SimpleDateFormat;
 import java.util.Calendar;
 import java.util.HashMap;
 import java.util.Map.Entry;
@@ -64,32 +63,36 @@ public class Volunteer implements Serializable {
 
 	/**
 	 * addJob places the Job the volunteer signed up for in a list, if they do not already have a job that day
-	 * 
 	 * and they it's not already in their list.
 	 * @param theJob, the position the volunteer wishes to sign up for
+	 * @return 0 if the job is in the past
+	 * @return 1 if the job is conflicting the same day
+	 * @return 2 if the job was successful
 	 */
 	public int addJob(Job theJob, int workload){
-		boolean volunteered = false;
-		boolean pastJob = false;
 		Calendar today = Calendar.getInstance();
 
-		if (theJob.getEndCalender().before(today)){
-			pastJob = true;
-		} else {		
-			for (Entry<Job, Integer> pair : myJobSignedUp.entrySet()) {				
-				if(theJob.getStartDate().compareTo(pair.getKey().getStartDate()) == 0)
-					volunteered = true;
-			}
-		}
-		
-		if (pastJob)
+		if (theJob.getEndCalender().before(today))
 			return 0; // "This job already passed!";
-		if(volunteered){
-			return 1; //"You are already volunteering for a job on this day!";
-		} else {
-			myJobSignedUp.put(theJob, workload);
-			return 2; //"Success!! You are signed up to volunteer for " + theJob.getTitle() + " on " + sdf.format(theJob.getStartDate())+ ".";
+		if (isSameDay(theJob))
+			return 1; //it is conflicting dates
+		myJobSignedUp.put(theJob, workload);
+		return 2; //"Success!!
+
+	}
+	
+	/**
+	 * Checks to see if the job is conflicting with the same day
+	 * @param theJob to check 
+	 * @return true if it is on the same day else false
+	 */
+	private boolean isSameDay(Job theJob) {
+		for (Entry<Job, Integer> pair : myJobSignedUp.entrySet()) {	
+			Job myJob = pair.getKey();
+			if(theJob.getStartDate().compareTo(myJob.getStartDate()) == 0)
+				return true;
 		}
+		return false;
 	}
 
 	/**

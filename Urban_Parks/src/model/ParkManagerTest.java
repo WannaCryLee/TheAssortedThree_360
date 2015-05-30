@@ -33,7 +33,7 @@ public class ParkManagerTest implements Serializable{
 	
 	@Test 
 	public void shouldSubmitAJob() {
-		Job originalJob = new Job("Rock", "Tuscany", "Tacoma, WA", "Clean Rocks", 3, 5, 3, false, 2015, 5, 15, 2015, 5, 15, 5, 30);
+		Job originalJob = new Job("Rock", "Tuscany", "Clean Rocks", 3, 5, 3, false, 2015, 5, 15, 2015, 5, 15, 5, 30);
 		testParkManager.submitJob(originalJob);
 		
 		Cereal checkJob = new Cereal(1);
@@ -50,11 +50,11 @@ public class ParkManagerTest implements Serializable{
 		setUpJobList();
 		Job newJob;
 		for (int i = 1; i < 30; i++) {
-			newJob = new Job("BBQ", "LightHouse", "Tacoma, WA", "Cook Meat :)", 3, 5, 3, false, 2015, 9, i, 2015, 9, i, 5, 30);
+			newJob = new Job("BBQ", "LightHouse", "Cook Meat :)", 3, 5, 3, false, 2015, 9, i, 2015, 9, i, 5, 30);
 			testParkManager.submitJob(newJob);
 			assertFalse(testParkManager.maxPendingJobs("lighthouse"));
 		}
-		newJob = new Job("BBQ", "LightHouse", "Tacoma, WA", "Cook Meat :)", 3, 5, 3, false, 2015, 9, 30, 2015, 9, 30, 5, 30);
+		newJob = new Job("BBQ", "LightHouse", "Cook Meat :)", 3, 5, 3, false, 2015, 9, 30, 2015, 9, 30, 5, 30);
 		testParkManager.submitJob(newJob);
 		assertTrue(testParkManager.maxPendingJobs("lighthouse"));
 
@@ -65,13 +65,13 @@ public class ParkManagerTest implements Serializable{
 		setUpJobList();
 		Job newJob;
 		for (int i = 1; i <= 5; i++) {
-			newJob = new Job("BBQ", "LightHouse", "Tacoma, WA", "Cook Meat :)", 3, 5, 3, false, 2015, 5, i+7, 2015, 9, i+7, 5, 30);
+			newJob = new Job("BBQ", "LightHouse", "Cook Meat :)", 3, 5, 3, false, 2015, 5, i+7, 2015, 9, i+7, 5, 30);
 			testParkManager.submitJob(newJob);
 			System.out.println(testParkManager.maxPendingJobsWeek("lighthouse"));
 			//assertFalse(testParkManager.maxPendingJobsWeek("lighthouse"));				
 		}
 		//System.out.println("Here");
-		newJob = new Job("BBQ", "LightHouse", "Tacoma, WA", "Cook Meat :)", 3, 5, 3, false, 2015, 5, 14, 2015, 5, 14, 5, 30);
+		newJob = new Job("BBQ", "LightHouse","Cook Meat :)", 3, 5, 3, false, 2015, 5, 14, 2015, 5, 14, 5, 30);
 		testParkManager.submitJob(newJob);
 		//System.out.println(testParkManager.maxPendingJobsWeek("lighthouse"));
 		assertTrue(testParkManager.maxPendingJobsWeek("lighthouse"));
@@ -84,15 +84,15 @@ public class ParkManagerTest implements Serializable{
 		JobList list = new JobList();
 		
 
-		Job testJob = new Job("Rock", "Tuscany", "Tacoma, WA", "Clean Rocks", 3, 5, 3, false, 2015, 5, 15, 2015, 5, 15, 5, 30);
+		Job testJob = new Job("Rock", "Tuscany","Clean Rocks", 3, 5, 3, false, 2015, 5, 15, 2015, 5, 15, 5, 30);
 
 		test.put(test.size(), testJob);
 
-		testJob = new Job("Bark", "Tuscany", "Tacoma, WA", "New Bark",3, 5, 3, false, 2015, 5, 16, 2015, 5, 16, 5, 30);
+		testJob = new Job("Bark", "Tuscany", "New Bark",3, 5, 3, false, 2015, 5, 16, 2015, 5, 16, 5, 30);
 
 		test.put(test.size(), testJob);
 
-		testJob = new Job("Garbage", "Wright", "Tacoma, WA", "Change all the Garbage", 3, 5, 3, false, 2015, 5, 18, 2015, 5, 18, 5, 30);
+		testJob = new Job("Garbage", "Wright", "Change all the Garbage", 3, 5, 3, false, 2015, 5, 18, 2015, 5, 18, 5, 30);
 
 		test.put(test.size(), testJob);
 

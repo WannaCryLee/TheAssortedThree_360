@@ -6,6 +6,8 @@ package view;
  * Spring 2015
  */
 import java.text.SimpleDateFormat;
+import java.util.ArrayList;
+import java.util.Date;
 import java.util.HashMap;
 import java.util.Scanner;
 import java.util.Map.Entry;
@@ -13,7 +15,6 @@ import java.util.Map.Entry;
 import model.Cereal;
 import model.Job;
 import model.JobList;
-import model.LogIn;
 import model.UserList;
 import model.Volunteer;
 
@@ -25,6 +26,11 @@ import model.Volunteer;
  */
 public class VolunteerGui {
 	
+	/*
+	 * Date format for the jobs
+	 */
+	private static SimpleDateFormat sdf = new SimpleDateFormat("MMMM dd, yyyy");
+	
 	// Constructor
 	public VolunteerGui () {
 		
@@ -34,7 +40,7 @@ public class VolunteerGui {
 	 * Main Screen
 	 * @param volunteer    Instance of volunteer 
 	 */
-	public void printScreen(LogIn volunteer) {
+	public void printScreen(Volunteer volunteer) {
 		Scanner thisScan = new Scanner(System.in);
 		UI tools = new UI();
 		int choice = 0;
@@ -73,16 +79,16 @@ public class VolunteerGui {
 	 * Save the user data
 	 * @param volunteer
 	 */
-	private void saveUser(LogIn volunteer) {
+	private void saveUser(Volunteer theVolunteer) {
 		Cereal saver = new Cereal(0);
 		UserList userList = (UserList)saver.deSerialize();
 		HashMap<Integer, Object> userMap = userList.getMap();
-		Volunteer theVolunteer = volunteer.getTheVolunteer();
 		int key = -1;
 		
 		for (Entry<Integer, Object> pair : userMap.entrySet()) {
 			if (pair.getValue() instanceof Volunteer) {
-				if (((Volunteer)pair.getValue()).getMyEmail().equals(theVolunteer.getMyEmail()))
+				Volunteer aVolunteer = (Volunteer) pair.getValue();
+				if (aVolunteer.getMyEmail().equals(theVolunteer.getMyEmail()))
 					key = pair.getKey();
 			}
 		}
@@ -101,13 +107,10 @@ public class VolunteerGui {
 	 * @param volunteer		instance of Volunteer
 	 * @param tools			instance of UI
 	 */
-	private void myAccountScreen(LogIn volunteer, UI tools) {
+	private void myAccountScreen(Volunteer volunteer, UI tools) {
 		System.out.println("My Account");
 		System.out.println("__________\n");
-		System.out.println(volunteer.getTheVolunteer().toString());
-		//System.out.println(volunteer.getTheVolunteer().getMyFirst() + " " + volunteer.getTheVolunteer().getMyLast());
-		//System.out.println(volunteer.getTheVolunteer().getMyEmail());
-		//System.out.println("Status: Volunteer");
+		System.out.println(volunteer.toString());
 		tools.pause();
 	}
 	
@@ -116,12 +119,13 @@ public class VolunteerGui {
 	 * @param volunteer		instance of Volunteer
 	 * @param tools			instance of UI
 	 */
-	private void myJobScreen(LogIn volunteer, UI tools) {
+	private void myJobScreen(Volunteer volunteer, UI tools) {
 		System.out.println("My Jobs");
 		System.out.println("_______");
-		HashMap<Job, Integer> jobs = (HashMap<Job, Integer>) volunteer.getTheVolunteer().getMyJobSignedUp();
+		HashMap<Job, Integer> jobs = (HashMap<Job, Integer>) volunteer.getMyJobSignedUp();
 		for (Entry<Job, Integer> pair : jobs.entrySet()) {
-			System.out.println("\n[ " + pair.getKey().getTitle() + " At " + pair.getKey().getStartDate() + " ]");
+			Job myJob = pair.getKey();
+			System.out.println("\n[ " + myJob.getTitle() + " At " + myJob.getStartDate() + " ]");
 		}
 		if (jobs.isEmpty())
 			System.out.println("\nYou have no jobs :(\nChoose option 1 in the next menu to view and sign up for jobs!");
@@ -134,51 +138,103 @@ public class VolunteerGui {
 	 * @param scan			instance of Scanner
 	 * @param tools			instance of UI
 	 */
-	private void jobAvailableScreen(LogIn volunteer, Scanner scan, UI tools) {
+	private void jobAvailableScreen(Volunteer volunteer, Scanner scan, UI tools) {
 		Cereal getJobs = new Cereal(1);
 		JobList jobs = (JobList)getJobs.deSerialize();
-		JobGui jobGui = new JobGui();
+		ArrayList<Job> currentJobs = currentJobList(jobs);
+		int index = 0;
+		int workload = -1;
+		boolean pass = true;
 		
 		System.out.println("All Jobs Available");
 		System.out.println("__________________\n");
 		
-		jobGui.printJobs();
+		for (Job aJob : currentJobs) {
+			System.out.println("[ " + index++ + " - " + aJob.getTitle() + ", " + aJob.getParkName() + ", " +
+					aJob.getDescription() + ", " + sdf.format(aJob.getStartDate()) + " ]");	
+		}
 		
 		
 		//To sign up for a job
 		System.out.println("\nWould you like to sign up for a job? (Y/N)");
 		String ans = scan.next();
 		if (ans.toLowerCase().charAt(0) == 'y') {
-			System.out.print("\n\nPlease enter the number for the job you would like to sign up for: ");
-			int signJob = scan.nextInt();
-			while (signJob >= jobs.getMap().size() || signJob < 0) {
-				System.out.print("\nNumber was out of range\nEnter job number: ");
-				signJob = scan.nextInt();
+			
+			int signJob = -1;
+			while (signJob > currentJobs.size() || signJob < 0) {
+				System.out.print("\nPlease enter the number for the job you would like to sign up for: ");
+				if (scan.hasNextInt())
+					signJob = scan.nextInt();
+				else
+					scan.next();
 			}
 			
-			System.out.println("Would you like to sign up for Light, Medium, or Heavy work? (0 = light, 1 = medium, 2 = heavy)");
-			int workload = scan.nextInt();
+			Job selectedJob = currentJobs.get(signJob);
 			
-			((Job)jobs.getMap().get(signJob)).decrementJobCategory(workload);
+			
+			
+			
+			
+			if (!selectedJob.isWorkCategoryFull(workload))
+				selectedJob.decrementJobCategory(workload);
+			else {
+				System.out.println("\n Work Category is full!");
+				pass = false;
+			}
 			
 			tools.clearScreen();
-			int result = ((Volunteer)volunteer.getTheVolunteer()).addJob((Job)(jobs.getMap().get((Integer)signJob)), workload);
-			if (result == 0)
+			int result = volunteer.addJob(selectedJob, workload);
+			if (result == 0) {
 				System.out.print("\n This job already passed!");
-			if (result == 1){
+				pass = false;
+			} else if (result == 1) {
 				System.out.print("\n You are already volunteering for a job on this day!");
-			} else {
-				//Sets format for Date Strings
-				SimpleDateFormat sdf = new SimpleDateFormat("MMM dd, yyyy");
-				Job job = (Job) (jobs.getMap().get((Integer)signJob));
-				System.out.print("\n Success!! You are signed up to volunteer for " + job.getTitle() + " on " + sdf.format(job.getStartDate())+ ".");
+				pass = false;
 			}
 			
-			System.out.println("\n" );
-			System.out.println("\n" + ((Volunteer)volunteer.getTheVolunteer()).addJob((Job)(jobs.getMap().get((Integer)signJob)), workload));
+			if (pass) {
+				while (workload < 0 || workload > 2) {
+					System.out.println("Would you like to sign up for Light, Medium, or Heavy work? (0 = light, 1 = medium, 2 = heavy)");
+					System.out.println("Available Categories: \nLight: " + selectedJob.getNumLightJobs() + " Medium: " + selectedJob.getNumMedJobs() +
+							" Heavy: " + selectedJob.getNumHeavyJobs());
+					if (scan.hasNextInt())
+						workload = scan.nextInt();
+					else 
+						scan.next();
+				}
+				if (!selectedJob.isWorkCategoryFull(workload))
+					selectedJob.decrementJobCategory(workload);
+				else {
+					System.out.println("\n Work Category is full!");
+					pass = false;
+				}
+			}
+				
+			if (pass) {
+				//Sets format for Date Strings
+				SimpleDateFormat sdf = new SimpleDateFormat("MMM dd, yyyy");
+				System.out.print("\n Success!! You are signed up to volunteer for " + selectedJob.getTitle() + " on " + sdf.format(selectedJob.getStartDate())+ ".");
+			}
 			tools.pause();
 		} else 
 			tools.clearScreen();
 		
+	}
+	
+	/**
+	 * Creates the current job list
+	 * @param jobs
+	 * @return a list of current jobs
+	 */
+	private ArrayList<Job> currentJobList(JobList jobs) {
+		ArrayList<Job> theJobs = new ArrayList<Job>();
+		Date today = new Date();
+		
+		for (Entry<Integer, Object> job : jobs.getMap().entrySet()) {
+			Job ajob = (Job)job.getValue();
+			if (ajob.getStartDate().after(today))
+				theJobs.add(ajob);
+		}
+		return theJobs;
 	}
 }
