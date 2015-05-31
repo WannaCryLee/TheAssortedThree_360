@@ -34,7 +34,7 @@ public class LogInTest {
 	}
 	
 	@Test
-	public void shouldGetInstanceOfAdmin() {
+	public void testGetInstanceOfAdmin() {
 		LogIn testAdmin = new LogIn();
 		//Tests Administrator
 		testAdmin.getInstance("bwhale@gmail.com");
@@ -43,15 +43,14 @@ public class LogInTest {
 		String email = tAdmin.getMyEmail();
 		
 		assertEquals(testEmail.equals(email), true);
-//		if (!testAdmin.getTheAdmin().getMyEmail().equals(tAdmin.getMyEmail()))
-//			fail("Does not grab the right admin");
+
 		assertEquals(testAdmin.getTheManager(), null);
 		assertEquals(testAdmin.getTheVolunteer(), null);
 		
 	}
 	
 	@Test
-	public void shouldGetInstanceOfVolunteer() {
+	public void testGetInstanceOfVolunteer() {
 		LogIn testVolunteer = new LogIn();
 		//Tests Volunteer
 		testVolunteer.getInstance("pwhale@gmail.com");
@@ -60,14 +59,13 @@ public class LogInTest {
 		String email = tVolunteer.getMyEmail();
 		
 		assertEquals(testEmail.equals(email), true);
-//		if (!testVolunteer.getTheVolunteer().getMyEmail().equals(tVolunteer.getMyEmail()))
-//			fail("Does not grab the right volunteer");
+
 		assertEquals(testVolunteer.getTheManager(), null);
 		assertEquals(testVolunteer.getTheAdmin(), null);
 	}
 	
 	@Test
-	public void shouldGetInstanceOfManagerWhenManagerExists() {
+	public void testGetInstanceOfManagerWhenManagerExists() {
 		LogIn testManager = new LogIn();
 		//Tests Park Manager
 		testManager.getInstance("owhale@gmail.com");
@@ -76,8 +74,7 @@ public class LogInTest {
 		String email = tManager.getEmail();
 		
 		assertEquals(testEmail.equals(email), true);
-//		if (!testManager.getTheManager().getEmail().equals(tManager.getEmail()))
-//			fail("Does not grab the right manager");
+
 		assertEquals(testManager.getTheAdmin(), null);
 		assertEquals(testManager.getTheVolunteer(), null);
 		

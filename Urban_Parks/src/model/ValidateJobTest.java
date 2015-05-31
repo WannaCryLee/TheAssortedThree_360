@@ -37,7 +37,7 @@ public class ValidateJobTest {
 	 * Test method for {@link model.ValidateJob#checkDate(int, int)}.
 	 */
 	@Test
-	public void shouldCheckDateWithMonthBeforeJan() {
+	public void testCheckDateWithMonthBeforeJan() {
 		//Months wrong, days right, years right
 		assertEquals(myVJ.checkDate(0, 16, 2015), false);
 	}
@@ -46,7 +46,7 @@ public class ValidateJobTest {
 	 * Test method for {@link model.ValidateJob#checkDate(int, int)}.
 	 */
 	@Test
-	public void shouldCheckDateWithMonthAfterDec() {
+	public void testCheckDateWithMonthAfterDec() {
 		//Months wrong, days right, years right
 		assertEquals(myVJ.checkDate(13, 16, 2015), false);
 	}
@@ -54,7 +54,7 @@ public class ValidateJobTest {
 	 * Test method for {@link model.ValidateJob#checkDate(int, int)}.
 	 */
 	@Test
-	public void shouldCheckDateWithDayPastHighestDayInAMonth() {
+	public void testCheckDateWithDayPastHighestDayInAMonth() {
 		//Months right, days wrong, and years right
 		assertEquals(myVJ.checkDate(1, 32, 2015), false);
 	}
@@ -63,7 +63,7 @@ public class ValidateJobTest {
 	 * Test method for {@link model.ValidateJob#checkDate(int, int)}.
 	 */
 	@Test
-	public void shouldCheckDateWithDayBeforeFirstOfAMonth() {
+	public void testCheckDateWithDayBeforeFirstOfAMonth() {
 		assertEquals(myVJ.checkDate(12, -1, 2015), false);
 	}	
 	
@@ -72,7 +72,7 @@ public class ValidateJobTest {
 	 * Test method for {@link model.ValidateJob#checkDate(int, int)}.
 	 */
 	@Test
-	public void shouldCheckDateWithAllWithCorrectTimeFrame() {
+	public void testCheckDateWithAllWithCorrectTimeFrame() {
 		//Months, days, and years correct
 		assertEquals(myVJ.checkDate(1, 16, 2016), true);
 		assertEquals(myVJ.checkDate(12, 15, 2015), true);
@@ -82,7 +82,7 @@ public class ValidateJobTest {
 	 * Test method for {@link model.ValidateJob#checkDate(int, int)}.
 	 */
 	@Test
-	public void shouldCheckDateWhenYearAYearBehindCurrentYear() {
+	public void testCheckDateWhenYearAYearBehindCurrentYear() {
 		assertEquals(myVJ.checkDate(12, 15, 2014), false);
 	}
 	
@@ -90,7 +90,7 @@ public class ValidateJobTest {
 	 * Test method for {@link model.ValidateJob#checkDate(int, int)}.
 	 */
 	@Test
-	public void shouldCheckDateWhenYearToFarInAdvance() {
+	public void testCheckDateWhenYearToFarInAdvance() {
 		assertEquals(myVJ.checkDate(12, 15, 2017), false);
 	}
 
@@ -98,7 +98,7 @@ public class ValidateJobTest {
 	 * Test method for {@link model.ValidateJob#validate(java.lang.String)}.
 	 */
 	@Test
-	public void shouldBeWithinMaxRangeMonthsWhenMoreThanMaxRange() {
+	public void testBeWithinMaxRangeMonthsWhenMoreThanMaxRange() {
 		start = new GregorianCalendar(2015, 10, 5);
 		assertFalse(myVJ.WithinMaxRangeMonths(start));
 	}
@@ -106,7 +106,7 @@ public class ValidateJobTest {
 	 * Test method for {@link model.ValidateJob#validate(java.lang.String)}.
 	 */
 	@Test
-	public void shouldBeWithinMaxRangeMonthsWhenWithinMax() {
+	public void testBeWithinMaxRangeMonthsWhenWithinMax() {
 		start = new GregorianCalendar(2015, 6, 2);
 		assertTrue(myVJ.WithinMaxRangeMonths(start));
 	}
@@ -114,7 +114,7 @@ public class ValidateJobTest {
 	 * Test method for {@link model.ValidateJob#validate(java.lang.String)}.
 	 */
 	@Test
-	public void shouldBeWithinMaxRangeMonthsWhenInPast() {
+	public void testBeWithinMaxRangeMonthsWhenInPast() {
 
 		start = new GregorianCalendar(2015, 3, 2);
 		assertFalse(myVJ.WithinMaxRangeMonths(start));
@@ -124,7 +124,7 @@ public class ValidateJobTest {
 	 * Test method for {@link model.ValidateJob#validate(java.lang.String)}.
 	 */
 	@Test
-	public void shouldcheckTimeWhenCorrectFormatAtOne() {
+	public void testcheckTimeWhenCorrectFormatAtOne() {
 				
 		assertEquals(myVJ.checkTime("1:00 AM"), true);
 	
@@ -134,7 +134,7 @@ public class ValidateJobTest {
 	 * Test method for {@link model.ValidateJob#validate(java.lang.String)}.
 	 */
 	@Test
-	public void shouldcheckTimeWhenCorrectFormatAtTwelve() {
+	public void testcheckTimeWhenCorrectFormatAtTwelve() {
 		assertEquals(myVJ.checkTime("12:00 AM"), true);
 		
 	}
@@ -142,7 +142,7 @@ public class ValidateJobTest {
 	 * Test method for {@link model.ValidateJob#validate(java.lang.String)}.
 	 */
 	@Test
-	public void shouldcheckTimeWhenIncorrectTimeBeforeOne() {
+	public void testcheckTimeWhenIncorrectTimeBeforeOne() {
 		assertEquals(myVJ.checkTime("0:00 AM"), false);
 		
 	}	
@@ -150,7 +150,7 @@ public class ValidateJobTest {
 	 * Test method for {@link model.ValidateJob#validate(java.lang.String)}.
 	 */
 	@Test
-	public void shouldcheckTimeWhenIncorrectFormatInProperClockRange() {
+	public void testcheckTimeWhenIncorrectFormatInProperClockRange() {
 		assertEquals(myVJ.checkTime("10:00AM"), false);
 		
 	}	
@@ -158,7 +158,7 @@ public class ValidateJobTest {
 	 * Test method for {@link model.ValidateJob#validate(java.lang.String)}.
 	 */
 	@Test
-	public void shouldcheckTimeWhenTimeAfterTwelve() {
+	public void testcheckTimeWhenTimeAfterTwelve() {
 		assertEquals(myVJ.checkTime("13:00 AM"), false);
 		
 	}	
@@ -166,7 +166,7 @@ public class ValidateJobTest {
 	 * Test method for {@link model.ValidateJob#validate(java.lang.String)}.
 	 */
 	@Test
-	public void shouldcheckTimeWhenIncorrectFormat() {
+	public void testcheckTimeWhenIncorrectFormat() {
 		assertEquals(myVJ.checkTime("12:00 am"), false);		
 	}
 

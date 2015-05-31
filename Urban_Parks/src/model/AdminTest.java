@@ -47,7 +47,7 @@ public class AdminTest implements Serializable{
 	 * Test method for {@link model.Admin#addJob(model.Job)}.
 	 */
 	@Test
-	public void shouldGetListOfVolunteersWithDefaultConstructor() {
+	public void testGetListOfVolunteersWithDefaultConstructor() {
 
 		testVolunteerList = testAdmin.getVolunteer("Boki");	
 		for (Volunteer person : testVolunteerList) {
@@ -62,7 +62,7 @@ public class AdminTest implements Serializable{
 	 * Test method for {@link model.Volunteer#addJob(model.Job)}.
 	 */
 	@Test
-	public void shouldGetListOfVolunteersWithGivenDataForConstructor() {
+	public void testGetListOfVolunteersWithGivenDataForConstructor() {
 
 		//Testing constructor with parameters to get volunteer
 		testVolunteerList = testAdminData.getVolunteer("Shi");
@@ -76,7 +76,7 @@ public class AdminTest implements Serializable{
 	 * Test method for {@link model.Admin#getVolunteer(java.lang.String)}.
 	 */
 	@Test
-	public void shouldGetListOfVolunteersWhenNotInSystem() {
+	public void testGetListOfVolunteersWhenNotInSystem() {
 
 		//Testing constructor with parameters to get volunteer
 		testVolunteerList = testAdminData.getVolunteer("Mac");
@@ -87,7 +87,7 @@ public class AdminTest implements Serializable{
 	 * Test method for {@link model.Admin#getVolunteer(java.lang.String)}.
 	 */
 	@Test
-	public void shouldGetListOfVolunteersWhenSizeMoreThanOne() {
+	public void testGetListOfVolunteersWhenSizeMoreThanOne() {
 
 		ArrayList<Volunteer> testVolunteerList = testAdmin.getVolunteer("Shi");
 		assertEquals(testVolunteerList.size(), 2);

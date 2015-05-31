@@ -9,6 +9,7 @@ import java.io.File;
 import java.io.Serializable;
 import java.io.UnsupportedEncodingException;
 import java.net.URLDecoder;
+import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Calendar;
 import java.util.Date;
@@ -45,9 +46,9 @@ public class ParkManager implements Serializable{
 	
 	private static final int TWO_DAYS = 2;
 	
-	private static final int THREE_DAYS_BELOW_CURRENT = -4;
+	private static final int THREE_DAYS_BELOW_CURRENT = -3;
 	
-	private static final int THREE_DAYS_ABOVE_CURRENT = 4;
+	private static final int THREE_DAYS_ABOVE_CURRENT = 3;
 	
 	private static final int MAX_JOBS_IN_WEEK = 5;
 
@@ -125,7 +126,7 @@ public class ParkManager implements Serializable{
 	 * Returns true if pending jobs is MAX_PENDING_JOBS; returns false if its under
 	 * 
 	 * @param park			String of park name
-	 * @return true if jobs are maxed or false if its okay
+	 * @return true if jobs are at max or false if its okay
 	 */
 	public boolean maxPendingJobs(String park) {
 		Cereal data = new Cereal(1);
@@ -157,35 +158,45 @@ public class ParkManager implements Serializable{
 	 * @param park			the park name
 	 * @return true/false	if the park does have more than 5 or less than 5
 	 */
-	public boolean maxPendingJobsWeek(String park) {
+//	public boolean maxPendingJobsWeek(String park, Date jobStartDate, boolean isTwoDays) {
+	public boolean maxPendingJobsWeek(String park, Date jobStartDate, boolean isTwoDays) {
+		
 		Cereal data = new Cereal(1);
 		JobList list = (JobList)data.deSerialize();
 		HashMap<Integer, Object> map = list.getMap();
 		int pendingJobs = 0;
 		
-		Calendar threeDaysBefore = Calendar.getInstance();
-		threeDaysBefore.add(Calendar.DAY_OF_MONTH, THREE_DAYS_BELOW_CURRENT);
-		Calendar threeDaysAfter = Calendar.getInstance();
-		threeDaysAfter.add(Calendar.DAY_OF_MONTH, THREE_DAYS_ABOVE_CURRENT);
-		
+		Calendar threeDaysBefore  = Calendar.getInstance();
+		threeDaysBefore.setTime(jobStartDate);
+		threeDaysBefore.add(Calendar.DATE, THREE_DAYS_BELOW_CURRENT);
+		Calendar threeDaysAfter  = Calendar.getInstance();
+		threeDaysAfter.setTime(jobStartDate);
+		threeDaysAfter.add(Calendar.DATE, THREE_DAYS_ABOVE_CURRENT);
+
 		for (Map.Entry<Integer,Object> pair : map.entrySet()) {
 			Job aJob = (Job) pair.getValue();
+			
 			  if (!aJob.getIsTwoDays()) {
 				  if (aJob.getParkName().equals(park) && (aJob.getStartCalender().after(threeDaysBefore)) && 
 						  (aJob.getStartCalender().before(threeDaysAfter))) 
 					  pendingJobs++;
 			  } else {
-				  if (aJob.getParkName().equals(park) && (aJob.getStartCalender().after(threeDaysBefore)) && 
+				  if (aJob.getParkName().equals(park) && 
+						  (aJob.getStartCalender().after(threeDaysBefore)) && 
 						  (aJob.getStartCalender().before(threeDaysAfter))) 
-					  pendingJobs += 2;
-				  else if (aJob.getParkName().equals(park) && (aJob.getEndCalender().after(threeDaysBefore)) && 
+					  pendingJobs++;
+				  if (aJob.getParkName().equals(park) && 
+						  (aJob.getEndCalender().after(threeDaysBefore)) && 
 						  (aJob.getEndCalender().before(threeDaysAfter))) 
 					  pendingJobs++;
 			  }
 		}
 		
-		if (pendingJobs >= MAX_JOBS_IN_WEEK) 
+		if (!isTwoDays && pendingJobs >= MAX_JOBS_IN_WEEK) {
 			return true;
+		} else if(isTwoDays && pendingJobs >= (MAX_JOBS_IN_WEEK - 1)){
+			return true;
+		}
 		return false;	
 		
 	}

@@ -6,6 +6,7 @@ package model;
  * Spring 2015
  */
 import java.io.Serializable;
+import java.text.SimpleDateFormat;
 import java.util.Calendar;
 import java.util.Date;
 import java.util.GregorianCalendar;
@@ -24,7 +25,12 @@ public class Job implements Serializable {
 	 * Generated Serial Version ID
 	 */
 	private static final long serialVersionUID = -7742067979482263151L;
-
+	/*
+	 * Date format for the jobs
+	 */
+	private static SimpleDateFormat sdf = new SimpleDateFormat("MMMM dd, yyyy");
+	
+	
 	private static final int MIN_NUM_VOLUNTEERS = 0;
 
 	private static final int MAX_NUM_VOLUNTEERS = 50;
@@ -71,9 +77,7 @@ public class Job implements Serializable {
 	 * 
 	 * @param theTitle Title of job
 	 * @param theParkName Park name job was created for
-	 * @param theAddress Address
 	 * @param theDescription Description of the job
-	 * @param theGrade Job's difficulty level (easy, med, hard)
 	 * @param theYear the year of the users job
 	 * @param theMonth the month of the users job
 	 * @param theDay the day of the users job
@@ -260,13 +264,18 @@ public class Job implements Serializable {
 	public Date getEndDate() {
 		return myEndDate.getTime();
 	}
+	
 	/**
 	 * Returns all the info of the Job
 	 * 
 	 * @return a string of the Job's information
 	 */
 	public String toString(){
-		return "";
+		return "Title: " + title + "\nStart Date: " + sdf.format(getStartDate()) 
+				+ "            End Date: " + sdf.format(getEndDate());
+//		return "Title: " + title + " \nParkName: " + parkName 
+//				+ "\nDescription: " + description + "\nStart Date: " + sdf.format(getStartDate()) 
+//				+ "\nEnd Date: " + sdf.format(getEndDate());
 	}
 }
 

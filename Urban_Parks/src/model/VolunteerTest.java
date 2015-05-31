@@ -40,14 +40,14 @@ public class VolunteerTest {
 	 * Test method for {@link model.Volunteer#addJob(model.Job)}.
 	 */
 	@Test
-	public void shouldAddJobWhenNoJobs() {
+	public void testAddJobWhenNoJobs() {
 		assertEquals(myVolunteerDefault.addJob(myJobData1, 0), 2);		
 	}
 	/**
 	 * Test method for {@link model.Volunteer#addJob(model.Job)}.
 	 */
 	@Test
-	public void shouldAddJobWhenVolunteeredAlready() {
+	public void testAddJobWhenVolunteeredAlready() {
 		myVolunteerDefault.addJob(myJobData1, 0);
 		assertEquals(myVolunteerDefault.addJob(myJobData1, 0), 1);		
 		
@@ -56,7 +56,7 @@ public class VolunteerTest {
 	 * Test method for {@link model.Volunteer#addJob(model.Job)}.
 	 */
 	@Test
-	public void shouldAddJobWhenSignedUpForOtherJobs() {
+	public void testAddJobWhenSignedUpForOtherJobs() {
 		myVolunteerDefault.addJob(myJobData1, 0);
 		assertEquals(myVolunteerDefault.addJob(myJobData2, 0), 2);	
 		
@@ -65,7 +65,7 @@ public class VolunteerTest {
 	 * Test method for {@link model.Volunteer#addJob(model.Job)}.
 	 */
 	@Test
-	public void shouldAddJobWhenJobIsInThePast() {
+	public void testAddJobWhenJobIsInThePast() {
 		assertEquals(myVolunteerDefault.addJob(myJobDatePast, 0), 0);
 			
 	}

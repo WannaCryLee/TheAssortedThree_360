@@ -7,6 +7,9 @@ package view;
  */
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
+import java.util.Calendar;
+import java.util.Date;
+import java.util.GregorianCalendar;
 import java.util.HashMap;
 import java.util.Map;
 import java.util.Scanner;
@@ -30,7 +33,7 @@ public class ParkManagerGui {
 	 * Date format for the jobs
 	 */
 	private static SimpleDateFormat sdf = new SimpleDateFormat("MMMM dd, yyyy");
-	
+
 	//Constructor
 	public ParkManagerGui() {
 	}
@@ -73,7 +76,7 @@ public class ParkManagerGui {
 		}
 		thisScan.close();
 	}
-	
+
 	/**
 	 * Checks what park the manager wants to choose
 	 * @param theManager
@@ -106,18 +109,41 @@ public class ParkManagerGui {
 	 */
 	private void submitJobScreen(ParkManager parkManager, UI tools, Scanner thisScan) {
 		Job newJob;
+		Calendar start;
+		Date startDate;
+		boolean isTwoDays = false;
 		System.out.println("Submit a Job!");
 		System.out.println("_____________\n"); 
-		
+
 		System.out.println("Please enter the following information\n");
 		System.out.print("Title (One Word): ");
 		String title = thisScan.next();
 		String parkName = whichPark(parkManager, thisScan);
-		
-		if (parkManager.maxPendingJobs(parkName) || parkManager.maxPendingJobsWeek(parkName))
+
+		if (parkManager.maxPendingJobs(parkName))
 			System.out.println("The jobs for this park is at its max!");
-		else {
-		
+
+		System.out.print("\nJob Month (ie. 1 - 12: ");
+		int startMonth = thisScan.nextInt();
+		System.out.print("\nJob Day (ie. 1 - 31: ");
+		int startDay = thisScan.nextInt();
+		System.out.print("\nJob Year (ie. 2015): ");
+		int startYear = thisScan.nextInt();
+
+		start = new GregorianCalendar(startYear, startMonth-1, startDay);
+		startDate = start.getTime();
+
+		System.out.println("Will the job be 2 days long? (Y/N): ");
+		String twoDays = thisScan.next();
+		if(twoDays.toLowerCase().charAt(0) == 'y') {			
+			//creates the "Two day" job
+			isTwoDays = true;		
+		} 
+
+		if(parkManager.maxPendingJobsWeek(parkName, startDate, isTwoDays)){
+
+		} else {
+
 			thisScan.nextLine();
 			System.out.print("\nDescription: ");
 			String description = thisScan.nextLine();
@@ -127,40 +153,20 @@ public class ParkManagerGui {
 			int numMedJobs = thisScan.nextInt();
 			System.out.print("\nNumber of heavy jobs: ");
 			int numHeavyJobs = thisScan.nextInt();
-			System.out.print("\nJob Month (ie. 1 - 12: ");
-			int startMonth = thisScan.nextInt();
-			System.out.print("\nJob Day (ie. 1 - 31: ");
-			int startDay = thisScan.nextInt();
-			System.out.print("\nJob Year (ie. 2015): ");
-			int startYear = thisScan.nextInt();
 			System.out.println("Hour: ");
 			int hour = thisScan.nextInt();
 			System.out.println("Minutes: ");
 			int min = thisScan.nextInt();
-		
-			System.out.println("Will the job be 2 days long? (Y/N): ");
-			String twoDays = thisScan.next();
 
-			if(twoDays.toLowerCase().charAt(0) == 'y') {		
-			
-				//creates the "Two day" job
-				boolean isTwoDays = true;
-				newJob = new Job(title, parkName, description, numLightJobs, numMedJobs, numHeavyJobs, isTwoDays, startYear, startMonth, startDay,
-					startYear, startMonth, startDay + 1, hour, min);
-			
-			} else {
-				//creates the "One day" job
-				boolean isTwoDays = false;
-				newJob = new Job(title, parkName, description, numLightJobs, numMedJobs, numHeavyJobs, isTwoDays, startYear, startMonth, startDay,
-						startYear, startMonth, startDay, hour, min);
-			}
-		
+			newJob = new Job(title, parkName, description, numLightJobs, numMedJobs, numHeavyJobs, isTwoDays, startYear, startMonth, startDay,
+					startYear, startMonth, startDay, hour, min);
+
 			jobDoubleCheck(thisScan, newJob);
 			parkManager.submitJob(newJob);
 			tools.clearScreen();
 			System.out.println("Job Submitted");
-		
-			
+
+
 		}
 		tools.pause();
 	}
@@ -183,8 +189,8 @@ public class ParkManagerGui {
 
 		for (Job job : myJobs) 
 			System.out.println("[ " + jobId++ + " - " + job.getTitle() + " in " + sdf.format(job.getStartDate()) + " ]");
-		
-		
+
+
 		System.out.println("\nWould you like to see volunteers for a job? (Y/N)");
 		String response = thisScan.next();
 		if (response.toLowerCase().charAt(0) == 'y') {
@@ -195,7 +201,7 @@ public class ParkManagerGui {
 			tools.clearScreen();
 
 	}
-	
+
 	/**
 	 * Creates a list of jobs from the parks of the ParkManager
 	 * @param myParks Parks of the ParkManager
@@ -226,7 +232,7 @@ public class ParkManagerGui {
 		System.out.println(parkManager.toString());
 		tools.pause();
 	}
-	
+
 	/**
 	 * Selects a job from the user
 	 * @param myJobs List of jobs of the park manager
@@ -251,7 +257,7 @@ public class ParkManagerGui {
 	 * @param selectedJob A job to find volunteers
 	 */
 	private void seeVolunteers(UserList users, Job selectedJob) {
-		
+
 		boolean isJobPrinted = false;
 
 		for (Entry<Integer, Object> pair : users.getMap().entrySet()) {
@@ -261,7 +267,7 @@ public class ParkManagerGui {
 
 				for (Entry<Job, Integer> jobPair : itrJob.entrySet()) {
 					Job aJob = jobPair.getKey();
-					
+
 					if (aJob.getTitle().compareTo(selectedJob.getTitle()) == 0) {
 						isJobPrinted = true;
 						System.out.println("\n[ " + itrVolunteer.getMyFirst() + " " + itrVolunteer.getMyLast() + "( " + itrVolunteer.getMyEmail() + " )"+ " ]");
