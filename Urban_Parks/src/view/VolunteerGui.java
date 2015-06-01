@@ -171,10 +171,17 @@ public class VolunteerGui {
 			
 			Job selectedJob = currentJobs.get(signJob);
 			
+			tools.clearScreen();
 			
-			
-			
-			
+			while (workload < 0 || workload > 2) {
+				System.out.println("Would you like to sign up for Light, Medium, or Heavy work? (0 = light, 1 = medium, 2 = heavy)");
+				System.out.println("Available Categories: \nLight: " + selectedJob.getNumLightJobs() + " Medium: " + selectedJob.getNumMedJobs() +
+						" Heavy: " + selectedJob.getNumHeavyJobs());
+				if (scan.hasNextInt())
+					workload = scan.nextInt();
+				else 
+					scan.next();
+			}
 			if (!selectedJob.isWorkCategoryFull(workload))
 				selectedJob.decrementJobCategory(workload);
 			else {
@@ -182,30 +189,13 @@ public class VolunteerGui {
 				pass = false;
 			}
 			
-			tools.clearScreen();
-			int result = volunteer.addJob(selectedJob, workload);
-			if (result == 0) {
-				System.out.print("\n This job already passed!");
-				pass = false;
-			} else if (result == 1) {
-				System.out.print("\n You are already volunteering for a job on this day!");
-				pass = false;
-			}
-			
 			if (pass) {
-				while (workload < 0 || workload > 2) {
-					System.out.println("Would you like to sign up for Light, Medium, or Heavy work? (0 = light, 1 = medium, 2 = heavy)");
-					System.out.println("Available Categories: \nLight: " + selectedJob.getNumLightJobs() + " Medium: " + selectedJob.getNumMedJobs() +
-							" Heavy: " + selectedJob.getNumHeavyJobs());
-					if (scan.hasNextInt())
-						workload = scan.nextInt();
-					else 
-						scan.next();
-				}
-				if (!selectedJob.isWorkCategoryFull(workload))
-					selectedJob.decrementJobCategory(workload);
-				else {
-					System.out.println("\n Work Category is full!");
+				int result = volunteer.addJob(selectedJob, workload);
+				if (result == 0) {
+					System.out.print("\n This job already passed!");
+					pass = false;
+				} else if (result == 1) {
+					System.out.print("\n You are already volunteering for a job on this day!");
 					pass = false;
 				}
 			}
