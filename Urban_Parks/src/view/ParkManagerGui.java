@@ -116,57 +116,62 @@ public class ParkManagerGui {
 		System.out.println("_____________\n"); 
 
 		System.out.println("Please enter the following information\n");
-		System.out.print("Title (One Word): ");
-		String title = thisScan.next();
+		
 		String parkName = whichPark(parkManager, thisScan);
 
-		if (parkManager.maxPendingJobs(parkName))
-			System.out.println("The jobs for this park is at its max!");
-
-		System.out.print("\nJob Month (ie. 1 - 12: ");
-		int startMonth = thisScan.nextInt();
-		System.out.print("\nJob Day (ie. 1 - 31: ");
-		int startDay = thisScan.nextInt();
-		System.out.print("\nJob Year (ie. 2015): ");
-		int startYear = thisScan.nextInt();
-
-		start = new GregorianCalendar(startYear, startMonth-1, startDay);
-		startDate = start.getTime();
-
-		System.out.println("Will the job be 2 days long? (Y/N): ");
-		String twoDays = thisScan.next();
-		if(twoDays.toLowerCase().charAt(0) == 'y') {			
-			//creates the "Two day" job
-			isTwoDays = true;		
-		} 
-
-		if(parkManager.maxPendingJobsWeek(parkName, startDate, isTwoDays)){
-
+		if (parkManager.maxPendingJobs(parkName)) {
+			System.out.println("\nThe jobs for this park is at its max!");
+			
 		} else {
 
-			thisScan.nextLine();
-			System.out.print("\nDescription: ");
-			String description = thisScan.nextLine();
-			System.out.print("\nNumber of light jobs: ");
-			int numLightJobs = thisScan.nextInt();
-			System.out.print("\nNumber of medium jobs: ");
-			int numMedJobs = thisScan.nextInt();
-			System.out.print("\nNumber of heavy jobs: ");
-			int numHeavyJobs = thisScan.nextInt();
-			System.out.println("Hour: ");
-			int hour = thisScan.nextInt();
-			System.out.println("Minutes: ");
-			int min = thisScan.nextInt();
+			System.out.print("Title (One Word): ");
+			String title = thisScan.next();
+			System.out.print("\nJob Month (ie. 1 - 12: ");
+			int startMonth = thisScan.nextInt();
+			System.out.print("\nJob Day (ie. 1 - 31: ");
+			int startDay = thisScan.nextInt();
+			System.out.print("\nJob Year (ie. 2015): ");
+			int startYear = thisScan.nextInt();
 
-			newJob = new Job(title, parkName, description, numLightJobs, numMedJobs, numHeavyJobs, isTwoDays, startYear, startMonth, startDay,
-					startYear, startMonth, startDay, hour, min);
+			start = new GregorianCalendar(startYear, startMonth-1, startDay);
+			startDate = start.getTime();
 
-			jobDoubleCheck(thisScan, newJob);
-			parkManager.submitJob(newJob);
-			tools.clearScreen();
-			System.out.println("Job Submitted");
+			System.out.println("Will the job be 2 days long? (Y/N): ");
+			String twoDays = thisScan.next();
+			if(twoDays.toLowerCase().charAt(0) == 'y') {			
+				//creates the "Two day" job
+				isTwoDays = true;		
+			} 
+		
+
+			if (parkManager.maxPendingJobsWeek(parkName, startDate, isTwoDays)) {
+				System.out.println("\nThe jobs for this park this week is maxed out!");
+			} else {
+
+				thisScan.nextLine();
+				System.out.print("\nDescription: ");
+				String description = thisScan.nextLine();
+				System.out.print("\nNumber of light jobs: ");
+				int numLightJobs = thisScan.nextInt();
+				System.out.print("\nNumber of medium jobs: ");
+				int numMedJobs = thisScan.nextInt();
+				System.out.print("\nNumber of heavy jobs: ");
+				int numHeavyJobs = thisScan.nextInt();
+				System.out.println("Hour: ");
+				int hour = thisScan.nextInt();
+				System.out.println("Minutes: ");
+				int min = thisScan.nextInt();
+
+				newJob = new Job(title, parkName, description, numLightJobs, numMedJobs, numHeavyJobs, isTwoDays, startYear, startMonth, startDay,
+						startYear, startMonth, startDay, hour, min);
+
+				jobDoubleCheck(thisScan, newJob);
+				parkManager.submitJob(newJob);
+				tools.clearScreen();
+				System.out.println("Job Submitted");
 
 
+			}
 		}
 		tools.pause();
 	}
@@ -188,7 +193,7 @@ public class ParkManagerGui {
 		int jobId = 0;
 
 		for (Job job : myJobs) 
-			System.out.println("[ " + jobId++ + " - " + job.getTitle() + " in " + sdf.format(job.getStartDate()) + " ]");
+			System.out.println("[ " + jobId++ + " - " + job.getTitle() + " at " + job.getParkName() + " in " + sdf.format(job.getStartDate()) + " ]");
 
 
 		System.out.println("\nWould you like to see volunteers for a job? (Y/N)");
