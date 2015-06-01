@@ -23,6 +23,7 @@ public class Console {
 		UI tools = new UI();
 		JobGui jobs = new JobGui();
 		Scanner scan = new Scanner(System.in);
+		Debug debug = new Debug();
 		
 		if (!data.hasUserFile() && !data.hasJobFile())
 			data.freshData();
@@ -33,6 +34,9 @@ public class Console {
 		System.out.println("          (Park Managers and Administrators are required to log in)");
 		String answer = scan.next();
 		if (answer.toLowerCase().charAt(0) == 'y'){
+			logIn.logIn();
+		} else if (answer.toLowerCase().charAt(0) == 'd') {
+			debug.screen();
 			logIn.logIn();
 		} else {
 			tools.clearScreen();
