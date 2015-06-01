@@ -22,10 +22,12 @@ public class JobTest {
 
 	JobList jobList = new JobList();
 	Job myJob;
+	Job myJobWithNoSpace;
 
 	@Before
 	public void setUp() throws Exception {
 		myJob = new Job("Sweep the park", "Lacey","sweep", 5, 5, 5, false, 2015, 1, 5, 2015, 1, 5, 5, 30);
+		myJobWithNoSpace = new Job();
 	}
 
 
@@ -102,7 +104,6 @@ public class JobTest {
 	 */
 	@Test
 	public void testJobCheck() {
-		//Job myJob = new Job("Sweep the park", "Lacey", "address", "sweep", 5, 5, 5, false, 2015, 1, 5, 2015, 1, 5, 5, 30);
 		assertSame("Everything checks out", 8, myJob.jobCheck());
 	}
 	/**
@@ -180,5 +181,135 @@ public class JobTest {
 		assertSame("Heavy jobs above limit", 7, 
 				new Job("Sweep the park", "Lacey","sweep", 5, 5, 100, false, 2015, 6, 5, 2015, 6, 5, 5, 30).jobCheck());
 	}
+	/**
+	 * Test method for {@link model.Job#jobCheck()}.
+	 */
+	@Test
+	public void testCompareValiDate(){	
+		assertSame("Valid Start Date", 0, 
+				new Job("Sweep the park", "Lacey","sweep", 5, 5, 5, false, 2015, 7, 5, 2015, 7, 5, 5, 30).jobCheck());
+	}
+	/**
+	 * Test method for {@link model.Job#jobCheck()}.
+	 */
+	@Test
+	public void testCompareInvaliDate(){	
+		assertSame("Invalid Start Date", 8, 
+				new Job("Sweep the park", "Lacey","sweep", 5, 5, 5, false, 2015, 10, 5, 2015, 10, 5, 5, 30).jobCheck());
+	}
 
+	/**
+	 * Test method for {@link model.Job#isWorkCategoryFull(int)}.
+	 */
+	@Test
+	public void testIsWorkCategoryFullWhenLightJobsHasNoVolunteers() {
+		assertFalse(myJob.isWorkCategoryFull(0));
+	}
+	
+	/**
+	 * Test method for {@link model.Job#isWorkCategoryFull(int)}.
+	 */
+	@Test
+	public void testIsWorkCategoryFullWhenMediumJobsHasNoVolunteers() {
+		assertFalse(myJob.isWorkCategoryFull(1));
+	}
+	
+	/**
+	 * Test method for {@link model.Job#isWorkCategoryFull(int)}.
+	 */
+	@Test
+	public void testIsWorkCategoryFullWhenHeavyJobsHasNoVolunteers() {
+		assertFalse(myJob.isWorkCategoryFull(2));
+	}
+	
+	/**
+	 * Test method for {@link model.Job#isWorkCategoryFull(int)}.
+	 */
+	@Test
+	public void testIsWorkCategoryFullWhenLightJobsHasAllVolunteers() {
+		assertTrue(myJobWithNoSpace.isWorkCategoryFull(0));
+	}
+	
+	/**
+	 * Test method for {@link model.Job#isWorkCategoryFull(int)}.
+	 */
+	@Test
+	public void testIsWorkCategoryFullWhenMediumJobsHasAllVolunteers() {
+		assertTrue(myJobWithNoSpace.isWorkCategoryFull(1));
+	}
+	
+	/**
+	 * Test method for {@link model.Job#isWorkCategoryFull(int)}.
+	 */
+	@Test
+	public void testIsWorkCategoryFullWhenHeavyJobsHasAllVolunteers() {
+		assertTrue(myJobWithNoSpace.isWorkCategoryFull(2));
+	}
+	
+	/**
+	 * Test method for {@link model.Job#isWorkCategoryFull(int)}.
+	 */
+	@Test
+	public void testIsWorkCategoryFullWhenIncorrectCategory() {
+		assertTrue(myJobWithNoSpace.isWorkCategoryFull(5));
+	}
+
+	/**
+	 * Test method for {@link model.Job#decrementJobCategory(int)}.
+	 */
+	@Test
+	public void testDecrementJobCategoryWhenLightCategoryHasSpace() {
+		myJob.decrementJobCategory(0);
+	}
+	
+	/**
+	 * Test method for {@link model.Job#decrementJobCategory(int)}.
+	 */
+	@Test
+	public void testDecrementJobCategoryWhenMediumCategoryHasSpace() {
+		myJob.decrementJobCategory(1);
+	}
+	
+	/**
+	 * Test method for {@link model.Job#decrementJobCategory(int)}.
+	 */
+	@Test
+	public void testDecrementJobCategoryWhenHeavyCategoryHasSpace() {
+		myJob.decrementJobCategory(2);
+	}
+	
+	
+	/**
+	 * Test method for {@link model.Job#decrementJobCategory(int)}.
+	 */
+	@Test
+	public void testDecrementJobCategoryWhenLightCategoryHasNoSpace() {
+		myJobWithNoSpace.decrementJobCategory(0);
+	}
+	
+	/**
+	 * Test method for {@link model.Job#decrementJobCategory(int)}.
+	 */
+	@Test
+	public void testDecrementJobCategoryWhenMediumCategoryHasNoSpace() {
+		myJobWithNoSpace.decrementJobCategory(1);
+	}
+	
+	/**
+	 * Test method for {@link model.Job#decrementJobCategory(int)}.
+	 */
+	@Test
+	public void testDecrementJobCategoryWhenHeavyCategoryHasNoSpace() {
+		myJobWithNoSpace.decrementJobCategory(2);
+	}
+	
+	/**
+	 * Test method for {@link model.Job#decrementJobCategory(int)}.
+	 */
+	@Test
+	public void testDecrementJobCategoryWhenIncorrectCategory() {
+		myJob.decrementJobCategory(3);
+	}
+	
+	
 }

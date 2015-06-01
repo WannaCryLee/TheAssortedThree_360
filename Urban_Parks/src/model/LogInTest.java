@@ -80,6 +80,13 @@ public class LogInTest {
 		
 	}
 	
+	@Test
+	public void testGetInstanceOfManagerWhenManagerDoesntExist() {
+		LogIn testManager = new LogIn();
+		//Tests Park Manager when they don't exist
+		testManager.getInstance("dwhale@gmail.com");		
+	}
+	
 	private void setUpUserList() {
 		UserList list = new UserList();
 		

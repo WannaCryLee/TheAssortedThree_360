@@ -9,7 +9,6 @@ import java.io.File;
 import java.io.Serializable;
 import java.io.UnsupportedEncodingException;
 import java.net.URLDecoder;
-import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Calendar;
 import java.util.Date;
@@ -23,7 +22,7 @@ import java.util.Map;
  * 
  */
 public class ParkManager implements Serializable{
-	
+
 	/**
 	 * 
 	 */
@@ -41,15 +40,15 @@ public class ParkManager implements Serializable{
 	private static final String DEFAULT_PASSWORD = "myWatchBegins";
 	//Address Variable
 	private static final String DEFAULT_ADDRESS = "North";
-	
+
 	private static final int MAX_PENDING_JOBS = 30;
-	
+
 	private static final int TWO_DAYS = 2;
-	
+
 	private static final int THREE_DAYS_BELOW_CURRENT = -3;
-	
+
 	private static final int THREE_DAYS_ABOVE_CURRENT = 3;
-	
+
 	private static final int MAX_JOBS_IN_WEEK = 5;
 
 	/** First Name */
@@ -65,7 +64,7 @@ public class ParkManager implements Serializable{
 	// Parks
 	private ArrayList<String> parks;
 
-	
+
 	/**
 	 * Constructor
 	 */
@@ -77,7 +76,7 @@ public class ParkManager implements Serializable{
 		address = DEFAULT_ADDRESS;
 		parks = new ArrayList<String>();
 	}
-	
+
 
 	/**
 	 * Constructor.
@@ -107,7 +106,7 @@ public class ParkManager implements Serializable{
 		Cereal deserial = new Cereal(1);
 		JobList jobs;
 		HashMap<Integer, Object> jobList;
-		
+
 		if (isFileFound()) {
 			jobs = (JobList) deserial.deSerialize();
 			jobList = jobs.getMap();
@@ -115,13 +114,13 @@ public class ParkManager implements Serializable{
 			jobs = new JobList();
 			jobList = new HashMap<Integer, Object>();
 		}
-		
+
 		jobList.put(jobList.size(), theJob); 
 		jobs.setMap(jobList);
-		
+
 		deserial.serialize(jobs);
 	}
-	
+
 	/**
 	 * Returns true if pending jobs is MAX_PENDING_JOBS; returns false if its under
 	 * 
@@ -137,15 +136,19 @@ public class ParkManager implements Serializable{
 		Calendar today = Calendar.getInstance();
 		for (Map.Entry<Integer,Object> pair : map.entrySet()) {
 			Job aJob = (Job) pair.getValue();
-			  if (!aJob.getIsTwoDays()) {
-				  if (aJob.getParkName().equals(park) && aJob.getStartDate().after(todayDate)) 
-					  pendingJobs++;
-			  } else {
-				  if (aJob.getParkName().equals(park) && aJob.getStartDate().after(todayDate))
-					  pendingJobs += TWO_DAYS;
-				  else if (aJob.getParkName().equals(park) && aJob.getEndCalender().after(today))
-					  pendingJobs++;
-			  }
+			if (!aJob.getIsTwoDays()) {
+				if (aJob.getParkName().equals(park) && aJob.getStartDate().after(todayDate)) 
+					pendingJobs++;
+			} else {
+
+				if (aJob.getParkName().equals(park) && aJob.getStartDate().after(todayDate)){
+					pendingJobs += TWO_DAYS;
+				}  else if (aJob.getParkName().equals(park) 
+						&& aJob.getEndCalender().after(today)){
+					pendingJobs++;
+				}
+
+			}
 		}
 		if (pendingJobs >= MAX_PENDING_JOBS)
 			return true;
@@ -156,16 +159,17 @@ public class ParkManager implements Serializable{
 	 * Check if the max number off jobs has been reached for the week
 	 * 
 	 * @param park			the park name
+	 * @param jobStartDate	the day the job begins
+	 * @param isTwoDays		whether the job is two days long
 	 * @return true/false	if the park does have more than 5 or less than 5
 	 */
-//	public boolean maxPendingJobsWeek(String park, Date jobStartDate, boolean isTwoDays) {
 	public boolean maxPendingJobsWeek(String park, Date jobStartDate, boolean isTwoDays) {
-		
+
 		Cereal data = new Cereal(1);
 		JobList list = (JobList)data.deSerialize();
 		HashMap<Integer, Object> map = list.getMap();
 		int pendingJobs = 0;
-		
+
 		Calendar threeDaysBefore  = Calendar.getInstance();
 		threeDaysBefore.setTime(jobStartDate);
 		threeDaysBefore.add(Calendar.DATE, THREE_DAYS_BELOW_CURRENT);
@@ -175,32 +179,31 @@ public class ParkManager implements Serializable{
 
 		for (Map.Entry<Integer,Object> pair : map.entrySet()) {
 			Job aJob = (Job) pair.getValue();
-			
-			  if (!aJob.getIsTwoDays()) {
-				  if (aJob.getParkName().equals(park) && (aJob.getStartCalender().after(threeDaysBefore)) && 
-						  (aJob.getStartCalender().before(threeDaysAfter))) 
-					  pendingJobs++;
-			  } else {
-				  if (aJob.getParkName().equals(park) && 
-						  (aJob.getStartCalender().after(threeDaysBefore)) && 
-						  (aJob.getStartCalender().before(threeDaysAfter))) 
-					  pendingJobs++;
-				  if (aJob.getParkName().equals(park) && 
-						  (aJob.getEndCalender().after(threeDaysBefore)) && 
-						  (aJob.getEndCalender().before(threeDaysAfter))) 
-					  pendingJobs++;
-			  }
+
+			if (!aJob.getIsTwoDays()) {
+				if (aJob.getParkName().equals(park) && (aJob.getStartCalender().after(threeDaysBefore)) && 
+						(aJob.getStartCalender().before(threeDaysAfter))) 
+					pendingJobs++;
+			} else {
+				if (aJob.getParkName().equals(park) && (aJob.getStartCalender().after(threeDaysBefore)) && 
+						(aJob.getStartCalender().before(threeDaysAfter))) 
+					pendingJobs++;
+				if (aJob.getParkName().equals(park) && 
+						(aJob.getEndCalender().after(threeDaysBefore)) && 
+						(aJob.getEndCalender().before(threeDaysAfter))) 
+					pendingJobs++;
+			}
 		}
-		
+
 		if (!isTwoDays && pendingJobs >= MAX_JOBS_IN_WEEK) {
 			return true;
 		} else if(isTwoDays && pendingJobs >= (MAX_JOBS_IN_WEEK - 1)){
 			return true;
 		}
 		return false;	
-		
+
 	}
-	
+
 	/**
 	 * Checks to see if job database exist
 	 * @return True if there is a current database else false
@@ -215,12 +218,12 @@ public class ParkManager implements Serializable{
 		}
 		if (decodedPath.contains("/Urban_Parks.jar"))
 			decodedPath = decodedPath.substring(0, decodedPath.indexOf("/Urban_Parks.jar"));
-		
+
 		File fileFound = new File( decodedPath + "/job.ser");
-		
+
 		return fileFound.exists();
 	}
-	
+
 	/**
 	 * Returns true if its instance's park else false if not
 	 * 
@@ -231,7 +234,7 @@ public class ParkManager implements Serializable{
 		return parks.contains(thePark);
 	}
 
-	
+
 	/**
 	 * Getters and Setters for First Name
 	 */
@@ -244,7 +247,7 @@ public class ParkManager implements Serializable{
 		this.first = first;
 	}
 
-	
+
 	/**
 	 * Getters and Setters for Last Name
 	 */
@@ -257,7 +260,7 @@ public class ParkManager implements Serializable{
 		this.last = last;
 	}
 
-	
+
 	/**
 	 * Getters and Setters for email
 	 */
@@ -270,7 +273,7 @@ public class ParkManager implements Serializable{
 		this.email = email;
 	}
 
-	
+
 	/**
 	 * Getters and Setters for password
 	 */
@@ -283,7 +286,7 @@ public class ParkManager implements Serializable{
 		this.password = password;
 	}
 
-	
+
 	/**
 	 * Getters and Setters for address
 	 */
@@ -295,7 +298,7 @@ public class ParkManager implements Serializable{
 	public void setAddress(String address) {
 		this.address = address;
 	}	
-	
+
 	//Getters and Setters for parks
 	public ArrayList<String> getParks() {
 		ArrayList<String> returnPark = parks;
@@ -305,7 +308,7 @@ public class ParkManager implements Serializable{
 	public void setParks(ArrayList<String> parks) {
 		this.parks = parks;
 	}
-	
+
 	/**
 	 * Returns all the info of the Park Manager
 	 * 

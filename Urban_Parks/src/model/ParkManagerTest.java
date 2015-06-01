@@ -55,6 +55,8 @@ public class ParkManagerTest implements Serializable{
 		assertTrue(modifiedJob.getTitle().equals(originalJob.getTitle()));
 
 	}
+	
+	//TESTING MAX PENDING JOBS...................................................................................
 
 	@Test
 	public void testPassMaxWhenJobCapacityNotMax() {
@@ -103,9 +105,11 @@ public class ParkManagerTest implements Serializable{
 	
 	@Test
 	public void testPassMaxWhenJobCapacityNotAtMaxCapacityButWithTwoJobsWhenOnlySecondDayIsAfterCurrentDay() {
+		newJob = new Job("Dragon Scale", "lighthouse", "Cook Meat :)", 3, 5, 3, true, 2015, 9, 1, 2015, 9, 2, 5, 30);
+		testParkManager.submitJob(newJob);
 		//The first day is today, and the second day is tomorrow
 		//Don't have time to getInstance from Calendar at this moment
-		newJob = new Job("BBQ", "LightHouse", "Cook Meat :)", 3, 5, 3, true, 2015, 5, 30, 2015, 5, 31, 5, 30);		
+		newJob = new Job("Red Shell", "lighthouse", "Death on Swift Wings :)", 3, 5, 3, true, 2015, 5, 1, 2015, 7, 2, 12, 00);		
 		testParkManager.submitJob(newJob);
 			
 		assertFalse(testParkManager.maxPendingJobs("lighthouse"));
@@ -154,16 +158,6 @@ public class ParkManagerTest implements Serializable{
 
 	}
 	
-	@Test
-	public void testPassMaxWhenJobCapacityAtMaxWhenStartDateIsInPast() {
-
-		for (int i = 1; i <= MAX_PENDING_JOBS; i++) {
-			newJob = new Job("BBQ", "LightHouse", "Cook Meat :)", 3, 5, 3, false, 2015, 9, i, 2015, 9, i, 5, 30);
-			testParkManager.submitJob(newJob);
-		}
-		assertTrue(testParkManager.maxPendingJobs("lighthouse"));
-
-	}
 	
 	//Testing Max Week...................................................................................................
 	
@@ -268,18 +262,17 @@ public class ParkManagerTest implements Serializable{
 	@Test
 	public void testPassMaxWeekWhenNewJobIsTwoDaysLongAndParkNameIsDifferent() {
 		
-		for (int i = 7; i <= 9; i++) {
+		for (int i = 8; i <= 9; i++) {
 			newJob = new Job("Egg", "Dragon", "Cook Meat :)", 3, 5, 3, false, 2015, 9, i, 2015, 9, i, 5, 30);
 			testParkManager.submitJob(newJob);
 		}
-		newJob = new Job("Rawr", "Dinosaur", "Cook Meat :)", 3, 5, 3, false, 2015, 9, 2, 2015, 9, 2, 5, 30);
+		newJob = new Job("Rawr", "Dinosaur", "Cook Meat :)", 3, 5, 3, true, 2015, 9, 1, 2015, 9, 2, 5, 30);
 		testParkManager.submitJob(newJob);
 
-		newJob = new Job("BBQ", "LightHouse","Cook Meat :)", 3, 5, 3, true, 2015, 9, 5, 2015, 9, 6, 5, 30);
-		assertFalse(testParkManager.maxPendingJobsWeek("LightHouse", newJob.getStartDate(), true));
+		newJob = new Job("BBQ", "Light","Cook Meat :)", 3, 5, 3, true, 2015, 9, 5, 2015, 9, 6, 5, 30);
+		assertFalse(testParkManager.maxPendingJobsWeek("Eidon", newJob.getStartDate(), true));
 
 	}
-	
 	
 
 	private void setUpJobList() {

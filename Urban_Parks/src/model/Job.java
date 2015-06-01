@@ -271,11 +271,9 @@ public class Job implements Serializable {
 	 * @return a string of the Job's information
 	 */
 	public String toString(){
-		return "Title: " + title + "\nStart Date: " + sdf.format(getStartDate()) 
-				+ "            End Date: " + sdf.format(getEndDate());
-//		return "Title: " + title + " \nParkName: " + parkName 
-//				+ "\nDescription: " + description + "\nStart Date: " + sdf.format(getStartDate()) 
-//				+ "\nEnd Date: " + sdf.format(getEndDate());
+		return "Title: " + title + " \nParkName: " + parkName 
+				+ "\nDescription: " + description + "\nStart Date: " + sdf.format(getStartDate()) 
+				+ "\nEnd Date: " + sdf.format(getEndDate());
 	}
 }
 
