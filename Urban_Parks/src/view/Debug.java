@@ -37,6 +37,7 @@ public class Debug {
 			break;
 		case 4:
 			data.freshData();
+			break;
 		}
 	}
 	
